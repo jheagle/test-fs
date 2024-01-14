@@ -1,0 +1,1 @@
+export const countMatches=(t,e)=>t.split(e).length-1;export default countMatches;

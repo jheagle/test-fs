@@ -1,0 +1,58 @@
+{
+  "name": "test-fs",
+  "version": "1.0.0",
+  "description": "Set up and tear down a temp directory for running filesystem tests.",
+  "main": "dist/cjs/main.js",
+  "scripts": {
+    "build": "gulp build",
+    "htmldocs": "jsdoc -R MAIN.md -c ./.jsdoc.conf.js -d docs",
+    "readme": "gulp readme",
+    "test": "gulp testFull"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jheagle/test-fs.git"
+  },
+  "keywords": [
+    "jest",
+    "testing",
+    "filesystem",
+    "fs",
+    "helpers"
+  ],
+  "author": "Joshua Heagle <joshuaheagle@gmail.com> (https://joshuaheagle.com)",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/jheagle/test-fs/issues"
+  },
+  "homepage": "https://github.com/jheagle/test-fs#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "babel-jest": "^29.7.0",
+    "browserify": "^17.0.0",
+    "glob": "^10.3.10",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-standard": "^14.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify-es": "^3.0.0",
+    "jest": "^29.7.0",
+    "jsdoc-to-markdown": "^8.0.0",
+    "merge2": "^1.4.1"
+  },
+  "engines": {
+    "node": ">=10.2.1"
+  },
+  "files":  [
+    "browser",
+    "dist",
+    "gulpfile.js"
+  ]
+}
