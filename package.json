@@ -1,5 +1,5 @@
 {
-  "name": "test-fs",
+  "name": "test-filesystem",
   "version": "1.0.0",
   "description": "Set up and tear down a temp directory for running filesystem tests.",
   "main": "dist/cjs/main.js",
