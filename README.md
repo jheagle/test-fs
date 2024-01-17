@@ -2,14 +2,14 @@
 Set up and tear down a temp directory for running filesystem tests.
 
 There are three options for accessing these functions:
-1. CommonJs modules: dist/cjs (default)
-2. ES6 modules: dist/mjs
+1. CommonJs modules: dist/*.js (default)
+2. ES6 modules: dist/*.mjs
 3. Bundles Browser file: browser/test-fs.js
 
 ## Usage
 To use the temporary directory in tests. Do the following in your tests:
 ```js
-import { setUp } from './setUp'
+import { setUp } from 'test-filesystem'
 
 // Setup the name for your temporary directory
 const dirName = 'test-temp/'

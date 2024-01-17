@@ -16,13 +16,13 @@ const browserName = 'test-fs'
 const browserPath = 'browser'
 const cleanFolders = ['dist', 'browser']
 const distSearch = 'dist/**/*js'
-const distMain = 'dist/cjs/main'
+const distMain = 'dist/main'
 const distPath = 'dist'
 const srcSearch = 'src/**/*.ts'
 const readmeTemplate = 'MAIN.md'
 const readmeFile = 'README.md'
 const readmePath = './'
-const readmeSearch = 'dist/cjs/**/*.js'
+const readmeSearch = 'dist/**/*.js'
 const readmeOptions = 'utf8'
 const testPath = ['src']
 const testOptions = {
@@ -37,9 +37,7 @@ const testOptions = {
   watchAll: false,
 }
 const tsConfig = './tsconfig.json'
-const cjsPath = `${distPath}/cjs`
-const tsPath = `${distPath}/mjs`
-const tsSearch = `${distPath}/mjs/**/*.mjs`
+const tsSearch = `${distPath}/**/*.mjs`
 
 /**
  * Return a promise to be completed once the specified directory is deleted.
@@ -88,8 +86,8 @@ const typescript = () => {
       module: 'es2020'
     }))
   return merge([
-    tsResult.dts.pipe(dest(tsPath)),
-    tsResult.js.pipe(rename({ extname: '.mjs' })).pipe(dest(tsPath))
+    tsResult.dts.pipe(dest(distPath)),
+    tsResult.js.pipe(rename({ extname: '.mjs' })).pipe(dest(distPath))
   ])
 }
 
@@ -101,7 +99,7 @@ const typescript = () => {
 const distSeries = (done = null) => {
   const dist = () => src(tsSearch)
     .pipe(babel())
-    .pipe(dest(cjsPath))
+    .pipe(dest(distPath))
   return series(typescript, dist)(done)
 }
 

@@ -2,7 +2,7 @@
   "name": "test-filesystem",
   "version": "1.0.0",
   "description": "Set up and tear down a temp directory for running filesystem tests.",
-  "main": "dist/cjs/main.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "gulp build",
     "htmldocs": "jsdoc -R MAIN.md -c ./.jsdoc.conf.js -d docs",
@@ -52,7 +52,6 @@
   },
   "files":  [
     "browser",
-    "dist",
-    "gulpfile.js"
+    "dist"
   ]
 }
