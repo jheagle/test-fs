@@ -1,6 +1,6 @@
 {
   "name": "test-filesystem",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Set up and tear down a temp directory for running filesystem tests.",
   "main": "dist/main.js",
   "scripts": {
@@ -50,7 +50,7 @@
   "engines": {
     "node": ">=10.2.1"
   },
-  "files":  [
+  "files": [
     "browser",
     "dist"
   ]
