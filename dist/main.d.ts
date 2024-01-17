@@ -5,6 +5,17 @@
  * @version 1.0.0
  * @module test-fs
  */
+export * from './functions/circularObject';
+export * from './functions/countMatches';
+export * from './functions/deepReferenceObject';
+export * from './functions/domItem';
+export * from './functions/jsonDom';
+export * from './functions/linkedList';
+export * from './functions/logObject';
+export * from './functions/multiReferenceObject';
+export * from './functions/nodeTree';
+export * from './functions/removeDirectory';
+export * from './functions/setUp';
 export declare let testFs: {
     circularObject: {
         name: string;

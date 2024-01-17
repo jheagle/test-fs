@@ -9,6 +9,7 @@ const rename = require('gulp-rename')
 const { runCLI } = require('jest')
 const source = require('vinyl-source-stream')
 const standard = require('gulp-standard')
+const through = require('through2')
 const ts = require('gulp-typescript')
 const { default: uglify } = require('gulp-uglify-es')
 
@@ -36,8 +37,19 @@ const testOptions = {
   watch: false,
   watchAll: false,
 }
-const tsConfig = './tsconfig.json'
 const tsSearch = `${distPath}/**/*.mjs`
+
+/**
+ * Replace parts of the import statements.
+ * @function
+ * @param {string} contents
+ * @param {string} replaceWith
+ * @return {string}
+ */
+const importReplace = (contents, replaceWith) => {
+  const regexImport = new RegExp('(export|import) (.+) from ([\'"])(\./[a-zA-Z-_/]+)(\.[a-z]{2,3})?[\'"]', 'g')
+  return contents.replaceAll(regexImport, replaceWith)
+}
 
 /**
  * Return a promise to be completed once the specified directory is deleted.
@@ -87,21 +99,37 @@ const typescript = () => {
     }))
   return merge([
     tsResult.dts.pipe(dest(distPath)),
-    tsResult.js.pipe(rename({ extname: '.mjs' })).pipe(dest(distPath))
+    tsResult.js
+      .pipe(through.obj(function (file, enc, cb) {
+        file.contents = Buffer.from(importReplace(file.contents.toString(), '$1 $2 from $3$4.mjs$3'))
+        this.push(file)
+        cb()
+      }))
+      .pipe(rename({ extname: '.mjs' }))
+      .pipe(dest(distPath))
   ])
 }
+
+/**
+ * Convert to babel files.
+ * @function
+ * @return {stream.Stream}
+ */
+const dist = () => src(tsSearch)
+  .pipe(through.obj(function (file, enc, cb) {
+    file.contents = Buffer.from(importReplace(file.contents.toString(), '$1 $2 from $3$4$3'))
+    this.push(file)
+    cb()
+  }))
+  .pipe(babel())
+  .pipe(dest(distPath))
 
 /**
  * When using TypeScript, ensure that we process the ts first then run babel (dist)
  * @function
  * @returns {function(null=): stream.Stream}
  */
-const distSeries = (done = null) => {
-  const dist = () => src(tsSearch)
-    .pipe(babel())
-    .pipe(dest(distPath))
-  return series(typescript, dist)(done)
-}
+const distSeries = (done = null) => series(typescript, dist)(done)
 
 /**
  * Applies Standard code style linting to distribution files.
@@ -212,7 +240,7 @@ const build = (done = null) => parallel(
 )(done)
 
 exports.bundle = bundle
-exports.dist = distSeries
+exports.dist = dist
 exports.build = build
 exports.readme = buildReadme
 exports.testFull = testFull

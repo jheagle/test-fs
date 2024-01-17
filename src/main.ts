@@ -18,6 +18,18 @@ import nodeTree from './functions/nodeTree'
 import removeDirectory from './functions/removeDirectory'
 import setUp from './functions/setUp'
 
+export * from './functions/circularObject'
+export * from './functions/countMatches'
+export * from './functions/deepReferenceObject'
+export * from './functions/domItem'
+export * from './functions/jsonDom'
+export * from './functions/linkedList'
+export * from './functions/logObject'
+export * from './functions/multiReferenceObject'
+export * from './functions/nodeTree'
+export * from './functions/removeDirectory'
+export * from './functions/setUp'
+
 export let testFs = {
   circularObject,
   countMatches,
