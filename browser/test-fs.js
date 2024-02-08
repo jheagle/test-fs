@@ -2096,7 +2096,7 @@
     }
     exports.logObject = logObject
     var _default = exports.default = logObject
-  }, { util: 133 }],
+  }, { util: 140 }],
   103: [function (require, module, exports) {
     'use strict'
 
@@ -2462,7 +2462,7 @@
       (function () {
         'use strict'
 
-        var possibleNames = [
+        var /** @type {ReturnType<import('.')>} */ possibleNames = [
           'BigInt64Array',
           'BigUint64Array',
           'Float32Array',
@@ -2478,10 +2478,12 @@
 
         var g = typeof globalThis === 'undefined' ? global : globalThis
 
+        /** @type {import('.')} */
         module.exports = function availableTypedArrays () {
-          var out = []
+          var /** @type {ReturnType<typeof availableTypedArrays>} */ out = []
           for (var i = 0; i < possibleNames.length; i++) {
             if (typeof g[possibleNames[i]] === 'function') {
+              // @ts-expect-error
               out[out.length] = possibleNames[i]
             }
           }
@@ -2509,7 +2511,7 @@
       }
       return intrinsic
     }
-  }, { './': 111, 'get-intrinsic': 116 }],
+  }, { './': 111, 'get-intrinsic': 123 }],
   111: [function (require, module, exports) {
     'use strict'
 
@@ -2517,7 +2519,7 @@
     var GetIntrinsic = require('get-intrinsic')
     var setFunctionLength = require('set-function-length')
 
-    var $TypeError = GetIntrinsic('%TypeError%')
+    var $TypeError = require('es-errors/type')
     var $apply = GetIntrinsic('%Function.prototype.apply%')
     var $call = GetIntrinsic('%Function.prototype.call%')
     var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || bind.call($call, $apply)
@@ -2555,7 +2557,7 @@
     } else {
       module.exports.apply = applyBind
     }
-  }, { 'function-bind': 115, 'get-intrinsic': 116, 'set-function-length': 130 }],
+  }, { 'es-errors/type': 118, 'function-bind': 122, 'get-intrinsic': 123, 'set-function-length': 137 }],
   112: [function (require, module, exports) {
     'use strict'
 
@@ -2573,8 +2575,8 @@
       }
     }
 
-    var $SyntaxError = GetIntrinsic('%SyntaxError%')
-    var $TypeError = GetIntrinsic('%TypeError%')
+    var $SyntaxError = require('es-errors/syntax')
+    var $TypeError = require('es-errors/type')
 
     var gopd = require('gopd')
 
@@ -2625,8 +2627,50 @@
         throw new $SyntaxError('This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.')
       }
     }
-  }, { 'get-intrinsic': 116, gopd: 117, 'has-property-descriptors': 118 }],
+  }, { 'es-errors/syntax': 117, 'es-errors/type': 118, 'get-intrinsic': 123, gopd: 124, 'has-property-descriptors': 125 }],
   113: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('./eval')} */
+    module.exports = EvalError
+  }, {}],
+  114: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('.')} */
+    module.exports = Error
+  }, {}],
+  115: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('./range')} */
+    module.exports = RangeError
+  }, {}],
+  116: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('./ref')} */
+    module.exports = ReferenceError
+  }, {}],
+  117: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('./syntax')} */
+    module.exports = SyntaxError
+  }, {}],
+  118: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('./type')} */
+    module.exports = TypeError
+  }, {}],
+  119: [function (require, module, exports) {
+    'use strict'
+
+    /** @type {import('./uri')} */
+    module.exports = URIError
+  }, {}],
+  120: [function (require, module, exports) {
     'use strict'
 
     var isCallable = require('is-callable')
@@ -2689,8 +2733,8 @@
     }
 
     module.exports = forEach
-  }, { 'is-callable': 126 }],
-  114: [function (require, module, exports) {
+  }, { 'is-callable': 133 }],
+  121: [function (require, module, exports) {
     'use strict'
 
     /* eslint no-invalid-this: 1 */
@@ -2775,21 +2819,27 @@
       return bound
     }
   }, {}],
-  115: [function (require, module, exports) {
+  122: [function (require, module, exports) {
     'use strict'
 
     var implementation = require('./implementation')
 
     module.exports = Function.prototype.bind || implementation
-  }, { './implementation': 114 }],
-  116: [function (require, module, exports) {
+  }, { './implementation': 121 }],
+  123: [function (require, module, exports) {
     'use strict'
 
     var undefined
 
-    var $SyntaxError = SyntaxError
+    var $Error = require('es-errors')
+    var $EvalError = require('es-errors/eval')
+    var $RangeError = require('es-errors/range')
+    var $ReferenceError = require('es-errors/ref')
+    var $SyntaxError = require('es-errors/syntax')
+    var $TypeError = require('es-errors/type')
+    var $URIError = require('es-errors/uri')
+
     var $Function = Function
-    var $TypeError = TypeError
 
     // eslint-disable-next-line consistent-return
     var getEvalledConstructor = function (expressionSyntax) {
@@ -2841,6 +2891,7 @@
     var TypedArray = typeof Uint8Array === 'undefined' || !getProto ? undefined : getProto(Uint8Array)
 
     var INTRINSICS = {
+      __proto__: null,
       '%AggregateError%': typeof AggregateError === 'undefined' ? undefined : AggregateError,
       '%Array%': Array,
       '%ArrayBuffer%': typeof ArrayBuffer === 'undefined' ? undefined : ArrayBuffer,
@@ -2861,9 +2912,9 @@
       '%decodeURIComponent%': decodeURIComponent,
       '%encodeURI%': encodeURI,
       '%encodeURIComponent%': encodeURIComponent,
-      '%Error%': Error,
+      '%Error%': $Error,
       '%eval%': eval, // eslint-disable-line no-eval
-      '%EvalError%': EvalError,
+      '%EvalError%': $EvalError,
       '%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,
       '%Float64Array%': typeof Float64Array === 'undefined' ? undefined : Float64Array,
       '%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined : FinalizationRegistry,
@@ -2885,8 +2936,8 @@
       '%parseInt%': parseInt,
       '%Promise%': typeof Promise === 'undefined' ? undefined : Promise,
       '%Proxy%': typeof Proxy === 'undefined' ? undefined : Proxy,
-      '%RangeError%': RangeError,
-      '%ReferenceError%': ReferenceError,
+      '%RangeError%': $RangeError,
+      '%ReferenceError%': $ReferenceError,
       '%Reflect%': typeof Reflect === 'undefined' ? undefined : Reflect,
       '%RegExp%': RegExp,
       '%Set%': typeof Set === 'undefined' ? undefined : Set,
@@ -2903,7 +2954,7 @@
       '%Uint8ClampedArray%': typeof Uint8ClampedArray === 'undefined' ? undefined : Uint8ClampedArray,
       '%Uint16Array%': typeof Uint16Array === 'undefined' ? undefined : Uint16Array,
       '%Uint32Array%': typeof Uint32Array === 'undefined' ? undefined : Uint32Array,
-      '%URIError%': URIError,
+      '%URIError%': $URIError,
       '%WeakMap%': typeof WeakMap === 'undefined' ? undefined : WeakMap,
       '%WeakRef%': typeof WeakRef === 'undefined' ? undefined : WeakRef,
       '%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet
@@ -2945,6 +2996,7 @@
     }
 
     var LEGACY_ALIASES = {
+      __proto__: null,
       '%ArrayBufferPrototype%': ['ArrayBuffer', 'prototype'],
       '%ArrayPrototype%': ['Array', 'prototype'],
       '%ArrayProto_entries%': ['Array', 'prototype', 'entries'],
@@ -3134,8 +3186,8 @@
       }
       return value
     }
-  }, { 'function-bind': 115, 'has-proto': 119, 'has-symbols': 120, hasown: 123 }],
-  117: [function (require, module, exports) {
+  }, { 'es-errors': 114, 'es-errors/eval': 113, 'es-errors/range': 115, 'es-errors/ref': 116, 'es-errors/syntax': 117, 'es-errors/type': 118, 'es-errors/uri': 119, 'function-bind': 122, 'has-proto': 126, 'has-symbols': 127, hasown: 130 }],
+  124: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -3152,8 +3204,8 @@
     }
 
     module.exports = $gOPD
-  }, { 'get-intrinsic': 116 }],
-  118: [function (require, module, exports) {
+  }, { 'get-intrinsic': 123 }],
+  125: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -3187,8 +3239,8 @@
     }
 
     module.exports = hasPropertyDescriptors
-  }, { 'get-intrinsic': 116 }],
-  119: [function (require, module, exports) {
+  }, { 'get-intrinsic': 123 }],
+  126: [function (require, module, exports) {
     'use strict'
 
     var test = {
@@ -3201,7 +3253,7 @@
       return { __proto__: test }.foo === test.foo && !({ __proto__: null } instanceof $Object)
     }
   }, {}],
-  120: [function (require, module, exports) {
+  127: [function (require, module, exports) {
     'use strict'
 
     var origSymbol = typeof Symbol !== 'undefined' && Symbol
@@ -3215,8 +3267,8 @@
 
       return hasSymbolSham()
     }
-  }, { './shams': 121 }],
-  121: [function (require, module, exports) {
+  }, { './shams': 128 }],
+  128: [function (require, module, exports) {
     'use strict'
 
     /* eslint complexity: [2, 18], max-statements: [2, 33] */
@@ -3260,16 +3312,17 @@
       return true
     }
   }, {}],
-  122: [function (require, module, exports) {
+  129: [function (require, module, exports) {
     'use strict'
 
     var hasSymbols = require('has-symbols/shams')
 
+    /** @type {import('.')} */
     module.exports = function hasToStringTagShams () {
       return hasSymbols() && !!Symbol.toStringTag
     }
-  }, { 'has-symbols/shams': 121 }],
-  123: [function (require, module, exports) {
+  }, { 'has-symbols/shams': 128 }],
+  130: [function (require, module, exports) {
     'use strict'
 
     var call = Function.prototype.call
@@ -3278,8 +3331,8 @@
 
     /** @type {(o: {}, p: PropertyKey) => p is keyof o} */
     module.exports = bind.call(call, $hasOwn)
-  }, { 'function-bind': 115 }],
-  124: [function (require, module, exports) {
+  }, { 'function-bind': 122 }],
+  131: [function (require, module, exports) {
     if (typeof Object.create === 'function') {
       // implementation from standard node.js 'util' module
       module.exports = function inherits (ctor, superCtor) {
@@ -3308,7 +3361,7 @@
       }
     }
   }, {}],
-  125: [function (require, module, exports) {
+  132: [function (require, module, exports) {
     'use strict'
 
     var hasToStringTag = require('has-tostringtag/shams')()
@@ -3342,8 +3395,8 @@
     isStandardArguments.isLegacyArguments = isLegacyArguments // for tests
 
     module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArguments
-  }, { 'call-bind/callBound': 110, 'has-tostringtag/shams': 122 }],
-  126: [function (require, module, exports) {
+  }, { 'call-bind/callBound': 110, 'has-tostringtag/shams': 129 }],
+  133: [function (require, module, exports) {
     'use strict'
 
     var fnToStr = Function.prototype.toString
@@ -3446,7 +3499,7 @@
         return tryFunctionObject(value)
       }
   }, {}],
-  127: [function (require, module, exports) {
+  134: [function (require, module, exports) {
     'use strict'
 
     var toStr = Object.prototype.toString
@@ -3485,17 +3538,18 @@
       }
       return getProto(fn) === GeneratorFunction
     }
-  }, { 'has-tostringtag/shams': 122 }],
-  128: [function (require, module, exports) {
+  }, { 'has-tostringtag/shams': 129 }],
+  135: [function (require, module, exports) {
     'use strict'
 
     var whichTypedArray = require('which-typed-array')
 
+    /** @type {import('.')} */
     module.exports = function isTypedArray (value) {
       return !!whichTypedArray(value)
     }
-  }, { 'which-typed-array': 134 }],
-  129: [function (require, module, exports) {
+  }, { 'which-typed-array': 141 }],
+  136: [function (require, module, exports) {
     // shim for using process in browser
     var process = module.exports = {}
 
@@ -3676,7 +3730,7 @@
     }
     process.umask = function () { return 0 }
   }, {}],
-  130: [function (require, module, exports) {
+  137: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -3684,9 +3738,12 @@
     var hasDescriptors = require('has-property-descriptors')()
     var gOPD = require('gopd')
 
-    var $TypeError = GetIntrinsic('%TypeError%')
+    var $TypeError = require('es-errors/type')
     var $floor = GetIntrinsic('%Math.floor%')
 
+    /** @typedef {(...args: unknown[]) => unknown} Func */
+
+    /** @type {<T extends Func = Func>(fn: T, length: number, loose?: boolean) => T} */
     module.exports = function setFunctionLength (fn, length) {
       if (typeof fn !== 'function') {
         throw new $TypeError('`fn` is not a function')
@@ -3711,15 +3768,15 @@
 
       if (functionLengthIsConfigurable || functionLengthIsWritable || !loose) {
         if (hasDescriptors) {
-          define(fn, 'length', length, true, true)
+          define(/** @type {Parameters<define>[0]} */ (fn), 'length', length, true, true)
         } else {
-          define(fn, 'length', length)
+          define(/** @type {Parameters<define>[0]} */ (fn), 'length', length)
         }
       }
       return fn
     }
-  }, { 'define-data-property': 112, 'get-intrinsic': 116, gopd: 117, 'has-property-descriptors': 118 }],
-  131: [function (require, module, exports) {
+  }, { 'define-data-property': 112, 'es-errors/type': 118, 'get-intrinsic': 123, gopd: 124, 'has-property-descriptors': 125 }],
+  138: [function (require, module, exports) {
     module.exports = function isBuffer (arg) {
       return arg && typeof arg === 'object' &&
     typeof arg.copy === 'function' &&
@@ -3727,7 +3784,7 @@
     typeof arg.readUInt8 === 'function'
     }
   }, {}],
-  132: [function (require, module, exports) {
+  139: [function (require, module, exports) {
     // Currently in sync with Node.js lib/internal/util/types.js
     // https://github.com/nodejs/node/commit/112cc7c27551254aa2b17098fb774867f05ed0d9
 
@@ -4061,8 +4118,8 @@
         }
       })
     })
-  }, { 'is-arguments': 125, 'is-generator-function': 127, 'is-typed-array': 128, 'which-typed-array': 134 }],
-  133: [function (require, module, exports) {
+  }, { 'is-arguments': 132, 'is-generator-function': 134, 'is-typed-array': 135, 'which-typed-array': 141 }],
+  140: [function (require, module, exports) {
     (function (process) {
       (function () {
         // Copyright Joyent, Inc. and other Node contributors.
@@ -4761,8 +4818,8 @@
         exports.callbackify = callbackify
       }).call(this)
     }).call(this, require('_process'))
-  }, { './support/isBuffer': 131, './support/types': 132, _process: 129, inherits: 124 }],
-  134: [function (require, module, exports) {
+  }, { './support/isBuffer': 138, './support/types': 139, _process: 136, inherits: 131 }],
+  141: [function (require, module, exports) {
     (function (global) {
       (function () {
         'use strict'
@@ -4782,7 +4839,7 @@
         var $slice = callBound('String.prototype.slice')
         var getPrototypeOf = Object.getPrototypeOf // require('getprototypeof');
 
-        var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf (array, value) {
+        var $indexOf = callBound('Array.prototype.indexOf', true) || /** @type {(array: readonly unknown[], value: unknown) => keyof array} */ function indexOf (array, value) {
           for (var i = 0; i < array.length; i += 1) {
             if (array[i] === value) {
               return i
@@ -4790,17 +4847,24 @@
           }
           return -1
         }
+
+        /** @typedef {Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array | BigInt64Array | BigUint64Array} TypedArray */
+        /** @typedef {'Int8Array' | 'Uint8Array' | 'Uint8ClampedArray' | 'Int16Array' | 'Uint16Array' | 'Int32Array' | 'Uint32Array' | 'Float32Array' | 'Float64Array' | 'BigInt64Array' | 'BigUint64Array'} TypedArrayName */
+        /** @type {{ [k in `\$${TypedArrayName}`]?: (receiver: TypedArray) => string | typeof Uint8Array.prototype.slice.call | typeof Uint8Array.prototype.set.call } & { __proto__: null }} */
         var cache = { __proto__: null }
         if (hasToStringTag && gOPD && getPrototypeOf) {
           forEach(typedArrays, function (typedArray) {
             var arr = new g[typedArray]()
             if (Symbol.toStringTag in arr) {
               var proto = getPrototypeOf(arr)
+              // @ts-expect-error TS won't narrow inside a closure
               var descriptor = gOPD(proto, Symbol.toStringTag)
               if (!descriptor) {
                 var superProto = getPrototypeOf(proto)
+                // @ts-expect-error TS won't narrow inside a closure
                 descriptor = gOPD(superProto, Symbol.toStringTag)
               }
+              // @ts-expect-error TODO: fix
               cache['$' + typedArray] = callBind(descriptor.get)
             }
           })
@@ -4809,38 +4873,52 @@
             var arr = new g[typedArray]()
             var fn = arr.slice || arr.set
             if (fn) {
+              // @ts-expect-error TODO: fix
               cache['$' + typedArray] = callBind(fn)
             }
           })
         }
 
+        /** @type {import('.')} */
         var tryTypedArrays = function tryAllTypedArrays (value) {
-          var found = false
-          forEach(cache, function (getter, typedArray) {
-            if (!found) {
-              try {
-                if ('$' + getter(value) === typedArray) {
-                  found = $slice(typedArray, 1)
-                }
-              } catch (e) { /**/ }
+          /** @type {ReturnType<tryAllTypedArrays>} */ var found = false
+          forEach(
+            // eslint-disable-next-line no-extra-parens
+            /** @type {Record<`\$${TypedArrayName}`, typeof cache>} */ /** @type {any} */ (cache),
+            /** @type {(getter: typeof cache, name: `\$${TypedArrayName}`) => void} */ function (getter, typedArray) {
+              if (!found) {
+                try {
+                  // @ts-expect-error TODO: fix
+                  if ('$' + getter(value) === typedArray) {
+                    found = $slice(typedArray, 1)
+                  }
+                } catch (e) { /**/ }
+              }
             }
-          })
+          )
           return found
         }
 
+        /** @type {import('.')} */
         var trySlices = function tryAllSlices (value) {
-          var found = false
-          forEach(cache, function (getter, name) {
-            if (!found) {
-              try {
-                getter(value)
-                found = $slice(name, 1)
-              } catch (e) { /**/ }
+          /** @type {ReturnType<tryAllSlices>} */ var found = false
+          forEach(
+            // eslint-disable-next-line no-extra-parens
+            /** @type {any} */ (cache),
+            /** @type {(getter: typeof cache, name: `\$${TypedArrayName}`) => void} */ function (getter, name) {
+              if (!found) {
+                try {
+                  // @ts-expect-error TODO: fix
+                  getter(value)
+                  found = $slice(name, 1)
+                } catch (e) { /**/ }
+              }
             }
-          })
+          )
           return found
         }
 
+        /** @type {import('.')} */
         module.exports = function whichTypedArray (value) {
           if (!value || typeof value !== 'object') { return false }
           if (!hasToStringTag) {
@@ -4859,5 +4937,5 @@
         }
       }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
-  }, { 'available-typed-arrays': 108, 'call-bind': 111, 'call-bind/callBound': 110, 'for-each': 113, gopd: 117, 'has-tostringtag/shams': 122 }]
+  }, { 'available-typed-arrays': 108, 'call-bind': 111, 'call-bind/callBound': 110, 'for-each': 120, gopd: 124, 'has-tostringtag/shams': 129 }]
 }, {}, [107])
