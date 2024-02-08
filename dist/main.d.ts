@@ -9,6 +9,7 @@ export * from './functions/circularObject';
 export * from './functions/countMatches';
 export * from './functions/deepReferenceObject';
 export * from './functions/domItem';
+export * from './functions/fileExists';
 export * from './functions/jsonDom';
 export * from './functions/linkedList';
 export * from './functions/logObject';
@@ -38,6 +39,7 @@ export declare let testFs: {
         item: number;
     };
     domItem: import("./functions/domItem").jsonDomItem[];
+    fileExists: (filePath: string) => boolean;
     jsonDom: import("./functions/domItem").jsonDomItem;
     linkedList: import("./functions/linkedList").linker;
     logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn") => string | void;

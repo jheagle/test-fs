@@ -10,6 +10,7 @@ import circularObject from './functions/circularObject'
 import countMatches from './functions/countMatches'
 import deepReferenceObject from './functions/deepReferenceObject'
 import domItem from './functions/domItem'
+import fileExists from './functions/fileExists'
 import jsonDom from './functions/jsonDom'
 import linkedList from './functions/linkedList'
 import logObject from './functions/logObject'
@@ -22,6 +23,7 @@ export * from './functions/circularObject'
 export * from './functions/countMatches'
 export * from './functions/deepReferenceObject'
 export * from './functions/domItem'
+export * from './functions/fileExists'
 export * from './functions/jsonDom'
 export * from './functions/linkedList'
 export * from './functions/logObject'
@@ -35,6 +37,7 @@ export let testFs = {
   countMatches,
   deepReferenceObject,
   domItem,
+  fileExists,
   jsonDom,
   linkedList,
   logObject,

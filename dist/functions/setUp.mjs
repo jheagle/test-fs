@@ -1,6 +1,7 @@
-import { existsSync, mkdirSync } from 'fs'
+import { mkdirSync } from 'fs'
 // Import the configurations and override some of them to direct to the temp directory.
 import removeDirectory from './removeDirectory.mjs'
+import fileExists from './fileExists.mjs'
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
   function adopt (value) { return value instanceof P ? value : new P(function (resolve) { resolve(value) }) }
   return new (P || (P = Promise))(function (resolve, reject) {
@@ -29,7 +30,7 @@ export const afterEach = () => removeDirectory(tempDir)
 export const createTempDir = (exists = true) => __awaiter(void 0, void 0, void 0, function * () {
   if (exists) {
     return removeDirectory(tempDir)
-      .then(removedDir => createTempDir(existsSync(removedDir)))
+      .then(removedDir => createTempDir(fileExists(removedDir)))
       .catch(error => console.error('Error: ', error))
   }
   return mkdirSync(srcPath, { recursive: true })

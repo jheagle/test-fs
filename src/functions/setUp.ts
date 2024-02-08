@@ -1,6 +1,7 @@
-import { existsSync, mkdirSync } from 'fs'
+import { mkdirSync } from 'fs'
 // Import the configurations and override some of them to direct to the temp directory.
 import removeDirectory from './removeDirectory'
+import fileExists from './fileExists'
 
 let tempDir = 'test-temp/'
 let srcPath = `${tempDir}src`
@@ -23,7 +24,7 @@ export const afterEach = (): Promise<any> => removeDirectory(tempDir)
 export const createTempDir = async (exists: boolean = true): Promise<any | void> => {
   if (exists) {
     return removeDirectory(tempDir)
-      .then(removedDir => createTempDir(existsSync(removedDir)))
+      .then(removedDir => createTempDir(fileExists(removedDir)))
       .catch(error => console.error('Error: ', error))
   }
   return mkdirSync(srcPath, { recursive: true })

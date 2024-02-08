@@ -1,5 +1,5 @@
 import { setUp } from './setUp'
-import { existsSync } from 'fs'
+import { fileExists } from './fileExists'
 
 const dirName = 'test-temp/'
 
@@ -7,14 +7,14 @@ setUp.setDefaults(dirName)
 
 describe('setUp', () => {
   test('able to create the test-temp/src directory', async () => {
-    expect(existsSync(`${dirName}src`)).toBeFalsy()
+    expect(fileExists(`${dirName}src`)).toBeFalsy()
     await setUp.createTempDir()
-    expect(existsSync(`${dirName}src`)).toBeTruthy()
+    expect(fileExists(`${dirName}src`)).toBeTruthy()
   })
 
   test('able to delete the test-temp/src directory', async () => {
-    expect(existsSync(`${dirName}src`)).toBeTruthy()
+    expect(fileExists(`${dirName}src`)).toBeTruthy()
     await setUp.afterEach()
-    expect(existsSync(`${dirName}src`)).toBeFalsy()
+    expect(fileExists(`${dirName}src`)).toBeFalsy()
   })
 })

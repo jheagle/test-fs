@@ -58,6 +58,7 @@ An assortment of objects that can be used in tests and some functions to help de
     * [.exports.createTempDir()](#module_test-fs.exports.createTempDir) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
     * [.removeDirectory(dirPath)](#module_test-fs.removeDirectory) ⇒ <code>Promise.&lt;\*&gt;</code>
     * [.logObject(object, [label], [outputType])](#module_test-fs.logObject) ⇒ <code>string</code> \| <code>undefined</code>
+    * [.fileExists(filePath)](#module_test-fs.fileExists) ⇒ <code>boolean</code>
     * [.countMatches(content, search)](#module_test-fs.countMatches) ⇒ <code>number</code>
 
 <a name="module_test-fs.nodeTree"></a>
@@ -148,6 +149,17 @@ Log out an object in a nicely formatted way.
 | object | <code>Object</code> |  | 
 | [label] | <code>string</code> | <code>&quot;logging&quot;</code> | 
 | [outputType] | <code>string</code> | <code>&quot;log&quot;</code> | 
+
+<a name="module_test-fs.fileExists"></a>
+
+### test-fs.fileExists(filePath) ⇒ <code>boolean</code>
+Detect if a file exists and is usable.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type |
+| --- | --- |
+| filePath | <code>string</code> | 
 
 <a name="module_test-fs.countMatches"></a>
 

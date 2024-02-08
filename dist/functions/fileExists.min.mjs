@@ -1,0 +1,1 @@
+import{accessSync,constants}from"fs";export const fileExists=t=>{try{return accessSync(t,constants.F_OK),!0}catch(t){return!1}};export default fileExists;

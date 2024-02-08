@@ -6,6 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.setUp = exports.setDefaults = exports.default = exports.createTempDir = exports.beforeEach = exports.afterEach = void 0
 var _fs = require('fs')
 var _removeDirectory = _interopRequireDefault(require('./removeDirectory'))
+var _fileExists = _interopRequireDefault(require('./fileExists'))
 function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt (value) {
@@ -56,7 +57,7 @@ const afterEach = () => (0, _removeDirectory.default)(tempDir)
 exports.afterEach = afterEach
 const createTempDir = (exists = true) => __awaiter(void 0, void 0, void 0, function * () {
   if (exists) {
-    return (0, _removeDirectory.default)(tempDir).then(removedDir => createTempDir((0, _fs.existsSync)(removedDir))).catch(error => console.error('Error: ', error))
+    return (0, _removeDirectory.default)(tempDir).then(removedDir => createTempDir((0, _fileExists.default)(removedDir))).catch(error => console.error('Error: ', error))
   }
   return (0, _fs.mkdirSync)(srcPath, {
     recursive: true

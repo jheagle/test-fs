@@ -60,6 +60,18 @@ Object.keys(_domItem).forEach(function (key) {
     }
   })
 })
+var _fileExists = _interopRequireWildcard(require('./functions/fileExists'))
+Object.keys(_fileExists).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports && exports[key] === _fileExists[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _fileExists[key]
+    }
+  })
+})
 var _jsonDom = _interopRequireWildcard(require('./functions/jsonDom'))
 Object.keys(_jsonDom).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
@@ -159,6 +171,7 @@ const testFs = exports.testFs = {
   countMatches: _countMatches.default,
   deepReferenceObject: _deepReferenceObject.default,
   domItem: _domItem.default,
+  fileExists: _fileExists.default,
   jsonDom: _jsonDom.default,
   linkedList: _linkedList.default,
   logObject: _logObject.default,

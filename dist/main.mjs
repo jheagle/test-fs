@@ -9,6 +9,7 @@ import circularObject from './functions/circularObject.mjs'
 import countMatches from './functions/countMatches.mjs'
 import deepReferenceObject from './functions/deepReferenceObject.mjs'
 import domItem from './functions/domItem.mjs'
+import fileExists from './functions/fileExists.mjs'
 import jsonDom from './functions/jsonDom.mjs'
 import linkedList from './functions/linkedList.mjs'
 import logObject from './functions/logObject.mjs'
@@ -20,6 +21,7 @@ export * from './functions/circularObject.mjs'
 export * from './functions/countMatches.mjs'
 export * from './functions/deepReferenceObject.mjs'
 export * from './functions/domItem.mjs'
+export * from './functions/fileExists.mjs'
 export * from './functions/jsonDom.mjs'
 export * from './functions/linkedList.mjs'
 export * from './functions/logObject.mjs'
@@ -32,6 +34,7 @@ export const testFs = {
   countMatches,
   deepReferenceObject,
   domItem,
+  fileExists,
   jsonDom,
   linkedList,
   logObject,
