@@ -6,6 +6,11 @@ There are three options for accessing these functions:
 2. ES6 modules: dist/*.mjs
 3. Bundles Browser file: browser/test-fs.js
 
+## Installation
+
+In your project's root directory, run: `npm install --save-dev test-filesystem`
+(or `yarn add --dev test-filesystem` if you use Yarn).
+
 ## Usage
 To use the temporary directory in tests. Do the following in your tests:
 ```js
