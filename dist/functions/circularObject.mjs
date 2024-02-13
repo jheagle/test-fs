@@ -30,4 +30,3 @@ circularObject.head.children = [
 ]
 circularObject.head.children[0].parent = circularObject.head
 circularObject.head.children[1].parent = circularObject.head
-export default circularObject

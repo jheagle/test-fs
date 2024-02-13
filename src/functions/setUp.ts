@@ -1,7 +1,7 @@
 import { mkdirSync } from 'fs'
 // Import the configurations and override some of them to direct to the temp directory.
-import removeDirectory from './removeDirectory'
-import fileExists from './fileExists'
+import { removeDirectory } from './removeDirectory'
+import { fileExists } from './fileExists'
 
 let tempDir = 'test-temp/'
 let srcPath = `${tempDir}src`

@@ -27,4 +27,3 @@ export const domItem = [
     tagName: 'div'
   }
 ]
-export default domItem

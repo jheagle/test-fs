@@ -1,5 +1,5 @@
-import removeDirectory from './removeDirectory'
-import fileExists from './fileExists'
+import { removeDirectory } from './removeDirectory'
+import { fileExists } from './fileExists'
 import { mkdirSync } from 'fs'
 
 describe('removeDirectory', () => {

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.nodeTree = exports.default = void 0
+exports.nodeTree = void 0
 /**
  * Sample NodeTree for testing circular references and arrays.
  * @memberOf module:test-fs
@@ -29,4 +29,3 @@ nodeTree.children[0].children[0] = {
   parent: nodeTree.children[0],
   children: []
 }
-var _default = exports.default = nodeTree

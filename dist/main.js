@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/esnext.weak-map.delete-all.js')
 require('core-js/modules/esnext.async-iterator.for-each.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.for-each.js')
@@ -11,8 +10,8 @@ var _exportNames = {
   testFs: true,
   testFsBrowser: true
 }
-exports.testFsBrowser = exports.testFs = exports.default = void 0
-var _circularObject = _interopRequireWildcard(require('./functions/circularObject'))
+exports.testFsBrowser = exports.testFs = void 0
+var _circularObject = require('./functions/circularObject')
 Object.keys(_circularObject).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -24,7 +23,7 @@ Object.keys(_circularObject).forEach(function (key) {
     }
   })
 })
-var _countMatches = _interopRequireWildcard(require('./functions/countMatches'))
+var _countMatches = require('./functions/countMatches')
 Object.keys(_countMatches).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -36,7 +35,7 @@ Object.keys(_countMatches).forEach(function (key) {
     }
   })
 })
-var _deepReferenceObject = _interopRequireWildcard(require('./functions/deepReferenceObject'))
+var _deepReferenceObject = require('./functions/deepReferenceObject')
 Object.keys(_deepReferenceObject).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -48,7 +47,7 @@ Object.keys(_deepReferenceObject).forEach(function (key) {
     }
   })
 })
-var _domItem = _interopRequireWildcard(require('./functions/domItem'))
+var _domItem = require('./functions/domItem')
 Object.keys(_domItem).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -60,7 +59,7 @@ Object.keys(_domItem).forEach(function (key) {
     }
   })
 })
-var _fileExists = _interopRequireWildcard(require('./functions/fileExists'))
+var _fileExists = require('./functions/fileExists')
 Object.keys(_fileExists).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -72,7 +71,7 @@ Object.keys(_fileExists).forEach(function (key) {
     }
   })
 })
-var _jsonDom = _interopRequireWildcard(require('./functions/jsonDom'))
+var _jsonDom = require('./functions/jsonDom')
 Object.keys(_jsonDom).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -84,7 +83,7 @@ Object.keys(_jsonDom).forEach(function (key) {
     }
   })
 })
-var _linkedList = _interopRequireWildcard(require('./functions/linkedList'))
+var _linkedList = require('./functions/linkedList')
 Object.keys(_linkedList).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -96,7 +95,7 @@ Object.keys(_linkedList).forEach(function (key) {
     }
   })
 })
-var _logObject = _interopRequireWildcard(require('./functions/logObject'))
+var _logObject = require('./functions/logObject')
 Object.keys(_logObject).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -108,7 +107,7 @@ Object.keys(_logObject).forEach(function (key) {
     }
   })
 })
-var _multiReferenceObject = _interopRequireWildcard(require('./functions/multiReferenceObject'))
+var _multiReferenceObject = require('./functions/multiReferenceObject')
 Object.keys(_multiReferenceObject).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -120,7 +119,7 @@ Object.keys(_multiReferenceObject).forEach(function (key) {
     }
   })
 })
-var _nodeTree = _interopRequireWildcard(require('./functions/nodeTree'))
+var _nodeTree = require('./functions/nodeTree')
 Object.keys(_nodeTree).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -132,7 +131,7 @@ Object.keys(_nodeTree).forEach(function (key) {
     }
   })
 })
-var _removeDirectory = _interopRequireWildcard(require('./functions/removeDirectory'))
+var _removeDirectory = require('./functions/removeDirectory')
 Object.keys(_removeDirectory).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -144,7 +143,7 @@ Object.keys(_removeDirectory).forEach(function (key) {
     }
   })
 })
-var _setUp = _interopRequireWildcard(require('./functions/setUp'))
+var _setUp = require('./functions/setUp')
 Object.keys(_setUp).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
@@ -156,8 +155,6 @@ Object.keys(_setUp).forEach(function (key) {
     }
   })
 })
-function _getRequireWildcardCache (e) { if (typeof WeakMap !== 'function') return null; var r = new WeakMap(); var t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r })(e) }
-function _interopRequireWildcard (e, r) { if (!r && e && e.__esModule) return e; if (e === null || typeof e !== 'object' && typeof e !== 'function') return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }; var a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if (u !== 'default' && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u] } return n.default = e, t && t.set(e, n), n }
 /**
  * An assortment of objects that can be used in tests and some functions to help debug and write tests.
  * @file
@@ -167,30 +164,29 @@ function _interopRequireWildcard (e, r) { if (!r && e && e.__esModule) return e;
  */
 
 const testFs = exports.testFs = {
-  circularObject: _circularObject.default,
-  countMatches: _countMatches.default,
-  deepReferenceObject: _deepReferenceObject.default,
-  domItem: _domItem.default,
-  fileExists: _fileExists.default,
-  jsonDom: _jsonDom.default,
-  linkedList: _linkedList.default,
-  logObject: _logObject.default,
-  multiReferenceObject: _multiReferenceObject.default,
-  nodeTree: _nodeTree.default,
-  removeDirectory: _removeDirectory.default,
-  setUp: _setUp.default
+  circularObject: _circularObject.circularObject,
+  countMatches: _countMatches.countMatches,
+  deepReferenceObject: _deepReferenceObject.deepReferenceObject,
+  domItem: _domItem.domItem,
+  fileExists: _fileExists.fileExists,
+  jsonDom: _jsonDom.jsonDom,
+  linkedList: _linkedList.linkedList,
+  logObject: _logObject.logObject,
+  multiReferenceObject: _multiReferenceObject.multiReferenceObject,
+  nodeTree: _nodeTree.nodeTree,
+  removeDirectory: _removeDirectory.removeDirectory,
+  setUp: _setUp.setUp
 }
-var _default = exports.default = testFs
 const testFsBrowser = exports.testFsBrowser = {
-  circularObject: _circularObject.default,
-  countMatches: _countMatches.default,
-  deepReferenceObject: _deepReferenceObject.default,
-  domItem: _domItem.default,
-  jsonDom: _jsonDom.default,
-  linkedList: _linkedList.default,
-  logObject: _logObject.default,
-  multiReferenceObject: _multiReferenceObject.default,
-  nodeTree: _nodeTree.default
+  circularObject: _circularObject.circularObject,
+  countMatches: _countMatches.countMatches,
+  deepReferenceObject: _deepReferenceObject.deepReferenceObject,
+  domItem: _domItem.domItem,
+  jsonDom: _jsonDom.jsonDom,
+  linkedList: _linkedList.linkedList,
+  logObject: _logObject.logObject,
+  multiReferenceObject: _multiReferenceObject.multiReferenceObject,
+  nodeTree: _nodeTree.nodeTree
 }
 if (void 0) {
   // @ts-ignore

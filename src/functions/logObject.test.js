@@ -1,4 +1,4 @@
-import logObject from './logObject'
+import { logObject } from './logObject'
 import util from 'util'
 
 describe('logObject', () => {

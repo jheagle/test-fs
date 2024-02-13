@@ -8,5 +8,3 @@ export type linker = { name: string, prev: linker | null, next: linker | null }
 export const linkedList: linker = { name: 'one', prev: null, next: null }
 linkedList.next = { name: 'two', prev: linkedList, next: null }
 linkedList.next.next = { name: 'three', prev: linkedList.next, next: null }
-
-export default linkedList

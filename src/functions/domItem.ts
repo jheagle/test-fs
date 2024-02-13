@@ -42,5 +42,3 @@ export const domItem: Array<jsonDomItem> = [
     tagName: 'div'
   }
 ]
-
-export default domItem

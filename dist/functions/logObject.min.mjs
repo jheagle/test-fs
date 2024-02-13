@@ -1,1 +1,1 @@
-export const logObject=(e,t="logging",n="log")=>{const o="string"===n?(e,t)=>`'${e}' | `+JSON.stringify(t):console[n];return"undefined"==typeof require||"string"===n?o(t,e):o(t,require("util").inspect(e,!1,null,!0))};export default logObject;
+export const logObject=(e,n="logging",t="log")=>{const i="string"===t?(e,n)=>`'${e}' | `+JSON.stringify(n):console[t];return"undefined"==typeof require||"string"===t?i(n,e):i(n,require("util").inspect(e,!1,null,!0))};

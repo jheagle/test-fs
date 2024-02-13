@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.removeDirectory = exports.default = void 0
+exports.removeDirectory = void 0
 var _fs = require('fs')
 /**
  * Return a promise to be completed once the specified directory is deleted.
@@ -16,4 +16,3 @@ const removeDirectory = dirPath => new Promise((resolve, reject) => (0, _fs.acce
   recursive: true
 }, error => error ? reject(error) : resolve(dirPath))))
 exports.removeDirectory = removeDirectory
-var _default = exports.default = removeDirectory

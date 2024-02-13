@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.logObject = exports.default = void 0
+exports.logObject = void 0
 /**
  * Log out an object in a nicely formatted way.
  * @function
@@ -21,4 +21,3 @@ const logObject = (object, label = 'logging', outputType = 'log') => {
   return logger(label, require('util').inspect(object, false, null, true))
 }
 exports.logObject = logObject
-var _default = exports.default = logObject

@@ -1,7 +1,7 @@
 import { mkdirSync } from 'fs'
 // Import the configurations and override some of them to direct to the temp directory.
-import removeDirectory from './removeDirectory.mjs'
-import fileExists from './fileExists.mjs'
+import { removeDirectory } from './removeDirectory.mjs'
+import { fileExists } from './fileExists.mjs'
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
   function adopt (value) { return value instanceof P ? value : new P(function (resolve) { resolve(value) }) }
   return new (P || (P = Promise))(function (resolve, reject) {

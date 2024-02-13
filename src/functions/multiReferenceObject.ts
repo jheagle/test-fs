@@ -28,5 +28,3 @@ export const multiReferenceObject: {
   title: 'Some Title',
   item: 45
 }
-
-export default multiReferenceObject

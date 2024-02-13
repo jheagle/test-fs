@@ -6,18 +6,18 @@
  * @module test-fs
  */
 
-import circularObject from './functions/circularObject'
-import countMatches from './functions/countMatches'
-import deepReferenceObject from './functions/deepReferenceObject'
-import domItem from './functions/domItem'
-import fileExists from './functions/fileExists'
-import jsonDom from './functions/jsonDom'
-import linkedList from './functions/linkedList'
-import logObject from './functions/logObject'
-import multiReferenceObject from './functions/multiReferenceObject'
-import nodeTree from './functions/nodeTree'
-import removeDirectory from './functions/removeDirectory'
-import setUp from './functions/setUp'
+import { circularObject } from './functions/circularObject'
+import { countMatches } from './functions/countMatches'
+import { deepReferenceObject } from './functions/deepReferenceObject'
+import { domItem } from './functions/domItem'
+import { fileExists } from './functions/fileExists'
+import { jsonDom } from './functions/jsonDom'
+import { linkedList } from './functions/linkedList'
+import { logObject } from './functions/logObject'
+import { multiReferenceObject } from './functions/multiReferenceObject'
+import { nodeTree } from './functions/nodeTree'
+import { removeDirectory } from './functions/removeDirectory'
+import { setUp } from './functions/setUp'
 
 export * from './functions/circularObject'
 export * from './functions/countMatches'
@@ -46,8 +46,6 @@ export let testFs = {
   removeDirectory,
   setUp,
 }
-
-export default testFs
 
 export let testFsBrowser = {
   circularObject,

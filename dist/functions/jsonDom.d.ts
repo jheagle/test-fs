@@ -5,4 +5,3 @@ import { jsonDomItem } from './domItem';
  * @type {Object.<string, string|number|Array|Object>}
  */
 export declare const jsonDom: jsonDomItem;
-export default jsonDom;

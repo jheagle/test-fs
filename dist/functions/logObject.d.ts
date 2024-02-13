@@ -8,4 +8,3 @@
  * @returns {string|undefined}
  */
 export declare const logObject: (object: any, label?: string, outputType?: 'debug' | 'error' | 'log' | 'string' | 'warn') => string | void;
-export default logObject;

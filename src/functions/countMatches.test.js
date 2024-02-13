@@ -1,4 +1,4 @@
-import countMatches from './countMatches'
+import { countMatches } from './countMatches'
 
 describe('countMatches', () => {
   test('can get count of string occurrences', () => {

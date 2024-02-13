@@ -5,18 +5,18 @@
  * @version 1.0.0
  * @module test-fs
  */
-import circularObject from './functions/circularObject.mjs'
-import countMatches from './functions/countMatches.mjs'
-import deepReferenceObject from './functions/deepReferenceObject.mjs'
-import domItem from './functions/domItem.mjs'
-import fileExists from './functions/fileExists.mjs'
-import jsonDom from './functions/jsonDom.mjs'
-import linkedList from './functions/linkedList.mjs'
-import logObject from './functions/logObject.mjs'
-import multiReferenceObject from './functions/multiReferenceObject.mjs'
-import nodeTree from './functions/nodeTree.mjs'
-import removeDirectory from './functions/removeDirectory.mjs'
-import setUp from './functions/setUp.mjs'
+import { circularObject } from './functions/circularObject.mjs'
+import { countMatches } from './functions/countMatches.mjs'
+import { deepReferenceObject } from './functions/deepReferenceObject.mjs'
+import { domItem } from './functions/domItem.mjs'
+import { fileExists } from './functions/fileExists.mjs'
+import { jsonDom } from './functions/jsonDom.mjs'
+import { linkedList } from './functions/linkedList.mjs'
+import { logObject } from './functions/logObject.mjs'
+import { multiReferenceObject } from './functions/multiReferenceObject.mjs'
+import { nodeTree } from './functions/nodeTree.mjs'
+import { removeDirectory } from './functions/removeDirectory.mjs'
+import { setUp } from './functions/setUp.mjs'
 export * from './functions/circularObject.mjs'
 export * from './functions/countMatches.mjs'
 export * from './functions/deepReferenceObject.mjs'
@@ -43,7 +43,6 @@ export const testFs = {
   removeDirectory,
   setUp
 }
-export default testFs
 export const testFsBrowser = {
   circularObject,
   countMatches,

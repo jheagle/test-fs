@@ -1,4 +1,4 @@
-import domItem from './domItem'
+import { domItem } from './domItem'
 
 describe('domItem', () => {
   test('has sample domItem object', () => {

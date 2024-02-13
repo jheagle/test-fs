@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.jsonDom = exports.default = void 0
+exports.jsonDom = void 0
 /**
  * Sample of jsonDom object containing an empty nested array and objects
  * @memberOf module:test-fs
@@ -21,4 +21,3 @@ const jsonDom = exports.jsonDom = {
   children: [],
   axis: 'x'
 }
-var _default = exports.default = jsonDom

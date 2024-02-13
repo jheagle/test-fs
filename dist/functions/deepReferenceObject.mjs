@@ -21,4 +21,3 @@ export const deepReferenceObject = {
   title: 'Some Title',
   item: 45
 }
-export default deepReferenceObject

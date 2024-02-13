@@ -1,4 +1,4 @@
-import fileExists from './fileExists'
+import { fileExists } from './fileExists'
 
 describe('fileExists', () => {
   test('can find a valid file', () => {

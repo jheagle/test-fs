@@ -20,5 +20,3 @@ export const removeDirectory = (dirPath: string): Promise<any> => new Promise(
       )
   )
 )
-
-export default removeDirectory

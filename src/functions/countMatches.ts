@@ -7,5 +7,3 @@
  * @returns {number}
  */
 export const countMatches = (content: string, search: string): number => content.split(search).length - 1
-
-export default countMatches

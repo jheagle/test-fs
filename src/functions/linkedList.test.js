@@ -1,4 +1,4 @@
-import linkedList from './linkedList'
+import { linkedList } from './linkedList'
 
 describe('linkedList', () => {
   test('has sample linkedList object', () => {

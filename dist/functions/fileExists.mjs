@@ -13,4 +13,3 @@ export const fileExists = (filePath) => {
     return false
   }
 }
-export default fileExists

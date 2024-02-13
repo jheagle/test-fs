@@ -6,4 +6,3 @@
  * @returns {Promise<*>}
  */
 export declare const removeDirectory: (dirPath: string) => Promise<any>;
-export default removeDirectory;

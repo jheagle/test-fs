@@ -21,4 +21,3 @@ export type jsonDomItem = {
  * @type {Object.<string, string|number|Array|Object>}
  */
 export declare const domItem: Array<jsonDomItem>;
-export default domItem;

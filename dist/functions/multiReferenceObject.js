@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.multiReferenceObject = exports.default = void 0
+exports.multiReferenceObject = void 0
 /**
  * Sample of an object containing multiple references.
  * @memberOf module:test-fs
@@ -21,4 +21,3 @@ const multiReferenceObject = exports.multiReferenceObject = {
   title: 'Some Title',
   item: 45
 }
-var _default = exports.default = multiReferenceObject

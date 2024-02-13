@@ -15,4 +15,3 @@ export declare const deepReferenceObject: {
     title: string;
     item: number;
 };
-export default deepReferenceObject;

@@ -9,4 +9,3 @@ export type treeLinker = {
  * @type {Object.<string, string|Object|Array>}
  */
 export declare const nodeTree: treeLinker;
-export default nodeTree;

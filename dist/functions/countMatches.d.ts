@@ -7,4 +7,3 @@
  * @returns {number}
  */
 export declare const countMatches: (content: string, search: string) => number;
-export default countMatches;

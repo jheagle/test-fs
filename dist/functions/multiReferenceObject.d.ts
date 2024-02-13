@@ -15,4 +15,3 @@ export declare const multiReferenceObject: {
     title: string;
     item: number;
 };
-export default multiReferenceObject;

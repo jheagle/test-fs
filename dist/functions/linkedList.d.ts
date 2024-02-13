@@ -9,4 +9,3 @@ export type linker = {
  * @type {Object.<string, string|Object>}
  */
 export declare const linkedList: linker;
-export default linkedList;

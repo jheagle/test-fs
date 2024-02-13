@@ -5,4 +5,3 @@
  * @returns {boolean}
  */
 export declare const fileExists: (filePath: string) => boolean;
-export default fileExists;

@@ -1,4 +1,4 @@
-import nodeTree from './nodeTree'
+import { nodeTree } from './nodeTree'
 
 describe('nodeTree', () => {
   test('has sample nodeTree object', () => {

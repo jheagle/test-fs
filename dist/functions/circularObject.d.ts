@@ -11,4 +11,3 @@ export declare const circularObject: {
     head: jsonDomItem | null;
     children: jsonDomItem[] | [];
 };
-export default circularObject;

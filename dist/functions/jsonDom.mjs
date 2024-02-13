@@ -12,4 +12,3 @@ export const jsonDom = {
   children: [],
   axis: 'x'
 }
-export default jsonDom

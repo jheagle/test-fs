@@ -9,4 +9,3 @@ import { access, constants, rm } from 'fs'
 export const removeDirectory = (dirPath) => new Promise((resolve, reject) => access(dirPath, constants.F_OK, (removed) => removed
   ? resolve(dirPath)
   : rm(dirPath, { recursive: true }, (error) => error ? reject(error) : resolve(dirPath))))
-export default removeDirectory

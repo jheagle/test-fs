@@ -14,5 +14,3 @@ export const logObject = (object: any, label: string = 'logging', outputType: 'd
   }
   return logger(label, require('util').inspect(object, false, null, true))
 }
-
-export default logObject

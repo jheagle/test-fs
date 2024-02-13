@@ -1,4 +1,4 @@
-import circularObject from './circularObject'
+import { circularObject } from './circularObject'
 
 describe('circularObject', () => {
   test('has sample circular object', () => {

@@ -1,4 +1,4 @@
-import deepReferenceObject from './deepReferenceObject'
+import { deepReferenceObject } from './deepReferenceObject'
 
 describe('deepReferenceObject', () => {
   test('has sample deep reference object', () => {

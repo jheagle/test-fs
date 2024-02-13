@@ -1,4 +1,4 @@
-import jsonDom from './jsonDom'
+import { jsonDom } from './jsonDom'
 
 describe('jsonDom', () => {
   test('has sample jsonDom object', () => {

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.domItem = exports.default = void 0
+exports.domItem = void 0
 /**
  * Sample of domItem child with nested child and optional details
  * @memberOf module:test-fs
@@ -34,4 +34,3 @@ const domItem = exports.domItem = [{
   parentItem: {},
   tagName: 'div'
 }]
-var _default = exports.default = domItem

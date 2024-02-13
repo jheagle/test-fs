@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.linkedList = exports.default = void 0
+exports.linkedList = void 0
 /**
  * Sample LinkedList for testing circular references.
  * @memberOf module:test-fs
@@ -24,4 +24,3 @@ linkedList.next.next = {
   prev: linkedList.next,
   next: null
 }
-var _default = exports.default = linkedList

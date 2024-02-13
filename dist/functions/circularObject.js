@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.default = exports.circularObject = void 0
+exports.circularObject = void 0
 /**
  * Multilayered node tree-like structure with parent references
  * @memberOf module:test-fs
@@ -51,4 +51,3 @@ circularObject.head.children = [{
 }]
 circularObject.head.children[0].parent = circularObject.head
 circularObject.head.children[1].parent = circularObject.head
-var _default = exports.default = circularObject

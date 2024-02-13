@@ -64,7 +64,6 @@ export declare let testFs: {
         setDefaults: (dirPath?: string) => void;
     };
 };
-export default testFs;
 export declare let testFsBrowser: {
     circularObject: {
         name: string;

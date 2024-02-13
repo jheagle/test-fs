@@ -1,4 +1,4 @@
-import multiReferenceObject from './multiReferenceObject'
+import { multiReferenceObject } from './multiReferenceObject'
 
 describe('multiReferenceObject', () => {
   test('has sample multiReferenceObject object', () => {

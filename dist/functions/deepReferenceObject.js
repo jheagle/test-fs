@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.default = exports.deepReferenceObject = void 0
+exports.deepReferenceObject = void 0
 /**
  * Sample object with deep references.
  * @memberOf module:test-fs
@@ -21,4 +21,3 @@ const deepReferenceObject = exports.deepReferenceObject = {
   title: 'Some Title',
   item: 45
 }
-var _default = exports.default = deepReferenceObject
