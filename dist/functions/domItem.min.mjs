@@ -1,1 +1,0 @@
-export const domItem=[{attributes:{className:"row",style:{}},axis:"y",children:[{attributes:{style:{}},axis:"x",children:[],element:{},eventListeners:{},hasShip:!1,isHit:!1,parentItem:{},point:{},tagName:"div"}],element:null,eventListeners:{},parentItem:{},tagName:"div"}];

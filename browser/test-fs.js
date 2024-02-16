@@ -1990,7 +1990,7 @@
       }
     }
     exports.fileExists = fileExists
-  }, { fs: 107 }],
+  }, { fs: 108 }],
   98: [function (require, module, exports) {
     'use strict'
 
@@ -2051,6 +2051,7 @@
       value: true
     })
     exports.logObject = void 0
+    var _browserOrNode = require('browser-or-node')
     /**
  * Log out an object in a nicely formatted way.
  * @function
@@ -2062,13 +2063,13 @@
  */
     const logObject = (object, label = 'logging', outputType = 'log') => {
       const logger = outputType === 'string' ? (label, object) => `'${label}' | ` + JSON.stringify(object) : console[outputType]
-      if (typeof require === 'undefined' || outputType === 'string') {
+      if (_browserOrNode.isBrowser || outputType === 'string') {
         return logger(label, object)
       }
       return logger(label, require('util').inspect(object, false, null, true))
     }
     exports.logObject = logObject
-  }, { util: 138 }],
+  }, { 'browser-or-node': 107, util: 139 }],
   101: [function (require, module, exports) {
     'use strict'
 
@@ -2146,7 +2147,7 @@
       recursive: true
     }, error => error ? reject(error) : resolve(dirPath))))
     exports.removeDirectory = removeDirectory
-  }, { fs: 107 }],
+  }, { fs: 108 }],
   104: [function (require, module, exports) {
     'use strict'
 
@@ -2235,7 +2236,7 @@
       setDefaults
     }
     var _default = exports.default = setUp
-  }, { './fileExists': 97, './removeDirectory': 103, fs: 107 }],
+  }, { './fileExists': 97, './removeDirectory': 103, fs: 108 }],
   105: [function (require, module, exports) {
     'use strict'
 
@@ -2471,9 +2472,65 @@
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
   }, {}],
   107: [function (require, module, exports) {
+    (function (process) {
+      (function () {
+        var __defProp = Object.defineProperty
+        var __getOwnPropDesc = Object.getOwnPropertyDescriptor
+        var __getOwnPropNames = Object.getOwnPropertyNames
+        var __hasOwnProp = Object.prototype.hasOwnProperty
+        var __export = (target, all) => {
+          for (var name in all) { __defProp(target, name, { get: all[name], enumerable: true }) }
+        }
+        var __copyProps = (to, from, except, desc) => {
+          if (from && typeof from === 'object' || typeof from === 'function') {
+            for (const key of __getOwnPropNames(from)) {
+              if (!__hasOwnProp.call(to, key) && key !== except) { __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable }) }
+            }
+          }
+          return to
+        }
+        var __toCommonJS = (mod) => __copyProps(__defProp({}, '__esModule', { value: true }), mod)
+
+        // src/index.ts
+        var src_exports = {}
+        __export(src_exports, {
+          isBrowser: () => isBrowser,
+          isDeno: () => isDeno,
+          isJsDom: () => isJsDom,
+          isNode: () => isNode,
+          isWebWorker: () => isWebWorker
+        })
+        module.exports = __toCommonJS(src_exports)
+        var isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined'
+        var isNode = (
+          // @ts-expect-error
+          typeof process !== 'undefined' && // @ts-expect-error
+  process.versions != null && // @ts-expect-error
+  process.versions.node != null
+        )
+        var isWebWorker = typeof self === 'object' && self.constructor && self.constructor.name === 'DedicatedWorkerGlobalScope'
+        var isJsDom = typeof window !== 'undefined' && window.name === 'nodejs' || typeof navigator !== 'undefined' && 'userAgent' in navigator && typeof navigator.userAgent === 'string' && (navigator.userAgent.includes('Node.js') || navigator.userAgent.includes('jsdom'))
+        var isDeno = (
+          // @ts-expect-error
+          typeof Deno !== 'undefined' && // @ts-expect-error
+  typeof Deno.version !== 'undefined' && // @ts-expect-error
+  typeof Deno.version.deno !== 'undefined'
+        )
+        // Annotate the CommonJS export names for ESM import in node:
+        0 && (module.exports = {
+          isBrowser,
+          isDeno,
+          isJsDom,
+          isNode,
+          isWebWorker
+        })
+      }).call(this)
+    }).call(this, require('_process'))
+  }, { _process: 135 }],
+  108: [function (require, module, exports) {
 
   }, {}],
-  108: [function (require, module, exports) {
+  109: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -2489,8 +2546,8 @@
       }
       return intrinsic
     }
-  }, { './': 109, 'get-intrinsic': 121 }],
-  109: [function (require, module, exports) {
+  }, { './': 110, 'get-intrinsic': 122 }],
+  110: [function (require, module, exports) {
     'use strict'
 
     var bind = require('function-bind')
@@ -2535,8 +2592,8 @@
     } else {
       module.exports.apply = applyBind
     }
-  }, { 'es-errors/type': 116, 'function-bind': 120, 'get-intrinsic': 121, 'set-function-length': 135 }],
-  110: [function (require, module, exports) {
+  }, { 'es-errors/type': 117, 'function-bind': 121, 'get-intrinsic': 122, 'set-function-length': 136 }],
+  111: [function (require, module, exports) {
     'use strict'
 
     var hasPropertyDescriptors = require('has-property-descriptors')()
@@ -2605,50 +2662,50 @@
         throw new $SyntaxError('This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.')
       }
     }
-  }, { 'es-errors/syntax': 115, 'es-errors/type': 116, 'get-intrinsic': 121, gopd: 122, 'has-property-descriptors': 123 }],
-  111: [function (require, module, exports) {
+  }, { 'es-errors/syntax': 116, 'es-errors/type': 117, 'get-intrinsic': 122, gopd: 123, 'has-property-descriptors': 124 }],
+  112: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./eval')} */
     module.exports = EvalError
   }, {}],
-  112: [function (require, module, exports) {
+  113: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('.')} */
     module.exports = Error
   }, {}],
-  113: [function (require, module, exports) {
+  114: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./range')} */
     module.exports = RangeError
   }, {}],
-  114: [function (require, module, exports) {
+  115: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./ref')} */
     module.exports = ReferenceError
   }, {}],
-  115: [function (require, module, exports) {
+  116: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./syntax')} */
     module.exports = SyntaxError
   }, {}],
-  116: [function (require, module, exports) {
+  117: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./type')} */
     module.exports = TypeError
   }, {}],
-  117: [function (require, module, exports) {
+  118: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./uri')} */
     module.exports = URIError
   }, {}],
-  118: [function (require, module, exports) {
+  119: [function (require, module, exports) {
     'use strict'
 
     var isCallable = require('is-callable')
@@ -2711,8 +2768,8 @@
     }
 
     module.exports = forEach
-  }, { 'is-callable': 131 }],
-  119: [function (require, module, exports) {
+  }, { 'is-callable': 132 }],
+  120: [function (require, module, exports) {
     'use strict'
 
     /* eslint no-invalid-this: 1 */
@@ -2797,14 +2854,14 @@
       return bound
     }
   }, {}],
-  120: [function (require, module, exports) {
+  121: [function (require, module, exports) {
     'use strict'
 
     var implementation = require('./implementation')
 
     module.exports = Function.prototype.bind || implementation
-  }, { './implementation': 119 }],
-  121: [function (require, module, exports) {
+  }, { './implementation': 120 }],
+  122: [function (require, module, exports) {
     'use strict'
 
     var undefined
@@ -3164,8 +3221,8 @@
       }
       return value
     }
-  }, { 'es-errors': 112, 'es-errors/eval': 111, 'es-errors/range': 113, 'es-errors/ref': 114, 'es-errors/syntax': 115, 'es-errors/type': 116, 'es-errors/uri': 117, 'function-bind': 120, 'has-proto': 124, 'has-symbols': 125, hasown: 128 }],
-  122: [function (require, module, exports) {
+  }, { 'es-errors': 113, 'es-errors/eval': 112, 'es-errors/range': 114, 'es-errors/ref': 115, 'es-errors/syntax': 116, 'es-errors/type': 117, 'es-errors/uri': 118, 'function-bind': 121, 'has-proto': 125, 'has-symbols': 126, hasown: 129 }],
+  123: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -3182,8 +3239,8 @@
     }
 
     module.exports = $gOPD
-  }, { 'get-intrinsic': 121 }],
-  123: [function (require, module, exports) {
+  }, { 'get-intrinsic': 122 }],
+  124: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -3217,8 +3274,8 @@
     }
 
     module.exports = hasPropertyDescriptors
-  }, { 'get-intrinsic': 121 }],
-  124: [function (require, module, exports) {
+  }, { 'get-intrinsic': 122 }],
+  125: [function (require, module, exports) {
     'use strict'
 
     var test = {
@@ -3231,7 +3288,7 @@
       return { __proto__: test }.foo === test.foo && !({ __proto__: null } instanceof $Object)
     }
   }, {}],
-  125: [function (require, module, exports) {
+  126: [function (require, module, exports) {
     'use strict'
 
     var origSymbol = typeof Symbol !== 'undefined' && Symbol
@@ -3245,8 +3302,8 @@
 
       return hasSymbolSham()
     }
-  }, { './shams': 126 }],
-  126: [function (require, module, exports) {
+  }, { './shams': 127 }],
+  127: [function (require, module, exports) {
     'use strict'
 
     /* eslint complexity: [2, 18], max-statements: [2, 33] */
@@ -3290,7 +3347,7 @@
       return true
     }
   }, {}],
-  127: [function (require, module, exports) {
+  128: [function (require, module, exports) {
     'use strict'
 
     var hasSymbols = require('has-symbols/shams')
@@ -3299,8 +3356,8 @@
     module.exports = function hasToStringTagShams () {
       return hasSymbols() && !!Symbol.toStringTag
     }
-  }, { 'has-symbols/shams': 126 }],
-  128: [function (require, module, exports) {
+  }, { 'has-symbols/shams': 127 }],
+  129: [function (require, module, exports) {
     'use strict'
 
     var call = Function.prototype.call
@@ -3309,8 +3366,8 @@
 
     /** @type {(o: {}, p: PropertyKey) => p is keyof o} */
     module.exports = bind.call(call, $hasOwn)
-  }, { 'function-bind': 120 }],
-  129: [function (require, module, exports) {
+  }, { 'function-bind': 121 }],
+  130: [function (require, module, exports) {
     if (typeof Object.create === 'function') {
       // implementation from standard node.js 'util' module
       module.exports = function inherits (ctor, superCtor) {
@@ -3339,7 +3396,7 @@
       }
     }
   }, {}],
-  130: [function (require, module, exports) {
+  131: [function (require, module, exports) {
     'use strict'
 
     var hasToStringTag = require('has-tostringtag/shams')()
@@ -3373,8 +3430,8 @@
     isStandardArguments.isLegacyArguments = isLegacyArguments // for tests
 
     module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArguments
-  }, { 'call-bind/callBound': 108, 'has-tostringtag/shams': 127 }],
-  131: [function (require, module, exports) {
+  }, { 'call-bind/callBound': 109, 'has-tostringtag/shams': 128 }],
+  132: [function (require, module, exports) {
     'use strict'
 
     var fnToStr = Function.prototype.toString
@@ -3477,7 +3534,7 @@
         return tryFunctionObject(value)
       }
   }, {}],
-  132: [function (require, module, exports) {
+  133: [function (require, module, exports) {
     'use strict'
 
     var toStr = Object.prototype.toString
@@ -3516,8 +3573,8 @@
       }
       return getProto(fn) === GeneratorFunction
     }
-  }, { 'has-tostringtag/shams': 127 }],
-  133: [function (require, module, exports) {
+  }, { 'has-tostringtag/shams': 128 }],
+  134: [function (require, module, exports) {
     'use strict'
 
     var whichTypedArray = require('which-typed-array')
@@ -3526,8 +3583,8 @@
     module.exports = function isTypedArray (value) {
       return !!whichTypedArray(value)
     }
-  }, { 'which-typed-array': 139 }],
-  134: [function (require, module, exports) {
+  }, { 'which-typed-array': 140 }],
+  135: [function (require, module, exports) {
     // shim for using process in browser
     var process = module.exports = {}
 
@@ -3708,7 +3765,7 @@
     }
     process.umask = function () { return 0 }
   }, {}],
-  135: [function (require, module, exports) {
+  136: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -3753,8 +3810,8 @@
       }
       return fn
     }
-  }, { 'define-data-property': 110, 'es-errors/type': 116, 'get-intrinsic': 121, gopd: 122, 'has-property-descriptors': 123 }],
-  136: [function (require, module, exports) {
+  }, { 'define-data-property': 111, 'es-errors/type': 117, 'get-intrinsic': 122, gopd: 123, 'has-property-descriptors': 124 }],
+  137: [function (require, module, exports) {
     module.exports = function isBuffer (arg) {
       return arg && typeof arg === 'object' &&
     typeof arg.copy === 'function' &&
@@ -3762,7 +3819,7 @@
     typeof arg.readUInt8 === 'function'
     }
   }, {}],
-  137: [function (require, module, exports) {
+  138: [function (require, module, exports) {
     // Currently in sync with Node.js lib/internal/util/types.js
     // https://github.com/nodejs/node/commit/112cc7c27551254aa2b17098fb774867f05ed0d9
 
@@ -4096,8 +4153,8 @@
         }
       })
     })
-  }, { 'is-arguments': 130, 'is-generator-function': 132, 'is-typed-array': 133, 'which-typed-array': 139 }],
-  138: [function (require, module, exports) {
+  }, { 'is-arguments': 131, 'is-generator-function': 133, 'is-typed-array': 134, 'which-typed-array': 140 }],
+  139: [function (require, module, exports) {
     (function (process) {
       (function () {
         // Copyright Joyent, Inc. and other Node contributors.
@@ -4796,8 +4853,8 @@
         exports.callbackify = callbackify
       }).call(this)
     }).call(this, require('_process'))
-  }, { './support/isBuffer': 136, './support/types': 137, _process: 134, inherits: 129 }],
-  139: [function (require, module, exports) {
+  }, { './support/isBuffer': 137, './support/types': 138, _process: 135, inherits: 130 }],
+  140: [function (require, module, exports) {
     (function (global) {
       (function () {
         'use strict'
@@ -4915,5 +4972,5 @@
         }
       }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
-  }, { 'available-typed-arrays': 106, 'call-bind': 109, 'call-bind/callBound': 108, 'for-each': 118, gopd: 122, 'has-tostringtag/shams': 127 }]
+  }, { 'available-typed-arrays': 106, 'call-bind': 110, 'call-bind/callBound': 109, 'for-each': 119, gopd: 123, 'has-tostringtag/shams': 128 }]
 }, {}, [105])

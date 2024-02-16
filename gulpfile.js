@@ -46,10 +46,11 @@ const tsSearch = `${distPath}/**/*.mjs`
  * @param {string} replaceWith
  * @return {string}
  */
-const importReplace = (contents, replaceWith) => {
-  const regexImport = new RegExp('(export|import) (.+) from ([\'"])(\./[a-zA-Z-_/]+)(\.[a-z]{2,3})?[\'"]', 'g')
-  return contents.replaceAll(regexImport, replaceWith)
-}
+const importReplace = (contents, replaceWith) => contents
+  .replaceAll(
+    /(export|import) ({?.+}?) from (['"])(\.+\/[a-zA-Z-_\/]+)(\.[a-z]{2,3})?['"]/g,
+    replaceWith
+  )
 
 /**
  * Return a promise to be completed once the specified directory is deleted.
@@ -145,20 +146,6 @@ const distLint = () => src(distSearch)
   .pipe(dest(distPath))
 
 /**
- * Creates minified versions of the dist files.
- * @function
- * @returns {*}
- */
-const distMinify = () => src(distSearch)
-  .pipe(uglify())
-  .pipe(rename(path => {
-    if (path.extname) {
-      path.extname = `.min${path.extname}`
-    }
-  }))
-  .pipe(dest(distPath))
-
-/**
  * Copy a readme template into the README.md file.
  * @function
  * @returns {*}
@@ -231,7 +218,7 @@ const build = (done = null) => parallel(
   series(
     clean,
     distSeries,
-    parallel(distLint, distMinify),
+    distLint,
     buildReadme,
     bundle,
     parallel(bundleLint, bundleMinify)

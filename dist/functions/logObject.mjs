@@ -1,3 +1,4 @@
+import { isBrowser } from 'browser-or-node'
 /**
  * Log out an object in a nicely formatted way.
  * @function
@@ -9,7 +10,7 @@
  */
 export const logObject = (object, label = 'logging', outputType = 'log') => {
   const logger = outputType === 'string' ? (label, object) => `'${label}' | ` + JSON.stringify(object) : console[outputType]
-  if (typeof require === 'undefined' || outputType === 'string') {
+  if (isBrowser || outputType === 'string') {
     return logger(label, object)
   }
   return logger(label, require('util').inspect(object, false, null, true))

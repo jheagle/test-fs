@@ -41,6 +41,7 @@
   },
   "homepage": "https://github.com/jheagle/test-fs#readme",
   "dependencies": {
+    "browser-or-node": "^3.0.0-pre.0",
     "fs": "^0.0.1-security",
     "vinyl-source-stream": "^2.0.0"
   },

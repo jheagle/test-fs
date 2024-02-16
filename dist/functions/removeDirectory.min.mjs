@@ -1,1 +1,0 @@
-import{access,constants,rm}from"fs";export const removeDirectory=s=>new Promise(((r,e)=>access(s,constants.F_OK,(c=>c?r(s):rm(s,{recursive:!0},(c=>c?e(c):r(s)))))));

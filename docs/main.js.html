@@ -28,22 +28,161 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict'
 
+require('core-js/modules/esnext.async-iterator.for-each.js')
+require('core-js/modules/esnext.iterator.constructor.js')
+require('core-js/modules/esnext.iterator.for-each.js')
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-exports.testFsBrowser = exports.testFs = exports.default = void 0
-var _circularObject = _interopRequireDefault(require('./functions/circularObject'))
-var _countMatches = _interopRequireDefault(require('./functions/countMatches'))
-var _deepReferenceObject = _interopRequireDefault(require('./functions/deepReferenceObject'))
-var _domItem = _interopRequireDefault(require('./functions/domItem'))
-var _jsonDom = _interopRequireDefault(require('./functions/jsonDom'))
-var _linkedList = _interopRequireDefault(require('./functions/linkedList'))
-var _logObject = _interopRequireDefault(require('./functions/logObject'))
-var _multiReferenceObject = _interopRequireDefault(require('./functions/multiReferenceObject'))
-var _nodeTree = _interopRequireDefault(require('./functions/nodeTree'))
-var _removeDirectory = _interopRequireDefault(require('./functions/removeDirectory'))
-var _setUp = _interopRequireDefault(require('./functions/setUp'))
-function _interopRequireDefault (obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj } }
+var _exportNames = {
+  testFs: true,
+  testFsBrowser: true
+}
+exports.testFsBrowser = exports.testFs = void 0
+var _circularObject = require('./functions/circularObject')
+Object.keys(_circularObject).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _circularObject[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _circularObject[key]
+    }
+  })
+})
+var _countMatches = require('./functions/countMatches')
+Object.keys(_countMatches).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _countMatches[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _countMatches[key]
+    }
+  })
+})
+var _deepReferenceObject = require('./functions/deepReferenceObject')
+Object.keys(_deepReferenceObject).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _deepReferenceObject[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _deepReferenceObject[key]
+    }
+  })
+})
+var _domItem = require('./functions/domItem')
+Object.keys(_domItem).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _domItem[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _domItem[key]
+    }
+  })
+})
+var _fileExists = require('./functions/fileExists')
+Object.keys(_fileExists).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _fileExists[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _fileExists[key]
+    }
+  })
+})
+var _jsonDom = require('./functions/jsonDom')
+Object.keys(_jsonDom).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _jsonDom[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _jsonDom[key]
+    }
+  })
+})
+var _linkedList = require('./functions/linkedList')
+Object.keys(_linkedList).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _linkedList[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _linkedList[key]
+    }
+  })
+})
+var _logObject = require('./functions/logObject')
+Object.keys(_logObject).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _logObject[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _logObject[key]
+    }
+  })
+})
+var _multiReferenceObject = require('./functions/multiReferenceObject')
+Object.keys(_multiReferenceObject).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _multiReferenceObject[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _multiReferenceObject[key]
+    }
+  })
+})
+var _nodeTree = require('./functions/nodeTree')
+Object.keys(_nodeTree).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _nodeTree[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _nodeTree[key]
+    }
+  })
+})
+var _removeDirectory = require('./functions/removeDirectory')
+Object.keys(_removeDirectory).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _removeDirectory[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _removeDirectory[key]
+    }
+  })
+})
+var _setUp = require('./functions/setUp')
+Object.keys(_setUp).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports &amp;&amp; exports[key] === _setUp[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _setUp[key]
+    }
+  })
+})
 /**
  * An assortment of objects that can be used in tests and some functions to help debug and write tests.
  * @file
@@ -53,29 +192,29 @@ function _interopRequireDefault (obj) { return obj &amp;&amp; obj.__esModule ? o
  */
 
 const testFs = exports.testFs = {
-  circularObject: _circularObject.default,
-  countMatches: _countMatches.default,
-  deepReferenceObject: _deepReferenceObject.default,
-  domItem: _domItem.default,
-  jsonDom: _jsonDom.default,
-  linkedList: _linkedList.default,
-  logObject: _logObject.default,
-  multiReferenceObject: _multiReferenceObject.default,
-  nodeTree: _nodeTree.default,
-  removeDirectory: _removeDirectory.default,
-  setUp: _setUp.default
+  circularObject: _circularObject.circularObject,
+  countMatches: _countMatches.countMatches,
+  deepReferenceObject: _deepReferenceObject.deepReferenceObject,
+  domItem: _domItem.domItem,
+  fileExists: _fileExists.fileExists,
+  jsonDom: _jsonDom.jsonDom,
+  linkedList: _linkedList.linkedList,
+  logObject: _logObject.logObject,
+  multiReferenceObject: _multiReferenceObject.multiReferenceObject,
+  nodeTree: _nodeTree.nodeTree,
+  removeDirectory: _removeDirectory.removeDirectory,
+  setUp: _setUp.setUp
 }
-var _default = exports.default = testFs
 const testFsBrowser = exports.testFsBrowser = {
-  circularObject: _circularObject.default,
-  countMatches: _countMatches.default,
-  deepReferenceObject: _deepReferenceObject.default,
-  domItem: _domItem.default,
-  jsonDom: _jsonDom.default,
-  linkedList: _linkedList.default,
-  logObject: _logObject.default,
-  multiReferenceObject: _multiReferenceObject.default,
-  nodeTree: _nodeTree.default
+  circularObject: _circularObject.circularObject,
+  countMatches: _countMatches.countMatches,
+  deepReferenceObject: _deepReferenceObject.deepReferenceObject,
+  domItem: _domItem.domItem,
+  jsonDom: _jsonDom.jsonDom,
+  linkedList: _linkedList.linkedList,
+  logObject: _logObject.logObject,
+  multiReferenceObject: _multiReferenceObject.multiReferenceObject,
+  nodeTree: _nodeTree.nodeTree
 }
 if (void 0) {
   // @ts-ignore
@@ -100,7 +239,7 @@ if (void 0) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jan 17 2024 10:16:48 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Feb 15 2024 22:10:58 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
