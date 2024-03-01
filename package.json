@@ -1,6 +1,6 @@
 {
   "name": "test-filesystem",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Set up and tear down a temp directory for running filesystem tests.",
   "main": "dist/main.js",
   "module": "./dist/main.mjs",
