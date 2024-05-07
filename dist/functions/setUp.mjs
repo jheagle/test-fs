@@ -27,7 +27,7 @@ export const afterEach = () => removeDirectory(tempDir)
  * @param {boolean} [exists=true]
  * @returns {Promise<*|void>}
  */
-export const createTempDir = (exists = true) => __awaiter(void 0, void 0, void 0, function * () {
+export const createTempDir = (...args_1) => __awaiter(void 0, [...args_1], void 0, function * (exists = true) {
   if (exists) {
     return removeDirectory(tempDir)
       .then(removedDir => createTempDir(fileExists(removedDir)))

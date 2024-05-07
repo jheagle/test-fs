@@ -1,10 +1,13 @@
+import Module from 'node:module'
+import { dest, parallel, series, src } from 'gulp'
+import { access, appendFileSync, constants, rm } from 'fs'
+import { globSync } from 'glob'
+
+const require = Module.createRequire(import.meta.url)
+
 const babel = require('gulp-babel')
 const browserify = require('browserify')
-const { dest, parallel, series, src } = require('gulp')
-const { access, appendFileSync, constants, rm } = require('fs')
 const jsdoc2md = require('jsdoc-to-markdown')
-const { globSync } = require('glob')
-const merge = require('merge2')  // Requires separate installation
 const rename = require('gulp-rename')
 const { runCLI } = require('jest')
 const source = require('vinyl-source-stream')
@@ -79,7 +82,7 @@ const removeDirectory = (dirPath) => new Promise(
  * @function
  * @returns {Promise<string[]> | *}
  */
-const clean = () => cleanFolders.reduce(
+export const clean = () => cleanFolders.reduce(
   (promise, path) => promise.then(() => removeDirectory(path)),
   Promise.resolve()
 )
@@ -90,7 +93,7 @@ const clean = () => cleanFolders.reduce(
  * @returns {Function}
  * @see `https://www.typescriptlang.org/docs/handbook/gulp.html` for more info
  */
-const typescript = () => {
+export const typescript = () => {
   const tsResult = src(srcSearch)
     .pipe(ts({
       declaration: true,
@@ -98,17 +101,17 @@ const typescript = () => {
       target: 'es6',
       module: 'es2020'
     }))
-  return merge([
-    tsResult.dts.pipe(dest(distPath)),
-    tsResult.js
-      .pipe(through.obj(function (file, enc, cb) {
-        file.contents = Buffer.from(importReplace(file.contents.toString(), '$1 $2 from $3$4.mjs$3'))
-        this.push(file)
-        cb()
-      }))
-      .pipe(rename({ extname: '.mjs' }))
-      .pipe(dest(distPath))
-  ])
+  // Output the type definitions
+  tsResult.dts.pipe(dest(distPath))
+  // Create the runnable code
+  return tsResult.js
+    .pipe(through.obj(function (file, enc, cb) {
+      file.contents = Buffer.from(importReplace(file.contents.toString(), '$1 $2 from $3$4.mjs$3'))
+      this.push(file)
+      cb()
+    }))
+    .pipe(rename({ extname: '.mjs' }))
+    .pipe(dest(distPath))
 }
 
 /**
@@ -116,7 +119,7 @@ const typescript = () => {
  * @function
  * @return {stream.Stream}
  */
-const dist = () => src(tsSearch)
+export const dist = () => src(tsSearch)
   .pipe(through.obj(function (file, enc, cb) {
     file.contents = Buffer.from(importReplace(file.contents.toString(), '$1 $2 from $3$4$3'))
     this.push(file)
@@ -171,14 +174,14 @@ const addToReadme = () => jsdoc2md
  * @function
  * @return {*}
  */
-const buildReadme = (done = null) => series(createReadme, addToReadme)(done)
+export const readme = (done = null) => series(createReadme, addToReadme)(done)
 
 /**
  * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified output directory.
  * @function
  * @returns {stream.Stream}
  */
-const bundle = () => browserify(distMain)
+export const bundle = () => browserify(distMain)
   .bundle()
   .pipe(source(`${browserName}.js`))
   .pipe(dest(browserPath))
@@ -212,23 +215,16 @@ const bundleMinify = () => src(`${browserPath}/${browserName}.js`)
  * @function
  * @returns {Promise<*>}
  */
-const testFull = () => runCLI(testOptions, testPath)
+export const testFull = () => runCLI(testOptions, testPath)
 
-const build = (done = null) => parallel(
+export const build = (done = null) => parallel(
   series(
     clean,
     distSeries,
     distLint,
-    buildReadme,
+    readme,
     bundle,
     parallel(bundleLint, bundleMinify)
   ),
   testFull
 )(done)
-
-exports.bundle = bundle
-exports.dist = dist
-exports.build = build
-exports.readme = buildReadme
-exports.testFull = testFull
-exports.typescript = typescript
