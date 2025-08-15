@@ -51,49 +51,25 @@ An assortment of objects that can be used in tests and some functions to help de
 **Author**: Joshua Heagle <joshuaheagle@gmail.com>  
 
 * [test-fs](#module_test-fs)
-    * [.circularObject](#module_test-fs.circularObject) : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
-    * [.deepReferenceObject](#module_test-fs.deepReferenceObject) : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
-    * [.domItem](#module_test-fs.domItem) : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
-    * [.jsonDom](#module_test-fs.jsonDom) : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
-    * [.linkedList](#module_test-fs.linkedList) : <code>Object.&lt;string, (string\|Object)&gt;</code>
-    * [.multiReferenceObject](#module_test-fs.multiReferenceObject) : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
     * [.nodeTree](#module_test-fs.nodeTree) : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
-    * [.countMatches(content, search)](#module_test-fs.countMatches) ⇒ <code>number</code>
-    * [.fileExists(filePath)](#module_test-fs.fileExists) ⇒ <code>boolean</code>
-    * [.logObject(object, [label], [outputType])](#module_test-fs.logObject) ⇒ <code>string</code> \| <code>undefined</code>
-    * [.removeDirectory(dirPath)](#module_test-fs.removeDirectory) ⇒ <code>Promise.&lt;\*&gt;</code>
+    * [.multiReferenceObject](#module_test-fs.multiReferenceObject) : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
+    * [.linkedList](#module_test-fs.linkedList) : <code>Object.&lt;string, (string\|Object)&gt;</code>
+    * [.jsonDom](#module_test-fs.jsonDom) : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
+    * [.domItem](#module_test-fs.domItem) : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
+    * [.deepReferenceObject](#module_test-fs.deepReferenceObject) : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
+    * [.circularObject](#module_test-fs.circularObject) : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
     * [.afterEach()](#module_test-fs.afterEach) ⇒ <code>Promise.&lt;\*&gt;</code>
     * [.exports.afterEach([exists])](#module_test-fs.exports.afterEach) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
     * [.exports.createTempDir()](#module_test-fs.exports.createTempDir) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
+    * [.removeDirectory(dirPath)](#module_test-fs.removeDirectory) ⇒ <code>Promise.&lt;\*&gt;</code>
+    * [.logObject(object, [label], [outputType])](#module_test-fs.logObject) ⇒ <code>string</code> \| <code>undefined</code>
+    * [.fileExists(filePath)](#module_test-fs.fileExists) ⇒ <code>boolean</code>
+    * [.countMatches(content, search)](#module_test-fs.countMatches) ⇒ <code>number</code>
 
-<a name="module_test-fs.circularObject"></a>
+<a name="module_test-fs.nodeTree"></a>
 
-### test-fs.circularObject : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
-Multilayered node tree-like structure with parent references
-
-**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
-<a name="module_test-fs.deepReferenceObject"></a>
-
-### test-fs.deepReferenceObject : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
-Sample object with deep references.
-
-**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
-<a name="module_test-fs.domItem"></a>
-
-### test-fs.domItem : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
-Sample of domItem child with nested child and optional details
-
-**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
-<a name="module_test-fs.jsonDom"></a>
-
-### test-fs.jsonDom : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
-Sample of jsonDom object containing an empty nested array and objects
-
-**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
-<a name="module_test-fs.linkedList"></a>
-
-### test-fs.linkedList : <code>Object.&lt;string, (string\|Object)&gt;</code>
-Sample LinkedList for testing circular references.
+### test-fs.nodeTree : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
+Sample NodeTree for testing circular references and arrays.
 
 **Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
 <a name="module_test-fs.multiReferenceObject"></a>
@@ -102,59 +78,36 @@ Sample LinkedList for testing circular references.
 Sample of an object containing multiple references.
 
 **Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
-<a name="module_test-fs.nodeTree"></a>
+<a name="module_test-fs.linkedList"></a>
 
-### test-fs.nodeTree : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
-Sample NodeTree for testing circular references and arrays.
+### test-fs.linkedList : <code>Object.&lt;string, (string\|Object)&gt;</code>
+Sample LinkedList for testing circular references.
 
 **Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
-<a name="module_test-fs.countMatches"></a>
+<a name="module_test-fs.jsonDom"></a>
 
-### test-fs.countMatches(content, search) ⇒ <code>number</code>
-Simple way to count string occurrences for testing.
+### test-fs.jsonDom : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
+Sample of jsonDom object containing an empty nested array and objects
 
-**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
+<a name="module_test-fs.domItem"></a>
 
-| Param | Type |
-| --- | --- |
-| content | <code>string</code> | 
-| search | <code>string</code> | 
+### test-fs.domItem : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
+Sample of domItem child with nested child and optional details
 
-<a name="module_test-fs.fileExists"></a>
+**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
+<a name="module_test-fs.deepReferenceObject"></a>
 
-### test-fs.fileExists(filePath) ⇒ <code>boolean</code>
-Detect if a file exists and is usable.
+### test-fs.deepReferenceObject : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
+Sample object with deep references.
 
-**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
+<a name="module_test-fs.circularObject"></a>
 
-| Param | Type |
-| --- | --- |
-| filePath | <code>string</code> | 
+### test-fs.circularObject : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
+Multilayered node tree-like structure with parent references
 
-<a name="module_test-fs.logObject"></a>
-
-### test-fs.logObject(object, [label], [outputType]) ⇒ <code>string</code> \| <code>undefined</code>
-Log out an object in a nicely formatted way.
-
-**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| object | <code>Object</code> |  | 
-| [label] | <code>string</code> | <code>&quot;logging&quot;</code> | 
-| [outputType] | <code>string</code> | <code>&quot;log&quot;</code> | 
-
-<a name="module_test-fs.removeDirectory"></a>
-
-### test-fs.removeDirectory(dirPath) ⇒ <code>Promise.&lt;\*&gt;</code>
-Return a promise to be completed once the specified directory is deleted.
-
-**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
-
-| Param | Type |
-| --- | --- |
-| dirPath | <code>string</code> | 
-
+**Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
 <a name="module_test-fs.afterEach"></a>
 
 ### test-fs.afterEach() ⇒ <code>Promise.&lt;\*&gt;</code>
@@ -178,3 +131,50 @@ Ensure that the del has completed, recursively attempt to delete and recreate
 In the Jest.beforeEach function call this one to set up the temp directory.
 
 **Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+<a name="module_test-fs.removeDirectory"></a>
+
+### test-fs.removeDirectory(dirPath) ⇒ <code>Promise.&lt;\*&gt;</code>
+Return a promise to be completed once the specified directory is deleted.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type |
+| --- | --- |
+| dirPath | <code>string</code> | 
+
+<a name="module_test-fs.logObject"></a>
+
+### test-fs.logObject(object, [label], [outputType]) ⇒ <code>string</code> \| <code>undefined</code>
+Log out an object in a nicely formatted way.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| object | <code>Object</code> |  | 
+| [label] | <code>string</code> | <code>&quot;logging&quot;</code> | 
+| [outputType] | <code>string</code> | <code>&quot;log&quot;</code> | 
+
+<a name="module_test-fs.fileExists"></a>
+
+### test-fs.fileExists(filePath) ⇒ <code>boolean</code>
+Detect if a file exists and is usable.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type |
+| --- | --- |
+| filePath | <code>string</code> | 
+
+<a name="module_test-fs.countMatches"></a>
+
+### test-fs.countMatches(content, search) ⇒ <code>number</code>
+Simple way to count string occurrences for testing.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type |
+| --- | --- |
+| content | <code>string</code> | 
+| search | <code>string</code> | 
+
