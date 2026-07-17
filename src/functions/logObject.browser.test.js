@@ -5,13 +5,19 @@ import { logObject } from './logObject'
 import util from 'util'
 
 let warnSpy
+let logSpy
+let inspectSpy
 
 beforeEach(() => {
   warnSpy = jest.spyOn(console, 'warn').mockImplementation(jest.fn())
+  logSpy = jest.spyOn(console, 'log').mockImplementation(jest.fn())
+  inspectSpy = jest.spyOn(util, 'inspect')
 })
 
 afterEach(() => {
   warnSpy.mockRestore()
+  logSpy.mockRestore()
+  inspectSpy.mockRestore()
 })
 
 describe('logObject - browser', () => {
@@ -26,5 +32,14 @@ describe('logObject - browser', () => {
     const label = 'someObject'
     const result = logObject(someObject, label, 'string')
     expect(result).toEqual(`'${label}' | ` + JSON.stringify(someObject))
+  })
+
+  // test be able to force output to log when that argument is provided, even in a browser environment
+  test('output to log when that argument is provided, even in a browser environment', () => {
+    const someObject = { one: 1, two: 2, three: 3 }
+    const label = 'someObject'
+    logObject(someObject, label, 'log', true)
+    expect(inspectSpy).toHaveBeenCalledWith(someObject, false, null, true)
+    expect(logSpy).toHaveBeenCalledWith('someObject', util.inspect(someObject, false, null, true))
   })
 })

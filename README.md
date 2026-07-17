@@ -62,7 +62,7 @@ An assortment of objects that can be used in tests and some functions to help de
     * [.exports.afterEach([exists])](#module_test-fs.exports.afterEach) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
     * [.exports.createTempDir()](#module_test-fs.exports.createTempDir) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
     * [.removeDirectory(dirPath)](#module_test-fs.removeDirectory) ⇒ <code>Promise.&lt;\*&gt;</code>
-    * [.logObject(object, [label], [outputType])](#module_test-fs.logObject) ⇒ <code>string</code> \| <code>undefined</code>
+    * [.logObject(object, [label], [outputType], [forceOutputType])](#module_test-fs.logObject) ⇒ <code>string</code> \| <code>undefined</code>
     * [.fileExists(filePath)](#module_test-fs.fileExists) ⇒ <code>boolean</code>
     * [.countMatches(content, search)](#module_test-fs.countMatches) ⇒ <code>number</code>
 
@@ -144,16 +144,17 @@ Return a promise to be completed once the specified directory is deleted.
 
 <a name="module_test-fs.logObject"></a>
 
-### test-fs.logObject(object, [label], [outputType]) ⇒ <code>string</code> \| <code>undefined</code>
+### test-fs.logObject(object, [label], [outputType], [forceOutputType]) ⇒ <code>string</code> \| <code>undefined</code>
 Log out an object in a nicely formatted way.
 
 **Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
 
-| Param | Type | Default |
-| --- | --- | --- |
-| object | <code>Object</code> |  | 
-| [label] | <code>string</code> | <code>&quot;logging&quot;</code> | 
-| [outputType] | <code>string</code> | <code>&quot;log&quot;</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| object | <code>Object</code> |  |  |
+| [label] | <code>string</code> | <code>&quot;logging&quot;</code> |  |
+| [outputType] | <code>string</code> | <code>&quot;log&quot;</code> |  |
+| [forceOutputType] | <code>boolean</code> | <code>false</code> | If true, use specified output regardless of environment. |
 
 <a name="module_test-fs.fileExists"></a>
 

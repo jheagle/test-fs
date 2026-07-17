@@ -42,7 +42,7 @@ export declare let testFs: {
     fileExists: (filePath: string) => boolean;
     jsonDom: import("./functions/domItem").jsonDomItem;
     linkedList: import("./functions/linkedList").linker;
-    logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn") => string | void;
+    logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn", forceOutputType?: boolean) => string | void;
     multiReferenceObject: {
         object1: {
             name: string;
@@ -88,7 +88,7 @@ export declare let testFsBrowser: {
     domItem: import("./functions/domItem").jsonDomItem[];
     jsonDom: import("./functions/domItem").jsonDomItem;
     linkedList: import("./functions/linkedList").linker;
-    logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn") => string | void;
+    logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn", forceOutputType?: boolean) => string | void;
     multiReferenceObject: {
         object1: {
             name: string;
