@@ -1,10 +1,21 @@
 import { logObject } from './logObject'
 import util from 'util'
 
-describe('logObject', () => {
+let logSpy
+let inspectSpy
+
+beforeEach(() => {
+  logSpy = jest.spyOn(console, 'log').mockImplementation(jest.fn())
+  inspectSpy = jest.spyOn(util, 'inspect')
+})
+
+afterEach(() => {
+  logSpy.mockRestore()
+  inspectSpy.mockRestore()
+})
+
+describe('logObject - node.js', () => {
   test('can nicely output objects', () => {
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(jest.fn())
-    const inspectSpy = jest.spyOn(util, 'inspect')
     const someObject = { one: 1, two: 2, three: 3 }
     logObject(someObject, 'someObject')
     expect(inspectSpy).toHaveBeenCalledWith(someObject, false, null, true)
