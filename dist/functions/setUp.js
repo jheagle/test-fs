@@ -43,15 +43,16 @@ let srcPath = `${tempDir}src`
  * In the Jest.afterEach function call this one to clean up and remove the temp directory.
  * @function
  * @memberOf module:test-fs
- * @returns {Promise<*>}
+ * @returns {Promise<*>} Resolves once the temp directory (tempDir, see {@link setDefaults}) has been removed.
  */
 const afterEach = () => (0, _removeDirectory.removeDirectory)(tempDir)
 /**
  * Ensure that the del has completed, recursively attempt to delete and recreate
  * @function
  * @memberOf module:test-fs
- * @param {boolean} [exists=true]
- * @returns {Promise<*|void>}
+ * @param {boolean} [exists=true] - Whether the temp directory currently exists. Callers normally omit this; it's
+ * used internally to recurse until removeDirectory reports the directory is gone, then create it fresh.
+ * @returns {Promise<*|void>} Resolves once the temp directory has been removed and recreated.
  */
 exports.afterEach = afterEach
 const createTempDir = (...args_1) => __awaiter(void 0, [...args_1], void 0, function * (exists = true) {
@@ -66,10 +67,19 @@ const createTempDir = (...args_1) => __awaiter(void 0, [...args_1], void 0, func
  * In the Jest.beforeEach function call this one to set up the temp directory.
  * @function
  * @memberOf module:test-fs
- * @returns {Promise<*|void>}
+ * @returns {Promise<*|void>} Resolves once the temp directory (tempDir, see {@link setDefaults}) has been created.
  */
 exports.createTempDir = createTempDir
 const beforeEach = () => createTempDir()
+/**
+ * Override the temp directory path used by {@link afterEach}, {@link beforeEach}, and {@link createTempDir}. Call
+ * this once, before your tests run, if the default ('test-temp/') doesn't suit your project.
+ * @function
+ * @memberOf module:test-fs
+ * @param {string} [dirPath=null] - The directory path to use for temp files instead of the default. Ignored (the
+ * existing default stays in effect) if falsy.
+ * @returns {void}
+ */
 exports.beforeEach = beforeEach
 const setDefaults = (dirPath = null) => {
   if (dirPath) {

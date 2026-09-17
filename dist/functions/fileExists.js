@@ -7,9 +7,10 @@ exports.fileExists = void 0
 var _fs = require('fs')
 /**
  * Detect if a file exists and is usable.
+ * @function
  * @memberOf module:test-fs
- * @param {string} filePath
- * @returns {boolean}
+ * @param {string} filePath - The path of the file to check.
+ * @returns {boolean} True if the file exists and is accessible.
  */
 const fileExists = filePath => {
   try {
