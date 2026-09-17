@@ -1903,9 +1903,9 @@
  * Simple way to count string occurrences for testing.
  * @function
  * @memberOf module:test-fs
- * @param {string} content
- * @param {string} search
- * @returns {number}
+ * @param {string} content - The text to search within.
+ * @param {string} search - The substring to count occurrences of.
+ * @returns {number} How many times search occurs in content.
  */
     const countMatches = (content, search) => content.split(search).length - 1
     exports.countMatches = countMatches
@@ -1983,9 +1983,10 @@
     var _fs = require('fs')
     /**
  * Detect if a file exists and is usable.
+ * @function
  * @memberOf module:test-fs
- * @param {string} filePath
- * @returns {boolean}
+ * @param {string} filePath - The path of the file to check.
+ * @returns {boolean} True if the file exists and is accessible.
  */
     const fileExists = filePath => {
       try {
@@ -2063,11 +2064,13 @@
  * Log out an object in a nicely formatted way.
  * @function
  * @memberOf module:test-fs
- * @param {Object} object
- * @param {string} [label=logging]
- * @param {string} [outputType=log]
+ * @param {Object} object - The object (or any value) to log.
+ * @param {string} [label=logging] - A label printed alongside the object, to identify this log call.
+ * @param {string} [outputType=log] - Which console method to use ('debug'|'error'|'log'|'warn'), or 'string' to
+ * return a formatted string instead of logging.
  * @param {boolean} [forceOutputType=false] - If true, use specified output regardless of environment.
- * @returns {string|undefined}
+ * @returns {string|undefined} The formatted string when outputType is 'string' (or forced to it); otherwise
+ * undefined, since the object is logged directly to the console.
  */
     const logObject = (object, label = 'logging', outputType = 'log', forceOutputType = false) => {
       if (!forceOutputType && _browserOrNode.isBrowser && _browserOrNode.isNode && outputType !== 'string') {
@@ -2154,8 +2157,9 @@
  * Return a promise to be completed once the specified directory is deleted.
  * @function
  * @memberOf module:test-fs
- * @param {string} dirPath
- * @returns {Promise<*>}
+ * @param {string} dirPath - The path of the directory to remove, if it exists.
+ * @returns {Promise<*>} Resolves with dirPath once removed (or immediately, if it didn't exist); rejects with the
+ * removal error otherwise.
  */
     const removeDirectory = dirPath => new Promise((resolve, reject) => (0, _fs.access)(dirPath, _fs.constants.F_OK, removed => removed ? resolve(dirPath) : (0, _fs.rm)(dirPath, {
       recursive: true
@@ -2208,15 +2212,16 @@
  * In the Jest.afterEach function call this one to clean up and remove the temp directory.
  * @function
  * @memberOf module:test-fs
- * @returns {Promise<*>}
+ * @returns {Promise<*>} Resolves once the temp directory (tempDir, see {@link setDefaults}) has been removed.
  */
     const afterEach = () => (0, _removeDirectory.removeDirectory)(tempDir)
     /**
  * Ensure that the del has completed, recursively attempt to delete and recreate
  * @function
  * @memberOf module:test-fs
- * @param {boolean} [exists=true]
- * @returns {Promise<*|void>}
+ * @param {boolean} [exists=true] - Whether the temp directory currently exists. Callers normally omit this; it's
+ * used internally to recurse until removeDirectory reports the directory is gone, then create it fresh.
+ * @returns {Promise<*|void>} Resolves once the temp directory has been removed and recreated.
  */
     exports.afterEach = afterEach
     const createTempDir = (...args_1) => __awaiter(void 0, [...args_1], void 0, function * (exists = true) {
@@ -2231,10 +2236,19 @@
  * In the Jest.beforeEach function call this one to set up the temp directory.
  * @function
  * @memberOf module:test-fs
- * @returns {Promise<*|void>}
+ * @returns {Promise<*|void>} Resolves once the temp directory (tempDir, see {@link setDefaults}) has been created.
  */
     exports.createTempDir = createTempDir
     const beforeEach = () => createTempDir()
+    /**
+ * Override the temp directory path used by {@link afterEach}, {@link beforeEach}, and {@link createTempDir}. Call
+ * this once, before your tests run, if the default ('test-temp/') doesn't suit your project.
+ * @function
+ * @memberOf module:test-fs
+ * @param {string} [dirPath=null] - The directory path to use for temp files instead of the default. Ignored (the
+ * existing default stays in effect) if falsy.
+ * @returns {void}
+ */
     exports.beforeEach = beforeEach
     const setDefaults = (dirPath = null) => {
       if (dirPath) {
