@@ -21,9 +21,9 @@ export declare let testFs: {
     circularObject: {
         name: string;
         parent: null;
-        body: import("./functions/domItem").jsonDomItem;
-        head: import("./functions/domItem").jsonDomItem;
-        children: [] | import("./functions/domItem").jsonDomItem[];
+        body: import("./functions/domItem").jsonDomItem | null;
+        head: import("./functions/domItem").jsonDomItem | null;
+        children: import("./functions/domItem").jsonDomItem[] | [];
     };
     countMatches: (content: string, search: string) => number;
     deepReferenceObject: {
@@ -31,9 +31,9 @@ export declare let testFs: {
             name: string;
             object2: {
                 age: number;
-                array1: string[];
+                array1: Array<string>;
             };
-            array2: number[];
+            array2: Array<number>;
         };
         title: string;
         item: number;
@@ -42,7 +42,7 @@ export declare let testFs: {
     fileExists: (filePath: string) => boolean;
     jsonDom: import("./functions/domItem").jsonDomItem;
     linkedList: import("./functions/linkedList").linker;
-    logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn", forceOutputType?: boolean) => string | void;
+    logObject: (object: any, label?: string, outputType?: "debug" | "error" | "log" | "string" | "warn", forceOutputType?: boolean) => string | void;
     multiReferenceObject: {
         object1: {
             name: string;
@@ -50,8 +50,8 @@ export declare let testFs: {
         object2: {
             age: number;
         };
-        array1: string[];
-        array2: number[];
+        array1: Array<string>;
+        array2: Array<number>;
         title: string;
         item: number;
     };
@@ -59,8 +59,8 @@ export declare let testFs: {
     removeDirectory: (dirPath: string) => Promise<any>;
     setUp: {
         afterEach: () => Promise<any>;
-        beforeEach: () => Promise<any>;
-        createTempDir: (exists?: boolean) => Promise<any>;
+        beforeEach: () => Promise<any | void>;
+        createTempDir: (exists?: boolean) => Promise<any | void>;
         setDefaults: (dirPath?: string) => void;
     };
 };
@@ -68,9 +68,9 @@ export declare let testFsBrowser: {
     circularObject: {
         name: string;
         parent: null;
-        body: import("./functions/domItem").jsonDomItem;
-        head: import("./functions/domItem").jsonDomItem;
-        children: [] | import("./functions/domItem").jsonDomItem[];
+        body: import("./functions/domItem").jsonDomItem | null;
+        head: import("./functions/domItem").jsonDomItem | null;
+        children: import("./functions/domItem").jsonDomItem[] | [];
     };
     countMatches: (content: string, search: string) => number;
     deepReferenceObject: {
@@ -78,9 +78,9 @@ export declare let testFsBrowser: {
             name: string;
             object2: {
                 age: number;
-                array1: string[];
+                array1: Array<string>;
             };
-            array2: number[];
+            array2: Array<number>;
         };
         title: string;
         item: number;
@@ -88,7 +88,7 @@ export declare let testFsBrowser: {
     domItem: import("./functions/domItem").jsonDomItem[];
     jsonDom: import("./functions/domItem").jsonDomItem;
     linkedList: import("./functions/linkedList").linker;
-    logObject: (object: any, label?: string, outputType?: "string" | "error" | "debug" | "log" | "warn", forceOutputType?: boolean) => string | void;
+    logObject: (object: any, label?: string, outputType?: "debug" | "error" | "log" | "string" | "warn", forceOutputType?: boolean) => string | void;
     multiReferenceObject: {
         object1: {
             name: string;
@@ -96,8 +96,8 @@ export declare let testFsBrowser: {
         object2: {
             age: number;
         };
-        array1: string[];
-        array2: number[];
+        array1: Array<string>;
+        array2: Array<number>;
         title: string;
         item: number;
     };

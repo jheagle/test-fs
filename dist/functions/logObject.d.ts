@@ -10,4 +10,4 @@
  * @returns {string|undefined} The formatted string when outputType is 'string' (or forced to it); otherwise
  * undefined, since the object is logged directly to the console.
  */
-export declare const logObject: (object: any, label?: string, outputType?: 'debug' | 'error' | 'log' | 'string' | 'warn', forceOutputType?: boolean) => string | void;
+export declare const logObject: (object: any, label?: string, outputType?: "debug" | "error" | "log" | "string" | "warn", forceOutputType?: boolean) => string | void;
