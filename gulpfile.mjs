@@ -1,20 +1,18 @@
-import Module from 'node:module'
 import { dest, parallel, series, src } from 'gulp'
 import { access, appendFileSync, constants, rm } from 'fs'
 import { globSync } from 'glob'
+import babel from 'gulp-babel'
+import browserify from 'browserify'
+import jsdoc2md from 'jsdoc-to-markdown'
+import rename from 'gulp-rename'
+import { runCLI } from 'jest'
+import source from 'vinyl-source-stream'
+import standard from 'gulp-standard'
+import through from 'through2'
+import ts from 'gulp-typescript'
+import uglifyEs from 'gulp-uglify-es'
 
-const require = Module.createRequire(import.meta.url)
-
-const babel = require('gulp-babel')
-const browserify = require('browserify')
-const jsdoc2md = require('jsdoc-to-markdown')
-const rename = require('gulp-rename')
-const { runCLI } = require('jest')
-const source = require('vinyl-source-stream')
-const standard = require('gulp-standard')
-const through = require('through2')
-const ts = require('gulp-typescript')
-const { default: uglify } = require('gulp-uglify-es')
+const uglify = uglifyEs.default
 
 const browserName = 'test-fs'
 const browserPath = 'browser'
