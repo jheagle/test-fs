@@ -58,6 +58,8 @@ An assortment of objects that can be used in tests and some functions to help de
     * [.domItem](#module_test-fs.domItem) : <code>Object.&lt;string, (string\|number\|Array\|Object)&gt;</code>
     * [.deepReferenceObject](#module_test-fs.deepReferenceObject) : <code>Object.&lt;string, (string\|number\|Object)&gt;</code>
     * [.circularObject](#module_test-fs.circularObject) : <code>Object.&lt;string, (string\|Object\|Array)&gt;</code>
+    * [.writePackageJson(dirPath, fields)](#module_test-fs.writePackageJson) ⇒ <code>undefined</code>
+    * [.writeFixtureFile(filePath, content)](#module_test-fs.writeFixtureFile) ⇒ <code>undefined</code>
     * [.afterEach()](#module_test-fs.afterEach) ⇒ <code>Promise.&lt;\*&gt;</code>
     * [.exports.afterEach([exists])](#module_test-fs.exports.afterEach) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
     * [.exports.createTempDir()](#module_test-fs.exports.createTempDir) ⇒ <code>Promise.&lt;(\*\|void)&gt;</code>
@@ -66,6 +68,7 @@ An assortment of objects that can be used in tests and some functions to help de
     * [.logObject(object, [label], [outputType], [forceOutputType])](#module_test-fs.logObject) ⇒ <code>string</code> \| <code>undefined</code>
     * [.fileExists(filePath)](#module_test-fs.fileExists) ⇒ <code>boolean</code>
     * [.countMatches(content, search)](#module_test-fs.countMatches) ⇒ <code>number</code>
+    * [.copyRealModules(destModulesDir, moduleNames, [sourceModulesDir])](#module_test-fs.copyRealModules) ⇒ <code>undefined</code>
 
 <a name="module_test-fs.nodeTree"></a>
 
@@ -109,6 +112,32 @@ Sample object with deep references.
 Multilayered node tree-like structure with parent references
 
 **Kind**: static constant of [<code>test-fs</code>](#module_test-fs)  
+<a name="module_test-fs.writePackageJson"></a>
+
+### test-fs.writePackageJson(dirPath, fields) ⇒ <code>undefined</code>
+Write a package.json file for a directory, creating any missing parent directories first. Parses and
+re-serializes with a plain 2-space indent regardless of how `fields` was built, so callers never need to worry
+about matching JSON formatting by hand.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dirPath | <code>string</code> | The directory to write the package.json file into. |
+| fields | <code>Object.&lt;string, \*&gt;</code> | The package.json fields to write. |
+
+<a name="module_test-fs.writeFixtureFile"></a>
+
+### test-fs.writeFixtureFile(filePath, content) ⇒ <code>undefined</code>
+Write a file, creating any missing parent directories first.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| filePath | <code>string</code> | The path of the file to write. |
+| content | <code>string</code> | The content to write into the file. |
+
 <a name="module_test-fs.afterEach"></a>
 
 ### test-fs.afterEach() ⇒ <code>Promise.&lt;\*&gt;</code>
@@ -200,4 +229,18 @@ Simple way to count string occurrences for testing.
 | --- | --- | --- |
 | content | <code>string</code> | The text to search within. |
 | search | <code>string</code> | The substring to count occurrences of. |
+
+<a name="module_test-fs.copyRealModules"></a>
+
+### test-fs.copyRealModules(destModulesDir, moduleNames, [sourceModulesDir]) ⇒ <code>undefined</code>
+Copy real, installed node_modules packages into a destination directory, for use as realistic test fixtures
+instead of hand-written stand-ins.
+
+**Kind**: static method of [<code>test-fs</code>](#module_test-fs)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| destModulesDir | <code>string</code> |  | The destination node_modules-style directory to copy each package into. |
+| moduleNames | <code>Array.&lt;string&gt;</code> |  | The package names to copy. |
+| [sourceModulesDir] | <code>string</code> | <code>&quot;&#x27;./node_modules&#x27;&quot;</code> | The source node_modules directory to copy each package from. |
 

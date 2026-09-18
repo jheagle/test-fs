@@ -1898,6 +1898,32 @@
     Object.defineProperty(exports, '__esModule', {
       value: true
     })
+    exports.copyRealModules = void 0
+    require('core-js/modules/esnext.async-iterator.for-each.js')
+    require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.for-each.js')
+    var _fs = require('fs')
+    /**
+ * Copy real, installed node_modules packages into a destination directory, for use as realistic test fixtures
+ * instead of hand-written stand-ins.
+ * @function
+ * @memberOf module:test-fs
+ * @param {string} destModulesDir - The destination node_modules-style directory to copy each package into.
+ * @param {Array<string>} moduleNames - The package names to copy.
+ * @param {string} [sourceModulesDir='./node_modules'] - The source node_modules directory to copy each package from.
+ * @returns {undefined}
+ */
+    const copyRealModules = (destModulesDir, moduleNames, sourceModulesDir = './node_modules') => moduleNames.forEach(moduleName => (0, _fs.cpSync)(`${sourceModulesDir}/${moduleName}`, `${destModulesDir}/${moduleName}`, {
+      recursive: true
+    }))
+    exports.copyRealModules = copyRealModules
+  }, { 'core-js/modules/esnext.async-iterator.for-each.js': 90, 'core-js/modules/esnext.iterator.constructor.js': 91, 'core-js/modules/esnext.iterator.for-each.js': 92, fs: 111 }],
+  95: [function (require, module, exports) {
+    'use strict'
+
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    })
     exports.countMatches = void 0
     /**
  * Simple way to count string occurrences for testing.
@@ -1910,7 +1936,7 @@
     const countMatches = (content, search) => content.split(search).length - 1
     exports.countMatches = countMatches
   }, {}],
-  95: [function (require, module, exports) {
+  96: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -1935,7 +1961,7 @@
       item: 45
     }
   }, {}],
-  96: [function (require, module, exports) {
+  97: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -1973,7 +1999,7 @@
       tagName: 'div'
     }]
   }, {}],
-  97: [function (require, module, exports) {
+  98: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -1997,8 +2023,8 @@
       }
     }
     exports.fileExists = fileExists
-  }, { fs: 108 }],
-  98: [function (require, module, exports) {
+  }, { fs: 111 }],
+  99: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2023,7 +2049,7 @@
       axis: 'x'
     }
   }, {}],
-  99: [function (require, module, exports) {
+  100: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2051,7 +2077,7 @@
       next: null
     }
   }, {}],
-  100: [function (require, module, exports) {
+  101: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2086,8 +2112,8 @@
       return logger(label, (0, _util.inspect)(object, false, null, true))
     }
     exports.logObject = logObject
-  }, { 'browser-or-node': 107, util: 163 }],
-  101: [function (require, module, exports) {
+  }, { 'browser-or-node': 110, util: 167 }],
+  102: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2112,7 +2138,7 @@
       item: 45
     }
   }, {}],
-  102: [function (require, module, exports) {
+  103: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2145,7 +2171,7 @@
       children: []
     }
   }, {}],
-  103: [function (require, module, exports) {
+  104: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2165,8 +2191,8 @@
       recursive: true
     }, error => error ? reject(error) : resolve(dirPath))))
     exports.removeDirectory = removeDirectory
-  }, { fs: 108 }],
-  104: [function (require, module, exports) {
+  }, { fs: 111 }],
+  105: [function (require, module, exports) {
     'use strict'
 
     Object.defineProperty(exports, '__esModule', {
@@ -2264,8 +2290,54 @@
       setDefaults
     }
     var _default = exports.default = setUp
-  }, { './fileExists': 97, './removeDirectory': 103, fs: 108 }],
-  105: [function (require, module, exports) {
+  }, { './fileExists': 98, './removeDirectory': 104, fs: 111 }],
+  106: [function (require, module, exports) {
+    'use strict'
+
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    })
+    exports.writeFixtureFile = void 0
+    var _path = require('path')
+    var _fs = require('fs')
+    /**
+ * Write a file, creating any missing parent directories first.
+ * @function
+ * @memberOf module:test-fs
+ * @param {string} filePath - The path of the file to write.
+ * @param {string} content - The content to write into the file.
+ * @returns {undefined}
+ */
+    const writeFixtureFile = (filePath, content) => {
+      (0, _fs.mkdirSync)((0, _path.dirname)(filePath), {
+        recursive: true
+      });
+      (0, _fs.writeFileSync)(filePath, content)
+    }
+    exports.writeFixtureFile = writeFixtureFile
+  }, { fs: 111, path: 160 }],
+  107: [function (require, module, exports) {
+    'use strict'
+
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    })
+    exports.writePackageJson = void 0
+    var _writeFixtureFile = require('./writeFixtureFile')
+    /**
+ * Write a package.json file for a directory, creating any missing parent directories first. Parses and
+ * re-serializes with a plain 2-space indent regardless of how `fields` was built, so callers never need to worry
+ * about matching JSON formatting by hand.
+ * @function
+ * @memberOf module:test-fs
+ * @param {string} dirPath - The directory to write the package.json file into.
+ * @param {Object<string, *>} fields - The package.json fields to write.
+ * @returns {undefined}
+ */
+    const writePackageJson = (dirPath, fields) => (0, _writeFixtureFile.writeFixtureFile)(`${dirPath}/package.json`, JSON.stringify(fields, null, 2) + '\n')
+    exports.writePackageJson = writePackageJson
+  }, { './writeFixtureFile': 106 }],
+  108: [function (require, module, exports) {
     'use strict'
 
     require('core-js/modules/esnext.async-iterator.for-each.js')
@@ -2288,6 +2360,18 @@
         enumerable: true,
         get: function () {
           return _circularObject[key]
+        }
+      })
+    })
+    var _copyRealModules = require('./functions/copyRealModules')
+    Object.keys(_copyRealModules).forEach(function (key) {
+      if (key === 'default' || key === '__esModule') return
+      if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+      if (key in exports && exports[key] === _copyRealModules[key]) return
+      Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function () {
+          return _copyRealModules[key]
         }
       })
     })
@@ -2423,6 +2507,30 @@
         }
       })
     })
+    var _writeFixtureFile = require('./functions/writeFixtureFile')
+    Object.keys(_writeFixtureFile).forEach(function (key) {
+      if (key === 'default' || key === '__esModule') return
+      if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+      if (key in exports && exports[key] === _writeFixtureFile[key]) return
+      Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function () {
+          return _writeFixtureFile[key]
+        }
+      })
+    })
+    var _writePackageJson = require('./functions/writePackageJson')
+    Object.keys(_writePackageJson).forEach(function (key) {
+      if (key === 'default' || key === '__esModule') return
+      if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+      if (key in exports && exports[key] === _writePackageJson[key]) return
+      Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function () {
+          return _writePackageJson[key]
+        }
+      })
+    })
     /**
  * An assortment of objects that can be used in tests and some functions to help debug and write tests.
  * @file
@@ -2433,6 +2541,7 @@
 
     const testFs = exports.testFs = {
       circularObject: _circularObject.circularObject,
+      copyRealModules: _copyRealModules.copyRealModules,
       countMatches: _countMatches.countMatches,
       deepReferenceObject: _deepReferenceObject.deepReferenceObject,
       domItem: _domItem.domItem,
@@ -2443,7 +2552,9 @@
       multiReferenceObject: _multiReferenceObject.multiReferenceObject,
       nodeTree: _nodeTree.nodeTree,
       removeDirectory: _removeDirectory.removeDirectory,
-      setUp: _setUp.setUp
+      setUp: _setUp.setUp,
+      writeFixtureFile: _writeFixtureFile.writeFixtureFile,
+      writePackageJson: _writePackageJson.writePackageJson
     }
     const testFsBrowser = exports.testFsBrowser = {
       circularObject: _circularObject.circularObject,
@@ -2463,8 +2574,8 @@
       // @ts-ignore
       window.testFs = testFsBrowser
     }
-  }, { './functions/circularObject': 93, './functions/countMatches': 94, './functions/deepReferenceObject': 95, './functions/domItem': 96, './functions/fileExists': 97, './functions/jsonDom': 98, './functions/linkedList': 99, './functions/logObject': 100, './functions/multiReferenceObject': 101, './functions/nodeTree': 102, './functions/removeDirectory': 103, './functions/setUp': 104, 'core-js/modules/esnext.async-iterator.for-each.js': 90, 'core-js/modules/esnext.iterator.constructor.js': 91, 'core-js/modules/esnext.iterator.for-each.js': 92 }],
-  106: [function (require, module, exports) {
+  }, { './functions/circularObject': 93, './functions/copyRealModules': 94, './functions/countMatches': 95, './functions/deepReferenceObject': 96, './functions/domItem': 97, './functions/fileExists': 98, './functions/jsonDom': 99, './functions/linkedList': 100, './functions/logObject': 101, './functions/multiReferenceObject': 102, './functions/nodeTree': 103, './functions/removeDirectory': 104, './functions/setUp': 105, './functions/writeFixtureFile': 106, './functions/writePackageJson': 107, 'core-js/modules/esnext.async-iterator.for-each.js': 90, 'core-js/modules/esnext.iterator.constructor.js': 91, 'core-js/modules/esnext.iterator.for-each.js': 92 }],
+  109: [function (require, module, exports) {
     (function (global) {
       (function () {
         'use strict'
@@ -2486,8 +2597,8 @@
         }
       }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
-  }, { 'possible-typed-array-names': 157 }],
-  107: [function (require, module, exports) {
+  }, { 'possible-typed-array-names': 161 }],
+  110: [function (require, module, exports) {
     (function (process) {
       (function () {
         var __defProp = Object.defineProperty
@@ -2545,11 +2656,11 @@
         })
       }).call(this)
     }).call(this, require('_process'))
-  }, { _process: 158 }],
-  108: [function (require, module, exports) {
+  }, { _process: 162 }],
+  111: [function (require, module, exports) {
 
   }, {}],
-  109: [function (require, module, exports) {
+  112: [function (require, module, exports) {
     'use strict'
 
     var bind = require('function-bind')
@@ -2560,8 +2671,8 @@
 
     /** @type {import('./actualApply')} */
     module.exports = $reflectApply || bind.call($call, $apply)
-  }, { './functionApply': 111, './functionCall': 112, './reflectApply': 114, 'function-bind': 130 }],
-  110: [function (require, module, exports) {
+  }, { './functionApply': 114, './functionCall': 115, './reflectApply': 117, 'function-bind': 133 }],
+  113: [function (require, module, exports) {
     'use strict'
 
     var bind = require('function-bind')
@@ -2572,20 +2683,20 @@
     module.exports = function applyBind () {
       return actualApply(bind, $apply, arguments)
     }
-  }, { './actualApply': 109, './functionApply': 111, 'function-bind': 130 }],
-  111: [function (require, module, exports) {
+  }, { './actualApply': 112, './functionApply': 114, 'function-bind': 133 }],
+  114: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./functionApply')} */
     module.exports = Function.prototype.apply
   }, {}],
-  112: [function (require, module, exports) {
+  115: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./functionCall')} */
     module.exports = Function.prototype.call
   }, {}],
-  113: [function (require, module, exports) {
+  116: [function (require, module, exports) {
     'use strict'
 
     var bind = require('function-bind')
@@ -2601,14 +2712,14 @@
       }
       return $actualApply(bind, $call, args)
     }
-  }, { './actualApply': 109, './functionCall': 112, 'es-errors/type': 125, 'function-bind': 130 }],
-  114: [function (require, module, exports) {
+  }, { './actualApply': 112, './functionCall': 115, 'es-errors/type': 128, 'function-bind': 133 }],
+  117: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./reflectApply')} */
     module.exports = typeof Reflect !== 'undefined' && Reflect && Reflect.apply
   }, {}],
-  115: [function (require, module, exports) {
+  118: [function (require, module, exports) {
     'use strict'
 
     var setFunctionLength = require('set-function-length')
@@ -2633,8 +2744,8 @@
     } else {
       module.exports.apply = applyBind
     }
-  }, { 'call-bind-apply-helpers': 113, 'call-bind-apply-helpers/applyBind': 110, 'es-define-property': 119, 'set-function-length': 160 }],
-  116: [function (require, module, exports) {
+  }, { 'call-bind-apply-helpers': 116, 'call-bind-apply-helpers/applyBind': 113, 'es-define-property': 122, 'set-function-length': 164 }],
+  119: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -2654,8 +2765,8 @@
       }
       return intrinsic
     }
-  }, { 'call-bind-apply-helpers': 113, 'get-intrinsic': 132 }],
-  117: [function (require, module, exports) {
+  }, { 'call-bind-apply-helpers': 116, 'get-intrinsic': 135 }],
+  120: [function (require, module, exports) {
     'use strict'
 
     var $defineProperty = require('es-define-property')
@@ -2712,8 +2823,8 @@
         throw new $SyntaxError('This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.')
       }
     }
-  }, { 'es-define-property': 119, 'es-errors/syntax': 124, 'es-errors/type': 125, gopd: 137 }],
-  118: [function (require, module, exports) {
+  }, { 'es-define-property': 122, 'es-errors/syntax': 127, 'es-errors/type': 128, gopd: 140 }],
+  121: [function (require, module, exports) {
     'use strict'
 
     var callBind = require('call-bind-apply-helpers')
@@ -2744,8 +2855,8 @@
           return $getPrototypeOf(value == null ? value : $Object(value))
         }
         : false
-  }, { 'call-bind-apply-helpers': 113, gopd: 137 }],
-  119: [function (require, module, exports) {
+  }, { 'call-bind-apply-helpers': 116, gopd: 140 }],
+  122: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('.')} */
@@ -2761,55 +2872,55 @@
 
     module.exports = $defineProperty
   }, {}],
-  120: [function (require, module, exports) {
+  123: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./eval')} */
     module.exports = EvalError
   }, {}],
-  121: [function (require, module, exports) {
+  124: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('.')} */
     module.exports = Error
   }, {}],
-  122: [function (require, module, exports) {
+  125: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./range')} */
     module.exports = RangeError
   }, {}],
-  123: [function (require, module, exports) {
+  126: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./ref')} */
     module.exports = ReferenceError
   }, {}],
-  124: [function (require, module, exports) {
+  127: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./syntax')} */
     module.exports = SyntaxError
   }, {}],
-  125: [function (require, module, exports) {
+  128: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./type')} */
     module.exports = TypeError
   }, {}],
-  126: [function (require, module, exports) {
+  129: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./uri')} */
     module.exports = URIError
   }, {}],
-  127: [function (require, module, exports) {
+  130: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('.')} */
     module.exports = Object
   }, {}],
-  128: [function (require, module, exports) {
+  131: [function (require, module, exports) {
     'use strict'
 
     var isCallable = require('is-callable')
@@ -2879,8 +2990,8 @@
         forEachObject(list, iterator, receiver)
       }
     }
-  }, { 'is-callable': 145 }],
-  129: [function (require, module, exports) {
+  }, { 'is-callable': 148 }],
+  132: [function (require, module, exports) {
     'use strict'
 
     /* eslint no-invalid-this: 1 */
@@ -2965,14 +3076,14 @@
       return bound
     }
   }, {}],
-  130: [function (require, module, exports) {
+  133: [function (require, module, exports) {
     'use strict'
 
     var implementation = require('./implementation')
 
     module.exports = Function.prototype.bind || implementation
-  }, { './implementation': 129 }],
-  131: [function (require, module, exports) {
+  }, { './implementation': 132 }],
+  134: [function (require, module, exports) {
     'use strict'
 
     /** @type {GeneratorFunctionConstructor | false} */
@@ -2991,7 +3102,7 @@
       return cached
     }
   }, {}],
-  132: [function (require, module, exports) {
+  135: [function (require, module, exports) {
     'use strict'
 
     var undefined
@@ -3370,22 +3481,22 @@
       }
       return value
     }
-  }, { 'call-bind-apply-helpers/functionApply': 111, 'call-bind-apply-helpers/functionCall': 112, 'es-define-property': 119, 'es-errors': 121, 'es-errors/eval': 120, 'es-errors/range': 122, 'es-errors/ref': 123, 'es-errors/syntax': 124, 'es-errors/type': 125, 'es-errors/uri': 126, 'es-object-atoms': 127, 'function-bind': 130, 'get-proto': 135, 'get-proto/Object.getPrototypeOf': 133, 'get-proto/Reflect.getPrototypeOf': 134, gopd: 137, 'has-symbols': 139, hasown: 142, 'math-intrinsics/abs': 149, 'math-intrinsics/floor': 150, 'math-intrinsics/max': 152, 'math-intrinsics/min': 153, 'math-intrinsics/pow': 154, 'math-intrinsics/round': 155, 'math-intrinsics/sign': 156 }],
-  133: [function (require, module, exports) {
+  }, { 'call-bind-apply-helpers/functionApply': 114, 'call-bind-apply-helpers/functionCall': 115, 'es-define-property': 122, 'es-errors': 124, 'es-errors/eval': 123, 'es-errors/range': 125, 'es-errors/ref': 126, 'es-errors/syntax': 127, 'es-errors/type': 128, 'es-errors/uri': 129, 'es-object-atoms': 130, 'function-bind': 133, 'get-proto': 138, 'get-proto/Object.getPrototypeOf': 136, 'get-proto/Reflect.getPrototypeOf': 137, gopd: 140, 'has-symbols': 142, hasown: 145, 'math-intrinsics/abs': 152, 'math-intrinsics/floor': 153, 'math-intrinsics/max': 155, 'math-intrinsics/min': 156, 'math-intrinsics/pow': 157, 'math-intrinsics/round': 158, 'math-intrinsics/sign': 159 }],
+  136: [function (require, module, exports) {
     'use strict'
 
     var $Object = require('es-object-atoms')
 
     /** @type {import('./Object.getPrototypeOf')} */
     module.exports = $Object.getPrototypeOf || null
-  }, { 'es-object-atoms': 127 }],
-  134: [function (require, module, exports) {
+  }, { 'es-object-atoms': 130 }],
+  137: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./Reflect.getPrototypeOf')} */
     module.exports = (typeof Reflect !== 'undefined' && Reflect.getPrototypeOf) || null
   }, {}],
-  135: [function (require, module, exports) {
+  138: [function (require, module, exports) {
     'use strict'
 
     var reflectGetProto = require('./Reflect.getPrototypeOf')
@@ -3413,14 +3524,14 @@
             return getDunderProto(O)
           }
           : null
-  }, { './Object.getPrototypeOf': 133, './Reflect.getPrototypeOf': 134, 'dunder-proto/get': 118 }],
-  136: [function (require, module, exports) {
+  }, { './Object.getPrototypeOf': 136, './Reflect.getPrototypeOf': 137, 'dunder-proto/get': 121 }],
+  139: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./gOPD')} */
     module.exports = Object.getOwnPropertyDescriptor
   }, {}],
-  137: [function (require, module, exports) {
+  140: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('.')} */
@@ -3436,8 +3547,8 @@
     }
 
     module.exports = $gOPD
-  }, { './gOPD': 136 }],
-  138: [function (require, module, exports) {
+  }, { './gOPD': 139 }],
+  141: [function (require, module, exports) {
     'use strict'
 
     var $defineProperty = require('es-define-property')
@@ -3460,8 +3571,8 @@
     }
 
     module.exports = hasPropertyDescriptors
-  }, { 'es-define-property': 119 }],
-  139: [function (require, module, exports) {
+  }, { 'es-define-property': 122 }],
+  142: [function (require, module, exports) {
     'use strict'
 
     var origSymbol = typeof Symbol !== 'undefined' && Symbol
@@ -3476,8 +3587,8 @@
 
       return hasSymbolSham()
     }
-  }, { './shams': 140 }],
-  140: [function (require, module, exports) {
+  }, { './shams': 143 }],
+  143: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./shams')} */
@@ -3524,7 +3635,7 @@
       return true
     }
   }, {}],
-  141: [function (require, module, exports) {
+  144: [function (require, module, exports) {
     'use strict'
 
     var hasSymbols = require('has-symbols/shams')
@@ -3533,8 +3644,8 @@
     module.exports = function hasToStringTagShams () {
       return hasSymbols() && !!Symbol.toStringTag
     }
-  }, { 'has-symbols/shams': 140 }],
-  142: [function (require, module, exports) {
+  }, { 'has-symbols/shams': 143 }],
+  145: [function (require, module, exports) {
     'use strict'
 
     var call = Function.prototype.call
@@ -3543,8 +3654,8 @@
 
     /** @type {import('.')} */
     module.exports = bind.call(call, $hasOwn)
-  }, { 'function-bind': 130 }],
-  143: [function (require, module, exports) {
+  }, { 'function-bind': 133 }],
+  146: [function (require, module, exports) {
     if (typeof Object.create === 'function') {
       // implementation from standard node.js 'util' module
       module.exports = function inherits (ctor, superCtor) {
@@ -3573,7 +3684,7 @@
       }
     }
   }, {}],
-  144: [function (require, module, exports) {
+  147: [function (require, module, exports) {
     'use strict'
 
     var hasToStringTag = require('has-tostringtag/shams')()
@@ -3618,8 +3729,8 @@
 
     /** @type {import('.')} */
     module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArguments
-  }, { 'call-bound': 116, 'has-tostringtag/shams': 141 }],
-  145: [function (require, module, exports) {
+  }, { 'call-bound': 119, 'has-tostringtag/shams': 144 }],
+  148: [function (require, module, exports) {
     'use strict'
 
     var fnToStr = Function.prototype.toString
@@ -3722,7 +3833,7 @@
         return tryFunctionObject(value)
       }
   }, {}],
-  146: [function (require, module, exports) {
+  149: [function (require, module, exports) {
     'use strict'
 
     var callBound = require('call-bound')
@@ -3754,8 +3865,8 @@
       var GeneratorFunction = getGeneratorFunction()
       return GeneratorFunction && getProto(fn) === GeneratorFunction.prototype
     }
-  }, { 'call-bound': 116, 'generator-function': 131, 'get-proto': 135, 'has-tostringtag/shams': 141, 'safe-regex-test': 159 }],
-  147: [function (require, module, exports) {
+  }, { 'call-bound': 119, 'generator-function': 134, 'get-proto': 138, 'has-tostringtag/shams': 144, 'safe-regex-test': 163 }],
+  150: [function (require, module, exports) {
     'use strict'
 
     var callBound = require('call-bound')
@@ -3825,8 +3936,8 @@
     }
 
     module.exports = fn
-  }, { 'call-bound': 116, gopd: 137, 'has-tostringtag/shams': 141, hasown: 142 }],
-  148: [function (require, module, exports) {
+  }, { 'call-bound': 119, gopd: 140, 'has-tostringtag/shams': 144, hasown: 145 }],
+  151: [function (require, module, exports) {
     'use strict'
 
     var whichTypedArray = require('which-typed-array')
@@ -3835,20 +3946,20 @@
     module.exports = function isTypedArray (value) {
       return !!whichTypedArray(value)
     }
-  }, { 'which-typed-array': 164 }],
-  149: [function (require, module, exports) {
+  }, { 'which-typed-array': 168 }],
+  152: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./abs')} */
     module.exports = Math.abs
   }, {}],
-  150: [function (require, module, exports) {
+  153: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./floor')} */
     module.exports = Math.floor
   }, {}],
-  151: [function (require, module, exports) {
+  154: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./isNaN')} */
@@ -3856,31 +3967,31 @@
       return a !== a
     }
   }, {}],
-  152: [function (require, module, exports) {
+  155: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./max')} */
     module.exports = Math.max
   }, {}],
-  153: [function (require, module, exports) {
+  156: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./min')} */
     module.exports = Math.min
   }, {}],
-  154: [function (require, module, exports) {
+  157: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./pow')} */
     module.exports = Math.pow
   }, {}],
-  155: [function (require, module, exports) {
+  158: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('./round')} */
     module.exports = Math.round
   }, {}],
-  156: [function (require, module, exports) {
+  159: [function (require, module, exports) {
     'use strict'
 
     var $isNaN = require('./isNaN')
@@ -3892,8 +4003,507 @@
       }
       return number < 0 ? -1 : +1
     }
-  }, { './isNaN': 151 }],
-  157: [function (require, module, exports) {
+  }, { './isNaN': 154 }],
+  160: [function (require, module, exports) {
+    (function (process) {
+      (function () {
+        // 'path' module extracted from Node.js v8.11.1 (only the posix part)
+        // transplited with Babel
+
+        // Copyright Joyent, Inc. and other Node contributors.
+        //
+        // Permission is hereby granted, free of charge, to any person obtaining a
+        // copy of this software and associated documentation files (the
+        // "Software"), to deal in the Software without restriction, including
+        // without limitation the rights to use, copy, modify, merge, publish,
+        // distribute, sublicense, and/or sell copies of the Software, and to permit
+        // persons to whom the Software is furnished to do so, subject to the
+        // following conditions:
+        //
+        // The above copyright notice and this permission notice shall be included
+        // in all copies or substantial portions of the Software.
+        //
+        // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+        // OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+        // NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+        // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+        // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+        // USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+        'use strict'
+
+        function assertPath (path) {
+          if (typeof path !== 'string') {
+            throw new TypeError('Path must be a string. Received ' + JSON.stringify(path))
+          }
+        }
+
+        // Resolves . and .. elements in a path with directory names
+        function normalizeStringPosix (path, allowAboveRoot) {
+          var res = ''
+          var lastSegmentLength = 0
+          var lastSlash = -1
+          var dots = 0
+          var code
+          for (var i = 0; i <= path.length; ++i) {
+            if (i < path.length) { code = path.charCodeAt(i) } else if (code === 47 /* / */) { break } else { code = 47 } /* / */
+            if (code === 47 /* / */) {
+              if (lastSlash === i - 1 || dots === 1) {
+                // NOOP
+              } else if (lastSlash !== i - 1 && dots === 2) {
+                if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /* . */ || res.charCodeAt(res.length - 2) !== 46 /* . */) {
+                  if (res.length > 2) {
+                    var lastSlashIndex = res.lastIndexOf('/')
+                    if (lastSlashIndex !== res.length - 1) {
+                      if (lastSlashIndex === -1) {
+                        res = ''
+                        lastSegmentLength = 0
+                      } else {
+                        res = res.slice(0, lastSlashIndex)
+                        lastSegmentLength = res.length - 1 - res.lastIndexOf('/')
+                      }
+                      lastSlash = i
+                      dots = 0
+                      continue
+                    }
+                  } else if (res.length === 2 || res.length === 1) {
+                    res = ''
+                    lastSegmentLength = 0
+                    lastSlash = i
+                    dots = 0
+                    continue
+                  }
+                }
+                if (allowAboveRoot) {
+                  if (res.length > 0) { res += '/..' } else { res = '..' }
+                  lastSegmentLength = 2
+                }
+              } else {
+                if (res.length > 0) { res += '/' + path.slice(lastSlash + 1, i) } else { res = path.slice(lastSlash + 1, i) }
+                lastSegmentLength = i - lastSlash - 1
+              }
+              lastSlash = i
+              dots = 0
+            } else if (code === 46 /* . */ && dots !== -1) {
+              ++dots
+            } else {
+              dots = -1
+            }
+          }
+          return res
+        }
+
+        function _format (sep, pathObject) {
+          var dir = pathObject.dir || pathObject.root
+          var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '')
+          if (!dir) {
+            return base
+          }
+          if (dir === pathObject.root) {
+            return dir + base
+          }
+          return dir + sep + base
+        }
+
+        var posix = {
+          // path.resolve([from ...], to)
+          resolve: function resolve () {
+            var resolvedPath = ''
+            var resolvedAbsolute = false
+            var cwd
+
+            for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+              var path
+              if (i >= 0) { path = arguments[i] } else {
+                if (cwd === undefined) { cwd = process.cwd() }
+                path = cwd
+              }
+
+              assertPath(path)
+
+              // Skip empty entries
+              if (path.length === 0) {
+                continue
+              }
+
+              resolvedPath = path + '/' + resolvedPath
+              resolvedAbsolute = path.charCodeAt(0) === 47 /* / */
+            }
+
+            // At this point the path should be resolved to a full absolute path, but
+            // handle relative paths to be safe (might happen when process.cwd() fails)
+
+            // Normalize the path
+            resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute)
+
+            if (resolvedAbsolute) {
+              if (resolvedPath.length > 0) { return '/' + resolvedPath } else { return '/' }
+            } else if (resolvedPath.length > 0) {
+              return resolvedPath
+            } else {
+              return '.'
+            }
+          },
+
+          normalize: function normalize (path) {
+            assertPath(path)
+
+            if (path.length === 0) return '.'
+
+            var isAbsolute = path.charCodeAt(0) === 47 /* / */
+            var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /* / */
+
+            // Normalize the path
+            path = normalizeStringPosix(path, !isAbsolute)
+
+            if (path.length === 0 && !isAbsolute) path = '.'
+            if (path.length > 0 && trailingSeparator) path += '/'
+
+            if (isAbsolute) return '/' + path
+            return path
+          },
+
+          isAbsolute: function isAbsolute (path) {
+            assertPath(path)
+            return path.length > 0 && path.charCodeAt(0) === 47 /* / */
+          },
+
+          join: function join () {
+            if (arguments.length === 0) { return '.' }
+            var joined
+            for (var i = 0; i < arguments.length; ++i) {
+              var arg = arguments[i]
+              assertPath(arg)
+              if (arg.length > 0) {
+                if (joined === undefined) { joined = arg } else { joined += '/' + arg }
+              }
+            }
+            if (joined === undefined) { return '.' }
+            return posix.normalize(joined)
+          },
+
+          relative: function relative (from, to) {
+            assertPath(from)
+            assertPath(to)
+
+            if (from === to) return ''
+
+            from = posix.resolve(from)
+            to = posix.resolve(to)
+
+            if (from === to) return ''
+
+            // Trim any leading backslashes
+            var fromStart = 1
+            for (; fromStart < from.length; ++fromStart) {
+              if (from.charCodeAt(fromStart) !== 47 /* / */) { break }
+            }
+            var fromEnd = from.length
+            var fromLen = fromEnd - fromStart
+
+            // Trim any leading backslashes
+            var toStart = 1
+            for (; toStart < to.length; ++toStart) {
+              if (to.charCodeAt(toStart) !== 47 /* / */) { break }
+            }
+            var toEnd = to.length
+            var toLen = toEnd - toStart
+
+            // Compare paths to find the longest common path from root
+            var length = fromLen < toLen ? fromLen : toLen
+            var lastCommonSep = -1
+            var i = 0
+            for (; i <= length; ++i) {
+              if (i === length) {
+                if (toLen > length) {
+                  if (to.charCodeAt(toStart + i) === 47 /* / */) {
+                    // We get here if `from` is the exact base path for `to`.
+                    // For example: from='/foo/bar'; to='/foo/bar/baz'
+                    return to.slice(toStart + i + 1)
+                  } else if (i === 0) {
+                    // We get here if `from` is the root
+                    // For example: from='/'; to='/foo'
+                    return to.slice(toStart + i)
+                  }
+                } else if (fromLen > length) {
+                  if (from.charCodeAt(fromStart + i) === 47 /* / */) {
+                    // We get here if `to` is the exact base path for `from`.
+                    // For example: from='/foo/bar/baz'; to='/foo/bar'
+                    lastCommonSep = i
+                  } else if (i === 0) {
+                    // We get here if `to` is the root.
+                    // For example: from='/foo'; to='/'
+                    lastCommonSep = 0
+                  }
+                }
+                break
+              }
+              var fromCode = from.charCodeAt(fromStart + i)
+              var toCode = to.charCodeAt(toStart + i)
+              if (fromCode !== toCode) { break } else if (fromCode === 47 /* / */) { lastCommonSep = i }
+            }
+
+            var out = ''
+            // Generate the relative path based on the path difference between `to`
+            // and `from`
+            for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+              if (i === fromEnd || from.charCodeAt(i) === 47 /* / */) {
+                if (out.length === 0) { out += '..' } else { out += '/..' }
+              }
+            }
+
+            // Lastly, append the rest of the destination (`to`) path that comes after
+            // the common path parts
+            if (out.length > 0) { return out + to.slice(toStart + lastCommonSep) } else {
+              toStart += lastCommonSep
+              if (to.charCodeAt(toStart) === 47 /* / */) { ++toStart }
+              return to.slice(toStart)
+            }
+          },
+
+          _makeLong: function _makeLong (path) {
+            return path
+          },
+
+          dirname: function dirname (path) {
+            assertPath(path)
+            if (path.length === 0) return '.'
+            var code = path.charCodeAt(0)
+            var hasRoot = code === 47 /* / */
+            var end = -1
+            var matchedSlash = true
+            for (var i = path.length - 1; i >= 1; --i) {
+              code = path.charCodeAt(i)
+              if (code === 47 /* / */) {
+                if (!matchedSlash) {
+                  end = i
+                  break
+                }
+              } else {
+                // We saw the first non-path separator
+                matchedSlash = false
+              }
+            }
+
+            if (end === -1) return hasRoot ? '/' : '.'
+            if (hasRoot && end === 1) return '//'
+            return path.slice(0, end)
+          },
+
+          basename: function basename (path, ext) {
+            if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string')
+            assertPath(path)
+
+            var start = 0
+            var end = -1
+            var matchedSlash = true
+            var i
+
+            if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+              if (ext.length === path.length && ext === path) return ''
+              var extIdx = ext.length - 1
+              var firstNonSlashEnd = -1
+              for (i = path.length - 1; i >= 0; --i) {
+                var code = path.charCodeAt(i)
+                if (code === 47 /* / */) {
+                // If we reached a path separator that was not part of a set of path
+                // separators at the end of the string, stop now
+                  if (!matchedSlash) {
+                    start = i + 1
+                    break
+                  }
+                } else {
+                  if (firstNonSlashEnd === -1) {
+                    // We saw the first non-path separator, remember this index in case
+                    // we need it if the extension ends up not matching
+                    matchedSlash = false
+                    firstNonSlashEnd = i + 1
+                  }
+                  if (extIdx >= 0) {
+                    // Try to match the explicit extension
+                    if (code === ext.charCodeAt(extIdx)) {
+                      if (--extIdx === -1) {
+                        // We matched the extension, so mark this as the end of our path
+                        // component
+                        end = i
+                      }
+                    } else {
+                      // Extension does not match, so our result is the entire path
+                      // component
+                      extIdx = -1
+                      end = firstNonSlashEnd
+                    }
+                  }
+                }
+              }
+
+              if (start === end) end = firstNonSlashEnd; else if (end === -1) end = path.length
+              return path.slice(start, end)
+            } else {
+              for (i = path.length - 1; i >= 0; --i) {
+                if (path.charCodeAt(i) === 47 /* / */) {
+                // If we reached a path separator that was not part of a set of path
+                // separators at the end of the string, stop now
+                  if (!matchedSlash) {
+                    start = i + 1
+                    break
+                  }
+                } else if (end === -1) {
+                  // We saw the first non-path separator, mark this as the end of our
+                  // path component
+                  matchedSlash = false
+                  end = i + 1
+                }
+              }
+
+              if (end === -1) return ''
+              return path.slice(start, end)
+            }
+          },
+
+          extname: function extname (path) {
+            assertPath(path)
+            var startDot = -1
+            var startPart = 0
+            var end = -1
+            var matchedSlash = true
+            // Track the state of characters (if any) we see before our first dot and
+            // after any path separator we find
+            var preDotState = 0
+            for (var i = path.length - 1; i >= 0; --i) {
+              var code = path.charCodeAt(i)
+              if (code === 47 /* / */) {
+              // If we reached a path separator that was not part of a set of path
+              // separators at the end of the string, stop now
+                if (!matchedSlash) {
+                  startPart = i + 1
+                  break
+                }
+                continue
+              }
+              if (end === -1) {
+                // We saw the first non-path separator, mark this as the end of our
+                // extension
+                matchedSlash = false
+                end = i + 1
+              }
+              if (code === 46 /* . */) {
+              // If this is our first dot, mark it as the start of our extension
+                if (startDot === -1) { startDot = i } else if (preDotState !== 1) { preDotState = 1 }
+              } else if (startDot !== -1) {
+                // We saw a non-dot and non-path separator before our dot, so we should
+                // have a good chance at having a non-empty extension
+                preDotState = -1
+              }
+            }
+
+            if (startDot === -1 || end === -1 ||
+        // We saw a non-dot character immediately before the dot
+        preDotState === 0 ||
+        // The (right-most) trimmed path component is exactly '..'
+        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+              return ''
+            }
+            return path.slice(startDot, end)
+          },
+
+          format: function format (pathObject) {
+            if (pathObject === null || typeof pathObject !== 'object') {
+              throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject)
+            }
+            return _format('/', pathObject)
+          },
+
+          parse: function parse (path) {
+            assertPath(path)
+
+            var ret = { root: '', dir: '', base: '', ext: '', name: '' }
+            if (path.length === 0) return ret
+            var code = path.charCodeAt(0)
+            var isAbsolute = code === 47 /* / */
+            var start
+            if (isAbsolute) {
+              ret.root = '/'
+              start = 1
+            } else {
+              start = 0
+            }
+            var startDot = -1
+            var startPart = 0
+            var end = -1
+            var matchedSlash = true
+            var i = path.length - 1
+
+            // Track the state of characters (if any) we see before our first dot and
+            // after any path separator we find
+            var preDotState = 0
+
+            // Get non-dir info
+            for (; i >= start; --i) {
+              code = path.charCodeAt(i)
+              if (code === 47 /* / */) {
+              // If we reached a path separator that was not part of a set of path
+              // separators at the end of the string, stop now
+                if (!matchedSlash) {
+                  startPart = i + 1
+                  break
+                }
+                continue
+              }
+              if (end === -1) {
+                // We saw the first non-path separator, mark this as the end of our
+                // extension
+                matchedSlash = false
+                end = i + 1
+              }
+              if (code === 46 /* . */) {
+              // If this is our first dot, mark it as the start of our extension
+                if (startDot === -1) startDot = i; else if (preDotState !== 1) preDotState = 1
+              } else if (startDot !== -1) {
+                // We saw a non-dot and non-path separator before our dot, so we should
+                // have a good chance at having a non-empty extension
+                preDotState = -1
+              }
+            }
+
+            if (startDot === -1 || end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+              if (end !== -1) {
+                if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end); else ret.base = ret.name = path.slice(startPart, end)
+              }
+            } else {
+              if (startPart === 0 && isAbsolute) {
+                ret.name = path.slice(1, startDot)
+                ret.base = path.slice(1, end)
+              } else {
+                ret.name = path.slice(startPart, startDot)
+                ret.base = path.slice(startPart, end)
+              }
+              ret.ext = path.slice(startDot, end)
+            }
+
+            if (startPart > 0) ret.dir = path.slice(0, startPart - 1); else if (isAbsolute) ret.dir = '/'
+
+            return ret
+          },
+
+          sep: '/',
+          delimiter: ':',
+          win32: null,
+          posix: null
+        }
+
+        posix.posix = posix
+
+        module.exports = posix
+      }).call(this)
+    }).call(this, require('_process'))
+  }, { _process: 162 }],
+  161: [function (require, module, exports) {
     'use strict'
 
     /** @type {import('.')} */
@@ -3912,7 +4522,7 @@
       'BigUint64Array'
     ]
   }, {}],
-  158: [function (require, module, exports) {
+  162: [function (require, module, exports) {
     // shim for using process in browser
     var process = module.exports = {}
 
@@ -4093,7 +4703,7 @@
     }
     process.umask = function () { return 0 }
   }, {}],
-  159: [function (require, module, exports) {
+  163: [function (require, module, exports) {
     'use strict'
 
     var callBound = require('call-bound')
@@ -4111,8 +4721,8 @@
         return $exec(regex, s) !== null
       }
     }
-  }, { 'call-bound': 116, 'es-errors/type': 125, 'is-regex': 147 }],
-  160: [function (require, module, exports) {
+  }, { 'call-bound': 119, 'es-errors/type': 128, 'is-regex': 150 }],
+  164: [function (require, module, exports) {
     'use strict'
 
     var GetIntrinsic = require('get-intrinsic')
@@ -4155,8 +4765,8 @@
       }
       return fn
     }
-  }, { 'define-data-property': 117, 'es-errors/type': 125, 'get-intrinsic': 132, gopd: 137, 'has-property-descriptors': 138 }],
-  161: [function (require, module, exports) {
+  }, { 'define-data-property': 120, 'es-errors/type': 128, 'get-intrinsic': 135, gopd: 140, 'has-property-descriptors': 141 }],
+  165: [function (require, module, exports) {
     module.exports = function isBuffer (arg) {
       return arg && typeof arg === 'object' &&
     typeof arg.copy === 'function' &&
@@ -4164,7 +4774,7 @@
     typeof arg.readUInt8 === 'function'
     }
   }, {}],
-  162: [function (require, module, exports) {
+  166: [function (require, module, exports) {
     // Currently in sync with Node.js lib/internal/util/types.js
     // https://github.com/nodejs/node/commit/112cc7c27551254aa2b17098fb774867f05ed0d9
 
@@ -4498,8 +5108,8 @@
         }
       })
     })
-  }, { 'is-arguments': 144, 'is-generator-function': 146, 'is-typed-array': 148, 'which-typed-array': 164 }],
-  163: [function (require, module, exports) {
+  }, { 'is-arguments': 147, 'is-generator-function': 149, 'is-typed-array': 151, 'which-typed-array': 168 }],
+  167: [function (require, module, exports) {
     (function (process) {
       (function () {
         // Copyright Joyent, Inc. and other Node contributors.
@@ -5198,8 +5808,8 @@
         exports.callbackify = callbackify
       }).call(this)
     }).call(this, require('_process'))
-  }, { './support/isBuffer': 161, './support/types': 162, _process: 158, inherits: 143 }],
-  164: [function (require, module, exports) {
+  }, { './support/isBuffer': 165, './support/types': 166, _process: 162, inherits: 146 }],
+  168: [function (require, module, exports) {
     (function (global) {
       (function () {
         'use strict'
@@ -5339,5 +5949,5 @@
         }
       }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
-  }, { 'available-typed-arrays': 106, 'call-bind': 115, 'call-bound': 116, 'for-each': 128, 'get-proto': 135, gopd: 137, 'has-tostringtag/shams': 141 }]
-}, {}, [105])
+  }, { 'available-typed-arrays': 109, 'call-bind': 118, 'call-bound': 119, 'for-each': 131, 'get-proto': 138, gopd: 140, 'has-tostringtag/shams': 144 }]
+}, {}, [108])

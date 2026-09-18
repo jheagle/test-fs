@@ -7,6 +7,7 @@
  */
 
 import { circularObject } from './functions/circularObject'
+import { copyRealModules } from './functions/copyRealModules'
 import { countMatches } from './functions/countMatches'
 import { deepReferenceObject } from './functions/deepReferenceObject'
 import { domItem } from './functions/domItem'
@@ -18,8 +19,11 @@ import { multiReferenceObject } from './functions/multiReferenceObject'
 import { nodeTree } from './functions/nodeTree'
 import { removeDirectory } from './functions/removeDirectory'
 import { setUp } from './functions/setUp'
+import { writeFixtureFile } from './functions/writeFixtureFile'
+import { writePackageJson } from './functions/writePackageJson'
 
 export * from './functions/circularObject'
+export * from './functions/copyRealModules'
 export * from './functions/countMatches'
 export * from './functions/deepReferenceObject'
 export * from './functions/domItem'
@@ -31,9 +35,12 @@ export * from './functions/multiReferenceObject'
 export * from './functions/nodeTree'
 export * from './functions/removeDirectory'
 export * from './functions/setUp'
+export * from './functions/writeFixtureFile'
+export * from './functions/writePackageJson'
 
 export let testFs = {
   circularObject,
+  copyRealModules,
   countMatches,
   deepReferenceObject,
   domItem,
@@ -45,6 +52,8 @@ export let testFs = {
   nodeTree,
   removeDirectory,
   setUp,
+  writeFixtureFile,
+  writePackageJson,
 }
 
 export let testFsBrowser = {
