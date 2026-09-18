@@ -9,7 +9,8 @@ import { runCLI } from 'jest'
 import source from 'vinyl-source-stream'
 import standard from 'gulp-standard'
 import through from 'through2'
-import ts from 'gulp-typescript'
+import ts from 'typescript'
+import tsCompile from 'gulp-ts-compile'
 import uglifyEs from 'gulp-uglify-es'
 
 const uglify = uglifyEs.default
@@ -93,11 +94,11 @@ export const clean = () => cleanFolders.reduce(
  */
 export const typescript = () => {
   const tsResult = src(srcSearch)
-    .pipe(ts({
+    .pipe(tsCompile({
       declaration: true,
-      moduleResolution: 'node',
-      target: 'es6',
-      module: 'es2020'
+      moduleResolution: ts.ModuleResolutionKind.Node10,
+      target: ts.ScriptTarget.ES2015,
+      module: ts.ModuleKind.ES2020
     }))
   // Output the type definitions
   tsResult.dts.pipe(dest(distPath))
