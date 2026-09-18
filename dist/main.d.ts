@@ -6,6 +6,7 @@
  * @module test-fs
  */
 export * from './functions/circularObject';
+export * from './functions/copyRealModules';
 export * from './functions/countMatches';
 export * from './functions/deepReferenceObject';
 export * from './functions/domItem';
@@ -17,6 +18,8 @@ export * from './functions/multiReferenceObject';
 export * from './functions/nodeTree';
 export * from './functions/removeDirectory';
 export * from './functions/setUp';
+export * from './functions/writeFixtureFile';
+export * from './functions/writePackageJson';
 export declare let testFs: {
     circularObject: {
         name: string;
@@ -25,6 +28,7 @@ export declare let testFs: {
         head: import("./functions/domItem").jsonDomItem | null;
         children: import("./functions/domItem").jsonDomItem[] | [];
     };
+    copyRealModules: (destModulesDir: string, moduleNames: string[], sourceModulesDir?: string) => void;
     countMatches: (content: string, search: string) => number;
     deepReferenceObject: {
         object1: {
@@ -63,6 +67,8 @@ export declare let testFs: {
         createTempDir: (exists?: boolean) => Promise<any | void>;
         setDefaults: (dirPath?: string) => void;
     };
+    writeFixtureFile: (filePath: string, content: string) => void;
+    writePackageJson: (dirPath: string, fields: Record<string, any>) => void;
 };
 export declare let testFsBrowser: {
     circularObject: {

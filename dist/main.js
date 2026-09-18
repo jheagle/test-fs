@@ -23,6 +23,18 @@ Object.keys(_circularObject).forEach(function (key) {
     }
   })
 })
+var _copyRealModules = require('./functions/copyRealModules')
+Object.keys(_copyRealModules).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports && exports[key] === _copyRealModules[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _copyRealModules[key]
+    }
+  })
+})
 var _countMatches = require('./functions/countMatches')
 Object.keys(_countMatches).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
@@ -155,6 +167,30 @@ Object.keys(_setUp).forEach(function (key) {
     }
   })
 })
+var _writeFixtureFile = require('./functions/writeFixtureFile')
+Object.keys(_writeFixtureFile).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports && exports[key] === _writeFixtureFile[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _writeFixtureFile[key]
+    }
+  })
+})
+var _writePackageJson = require('./functions/writePackageJson')
+Object.keys(_writePackageJson).forEach(function (key) {
+  if (key === 'default' || key === '__esModule') return
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
+  if (key in exports && exports[key] === _writePackageJson[key]) return
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _writePackageJson[key]
+    }
+  })
+})
 /**
  * An assortment of objects that can be used in tests and some functions to help debug and write tests.
  * @file
@@ -165,6 +201,7 @@ Object.keys(_setUp).forEach(function (key) {
 
 const testFs = exports.testFs = {
   circularObject: _circularObject.circularObject,
+  copyRealModules: _copyRealModules.copyRealModules,
   countMatches: _countMatches.countMatches,
   deepReferenceObject: _deepReferenceObject.deepReferenceObject,
   domItem: _domItem.domItem,
@@ -175,7 +212,9 @@ const testFs = exports.testFs = {
   multiReferenceObject: _multiReferenceObject.multiReferenceObject,
   nodeTree: _nodeTree.nodeTree,
   removeDirectory: _removeDirectory.removeDirectory,
-  setUp: _setUp.setUp
+  setUp: _setUp.setUp,
+  writeFixtureFile: _writeFixtureFile.writeFixtureFile,
+  writePackageJson: _writePackageJson.writePackageJson
 }
 const testFsBrowser = exports.testFsBrowser = {
   circularObject: _circularObject.circularObject,
