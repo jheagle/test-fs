@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.writePackageJson = void 0
+require('core-js/modules/es.json.stringify.js')
 var _writeFixtureFile = require('./writeFixtureFile')
 /**
  * Write a package.json file for a directory, creating any missing parent directories first. Parses and

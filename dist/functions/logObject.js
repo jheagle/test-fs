@@ -4,6 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.logObject = void 0
+require('core-js/modules/es.json.stringify.js')
 var _browserOrNode = require('browser-or-node')
 var _util = require('util')
 /**

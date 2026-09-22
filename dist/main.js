@@ -1,6 +1,5 @@
 'use strict'
 
-require('core-js/modules/esnext.async-iterator.for-each.js')
 require('core-js/modules/esnext.iterator.constructor.js')
 require('core-js/modules/esnext.iterator.for-each.js')
 Object.defineProperty(exports, '__esModule', {
