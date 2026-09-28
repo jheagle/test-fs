@@ -5,7 +5,5 @@ export type linker = {
 };
 /**
  * Sample LinkedList for testing circular references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object>}
  */
 export declare const linkedList: linker;

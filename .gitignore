@@ -127,3 +127,6 @@ out
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Manually generated docs (npm run htmldocs), not committed
+/docs

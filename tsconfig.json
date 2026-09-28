@@ -1,0 +1,15 @@
+{
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.*"],
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "declaration": true,
+    "strictNullChecks": false,
+    "skipLibCheck": true,
+    "types": ["node"]
+  }
+}

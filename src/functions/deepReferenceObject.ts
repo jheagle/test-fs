@@ -1,7 +1,5 @@
 /**
  * Sample object with deep references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Object>}
  */
 export const deepReferenceObject: {
   object1: {

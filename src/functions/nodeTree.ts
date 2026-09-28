@@ -2,8 +2,6 @@ export type treeLinker = { name: string, parent: treeLinker | null, children: Ar
 
 /**
  * Sample NodeTree for testing circular references and arrays.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
 export const nodeTree: treeLinker = { name: 'one', parent: null, children: [] }
 nodeTree.children[0] = { name: 'child one', parent: nodeTree, children: [] }

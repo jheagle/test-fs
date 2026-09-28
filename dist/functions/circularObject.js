@@ -6,8 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.circularObject = void 0
 /**
  * Multilayered node tree-like structure with parent references
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
 const circularObject = exports.circularObject = {
   name: 'root',

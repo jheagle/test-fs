@@ -1,9 +1,5 @@
 /**
  * An assortment of objects that can be used in tests and some functions to help debug and write tests.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module test-fs
  */
 
 import { circularObject } from './functions/circularObject'

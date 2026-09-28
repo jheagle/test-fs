@@ -1,9 +1,10 @@
 import { dest, parallel, series, src } from 'gulp'
-import { access, appendFileSync, constants, rm } from 'fs'
-import { globSync } from 'glob'
+import { access, constants, rm } from 'fs'
+import fsSync from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import babel from 'gulp-babel'
 import browserify from 'browserify'
-import jsdoc2md from 'jsdoc-to-markdown'
 import rename from 'gulp-rename'
 import { runCLI } from 'jest'
 import source from 'vinyl-source-stream'
@@ -22,11 +23,9 @@ const distSearch = 'dist/**/*js'
 const distMain = 'dist/main'
 const distPath = 'dist'
 const srcSearch = 'src/**/*.ts'
-const readmeTemplate = 'MAIN.md'
-const readmeFile = 'README.md'
-const readmePath = './'
-const readmeSearch = 'dist/**/*.js'
-const readmeOptions = 'utf8'
+const docsFrom = 'src'
+const docsTo = '../joshuaheagle.local/projects/test-fs/docs'
+const docsIndex = 'MAIN.md'
 const testPath = ['src']
 const testOptions = {
   clearCache: false,
@@ -82,7 +81,7 @@ const removeDirectory = (dirPath) => new Promise(
  * @returns {Promise<string[]> | *}
  */
 export const clean = () => cleanFolders.reduce(
-  (promise, path) => promise.then(() => removeDirectory(path)),
+  (promise, folderPath) => promise.then(() => removeDirectory(folderPath)),
   Promise.resolve()
 )
 
@@ -147,33 +146,81 @@ const distLint = () => src(distSearch)
   }))
   .pipe(dest(distPath))
 
-/**
- * Copy a readme template into the README.md file.
- * @function
- * @returns {*}
- */
-const createReadme = () => src(readmeTemplate)
-  .pipe(rename(readmeFile))
-  .pipe(dest(readmePath))
+const isDocSource = fileName => /\.ts$/.test(fileName) && !/\.test\./.test(fileName)
+
+const listDocSources = dirPath => fsSync.readdirSync(dirPath, { withFileTypes: true }).flatMap(entry => {
+  const entryPath = path.join(dirPath, entry.name)
+  if (entry.isDirectory()) {
+    return entry.name === 'node_modules' ? [] : listDocSources(entryPath)
+  }
+  return isDocSource(entry.name) ? [entryPath] : []
+})
+
+const toModulePath = filePath => filePath.replace(/\.ts$/, '').split(path.sep).join('/')
 
 /**
- * Appends all the jsdoc comments to the readme file. Assumes empty or templated file.
- * Configure this with 'readmeSearch', 'readmePath', 'readmeFile', and 'readmeOptions'.
+ * Write one entry file per top-level folder of docsFrom into entryDir, each re-exporting all of that folder's
+ * source files - this is what makes TypeDoc's modules mirror the source folders (functions). Duplicated here
+ * (not imported from js-build-tools) because js-build-tools itself depends on test-filesystem, and importing it
+ * back would be a circular dependency.
  * @function
- * @returns {string|Uint8Array}
+ * @param {string} srcDir
+ * @param {string} entryDir
+ * @returns {Array<string>}
  */
-const addToReadme = () => jsdoc2md
-  .render({ files: globSync(readmeSearch) })
-  .then(
-    readme => appendFileSync(readmePath + readmeFile, readme, readmeOptions)
-  )
+const writeDocEntries = (srcDir, entryDir) => {
+  const absoluteSrc = path.resolve(srcDir)
+  fsSync.mkdirSync(entryDir, { recursive: true })
+  const folders = fsSync.readdirSync(absoluteSrc, { withFileTypes: true })
+    .filter(entry => entry.isDirectory() && entry.name !== 'node_modules')
+    .map(entry => ({ name: entry.name, files: listDocSources(path.join(absoluteSrc, entry.name)) }))
+    .filter(folder => folder.files.length)
+  return folders.map(folder => {
+    const lines = folder.files.sort().map(file => `export * from '${toModulePath(file)}'`)
+    const entryPath = path.join(entryDir, `${folder.name}.ts`)
+    fsSync.writeFileSync(entryPath, lines.join('\n') + '\n')
+    return entryPath
+  })
+}
 
 /**
- * Generate the readme file.
+ * Generate the HTML documentation from the TypeScript source with TypeDoc, straight into the sibling website
+ * checkout. Configure this with 'docsFrom', 'docsTo' and 'docsIndex'.
  * @function
- * @return {*}
+ * @returns {Promise<void>}
  */
-export const readme = (done = null) => series(createReadme, addToReadme)(done)
+export const docs = async () => {
+  const { Application } = await import('typedoc')
+  const workDir = fsSync.mkdtempSync(path.join(os.tmpdir(), 'typedocs-'))
+  try {
+    const entryPoints = writeDocEntries(docsFrom, path.join(workDir, 'entries'))
+    const tsconfig = path.join(workDir, 'tsconfig.json')
+    fsSync.writeFileSync(tsconfig, JSON.stringify({
+      extends: path.resolve('tsconfig.json'),
+      include: [
+        path.join(workDir, 'entries', '*.ts').split(path.sep).join('/'),
+        path.resolve(docsFrom).split(path.sep).join('/') + '/**/*.ts'
+      ],
+      exclude: [path.resolve(docsFrom).split(path.sep).join('/') + '/**/*.test.*']
+    }))
+    await removeDirectory(docsTo)
+    const app = await Application.bootstrap({
+      entryPoints,
+      tsconfig,
+      name: 'test-filesystem',
+      readme: fsSync.existsSync(docsIndex) ? docsIndex : 'none',
+      logLevel: 'Warn',
+      skipErrorChecking: true
+    })
+    const project = await app.convert()
+    if (!project) {
+      throw new Error('TypeDoc could not read the TypeScript source, see the errors above.')
+    }
+    await app.generateDocs(project, docsTo)
+  } finally {
+    await removeDirectory(workDir)
+  }
+}
 
 /**
  * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified output directory.
@@ -221,7 +268,7 @@ export const build = (done = null) => parallel(
     clean,
     distSeries,
     distLint,
-    readme,
+    docs,
     bundle,
     parallel(bundleLint, bundleMinify)
   ),

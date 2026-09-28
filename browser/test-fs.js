@@ -8,8 +8,6 @@
     exports.circularObject = void 0
     /**
  * Multilayered node tree-like structure with parent references
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
     const circularObject = exports.circularObject = {
       name: 'root',
@@ -67,12 +65,9 @@
     /**
  * Copy real, installed node_modules packages into a destination directory, for use as realistic test fixtures
  * instead of hand-written stand-ins.
- * @function
- * @memberOf module:test-fs
- * @param {string} destModulesDir - The destination node_modules-style directory to copy each package into.
- * @param {Array<string>} moduleNames - The package names to copy.
- * @param {string} [sourceModulesDir='./node_modules'] - The source node_modules directory to copy each package from.
- * @returns {undefined}
+ * @param destModulesDir - The destination node_modules-style directory to copy each package into.
+ * @param moduleNames - The package names to copy.
+ * @param sourceModulesDir - The source node_modules directory to copy each package from.
  */
     const copyRealModules = (destModulesDir, moduleNames, sourceModulesDir = './node_modules') => moduleNames.forEach(moduleName => (0, _fs.cpSync)(`${sourceModulesDir}/${moduleName}`, `${destModulesDir}/${moduleName}`, {
       recursive: true
@@ -88,11 +83,9 @@
     exports.countMatches = void 0
     /**
  * Simple way to count string occurrences for testing.
- * @function
- * @memberOf module:test-fs
- * @param {string} content - The text to search within.
- * @param {string} search - The substring to count occurrences of.
- * @returns {number} How many times search occurs in content.
+ * @param content - The text to search within.
+ * @param search - The substring to count occurrences of.
+ * @returns How many times search occurs in content.
  */
     const countMatches = (content, search) => content.split(search).length - 1
     exports.countMatches = countMatches
@@ -106,8 +99,6 @@
     exports.deepReferenceObject = void 0
     /**
  * Sample object with deep references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Object>}
  */
     const deepReferenceObject = exports.deepReferenceObject = {
       object1: {
@@ -131,8 +122,6 @@
     exports.domItem = void 0
     /**
  * Sample of domItem child with nested child and optional details
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Array|Object>}
  */
     const domItem = exports.domItem = [{
       attributes: {
@@ -170,10 +159,8 @@
     var _fs = require('fs')
     /**
  * Detect if a file exists and is usable.
- * @function
- * @memberOf module:test-fs
- * @param {string} filePath - The path of the file to check.
- * @returns {boolean} True if the file exists and is accessible.
+ * @param filePath - The path of the file to check.
+ * @returns True if the file exists and is accessible.
  */
     const fileExists = filePath => {
       try {
@@ -194,8 +181,6 @@
     exports.jsonDom = void 0
     /**
  * Sample of jsonDom object containing an empty nested array and objects
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Array|Object>}
  */
     const jsonDom = exports.jsonDom = {
       tagName: 'div',
@@ -219,8 +204,6 @@
     exports.linkedList = void 0
     /**
  * Sample LinkedList for testing circular references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object>}
  */
     const linkedList = exports.linkedList = {
       name: 'one',
@@ -250,14 +233,12 @@
     var _util = require('util')
     /**
  * Log out an object in a nicely formatted way.
- * @function
- * @memberOf module:test-fs
- * @param {Object} object - The object (or any value) to log.
- * @param {string} [label=logging] - A label printed alongside the object, to identify this log call.
- * @param {string} [outputType=log] - Which console method to use ('debug'|'error'|'log'|'warn'), or 'string' to
+ * @param object - The object (or any value) to log.
+ * @param label - A label printed alongside the object, to identify this log call.
+ * @param outputType - Which console method to use ('debug'|'error'|'log'|'warn'), or 'string' to
  * return a formatted string instead of logging.
- * @param {boolean} [forceOutputType=false] - If true, use specified output regardless of environment.
- * @returns {string|undefined} The formatted string when outputType is 'string' (or forced to it); otherwise
+ * @param forceOutputType - If true, use specified output regardless of environment.
+ * @returns The formatted string when outputType is 'string' (or forced to it); otherwise
  * undefined, since the object is logged directly to the console.
  */
     const logObject = (object, label = 'logging', outputType = 'log', forceOutputType = false) => {
@@ -284,8 +265,6 @@
     exports.multiReferenceObject = void 0
     /**
  * Sample of an object containing multiple references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Object>}
  */
     const multiReferenceObject = exports.multiReferenceObject = {
       object1: {
@@ -309,8 +288,6 @@
     exports.nodeTree = void 0
     /**
  * Sample NodeTree for testing circular references and arrays.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
     const nodeTree = exports.nodeTree = {
       name: 'one',
@@ -343,10 +320,8 @@
     var _fs = require('fs')
     /**
  * Return a promise to be completed once the specified directory is deleted.
- * @function
- * @memberOf module:test-fs
- * @param {string} dirPath - The path of the directory to remove, if it exists.
- * @returns {Promise<*>} Resolves with dirPath once removed (or immediately, if it didn't exist); rejects with the
+ * @param dirPath - The path of the directory to remove, if it exists.
+ * @returns Resolves with dirPath once removed (or immediately, if it didn't exist); rejects with the
  * removal error otherwise.
  */
     const removeDirectory = dirPath => new Promise((resolve, reject) => (0, _fs.access)(dirPath, _fs.constants.F_OK, removed => removed ? resolve(dirPath) : (0, _fs.rm)(dirPath, {
@@ -398,18 +373,14 @@
     let srcPath = `${tempDir}src`
     /**
  * In the Jest.afterEach function call this one to clean up and remove the temp directory.
- * @function
- * @memberOf module:test-fs
- * @returns {Promise<*>} Resolves once the temp directory (tempDir, see {@link setDefaults}) has been removed.
+ * @returns Resolves once the temp directory (tempDir, see {@link setDefaults}) has been removed.
  */
     const afterEach = () => (0, _removeDirectory.removeDirectory)(tempDir)
     /**
  * Ensure that the del has completed, recursively attempt to delete and recreate
- * @function
- * @memberOf module:test-fs
- * @param {boolean} [exists=true] - Whether the temp directory currently exists. Callers normally omit this; it's
+ * @param exists - Whether the temp directory currently exists. Callers normally omit this; it's
  * used internally to recurse until removeDirectory reports the directory is gone, then create it fresh.
- * @returns {Promise<*|void>} Resolves once the temp directory has been removed and recreated.
+ * @returns Resolves once the temp directory has been removed and recreated.
  */
     exports.afterEach = afterEach
     const createTempDir = (...args_1) => __awaiter(void 0, [...args_1], void 0, function * (exists = true) {
@@ -422,20 +393,15 @@
     })
     /**
  * In the Jest.beforeEach function call this one to set up the temp directory.
- * @function
- * @memberOf module:test-fs
- * @returns {Promise<*|void>} Resolves once the temp directory (tempDir, see {@link setDefaults}) has been created.
+ * @returns Resolves once the temp directory (tempDir, see {@link setDefaults}) has been created.
  */
     exports.createTempDir = createTempDir
     const beforeEach = () => createTempDir()
     /**
  * Override the temp directory path used by {@link afterEach}, {@link beforeEach}, and {@link createTempDir}. Call
  * this once, before your tests run, if the default ('test-temp/') doesn't suit your project.
- * @function
- * @memberOf module:test-fs
- * @param {string} [dirPath=null] - The directory path to use for temp files instead of the default. Ignored (the
+ * @param dirPath - The directory path to use for temp files instead of the default. Ignored (the
  * existing default stays in effect) if falsy.
- * @returns {void}
  */
     exports.beforeEach = beforeEach
     const setDefaults = (dirPath = null) => {
@@ -464,11 +430,8 @@
     var _fs = require('fs')
     /**
  * Write a file, creating any missing parent directories first.
- * @function
- * @memberOf module:test-fs
- * @param {string} filePath - The path of the file to write.
- * @param {string} content - The content to write into the file.
- * @returns {undefined}
+ * @param filePath - The path of the file to write.
+ * @param content - The content to write into the file.
  */
     const writeFixtureFile = (filePath, content) => {
       (0, _fs.mkdirSync)((0, _path.dirname)(filePath), {
@@ -491,11 +454,8 @@
  * Write a package.json file for a directory, creating any missing parent directories first. Parses and
  * re-serializes with a plain 2-space indent regardless of how `fields` was built, so callers never need to worry
  * about matching JSON formatting by hand.
- * @function
- * @memberOf module:test-fs
- * @param {string} dirPath - The directory to write the package.json file into.
- * @param {Object<string, *>} fields - The package.json fields to write.
- * @returns {undefined}
+ * @param dirPath - The directory to write the package.json file into.
+ * @param fields - The package.json fields to write.
  */
     const writePackageJson = (dirPath, fields) => (0, _writeFixtureFile.writeFixtureFile)(`${dirPath}/package.json`, JSON.stringify(fields, null, 2) + '\n')
     exports.writePackageJson = writePackageJson
@@ -695,10 +655,6 @@
     })
     /**
  * An assortment of objects that can be used in tests and some functions to help debug and write tests.
- * @file
- * @author Joshua Heagle <joshuaheagle@gmail.com>
- * @version 1.0.0
- * @module test-fs
  */
 
     const testFs = exports.testFs = {

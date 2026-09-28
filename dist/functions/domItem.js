@@ -6,8 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.domItem = void 0
 /**
  * Sample of domItem child with nested child and optional details
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Array|Object>}
  */
 const domItem = exports.domItem = [{
   attributes: {
