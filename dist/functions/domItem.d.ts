@@ -17,7 +17,5 @@ export type jsonDomItem = {
 };
 /**
  * Sample of domItem child with nested child and optional details
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Array|Object>}
  */
 export declare const domItem: Array<jsonDomItem>;

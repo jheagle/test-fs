@@ -1,7 +1,5 @@
 /**
  * Multilayered node tree-like structure with parent references
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
 export const circularObject = {
   name: 'root',

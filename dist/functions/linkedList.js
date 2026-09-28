@@ -6,8 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.linkedList = void 0
 /**
  * Sample LinkedList for testing circular references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object>}
  */
 const linkedList = exports.linkedList = {
   name: 'one',

@@ -6,8 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.multiReferenceObject = void 0
 /**
  * Sample of an object containing multiple references.
- * @memberOf module:test-fs
- * @type {Object.<string, string|number|Object>}
  */
 const multiReferenceObject = exports.multiReferenceObject = {
   object1: {

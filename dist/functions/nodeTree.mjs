@@ -1,7 +1,5 @@
 /**
  * Sample NodeTree for testing circular references and arrays.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
 export const nodeTree = { name: 'one', parent: null, children: [] }
 nodeTree.children[0] = { name: 'child one', parent: nodeTree, children: [] }

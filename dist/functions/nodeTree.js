@@ -6,8 +6,6 @@ Object.defineProperty(exports, '__esModule', {
 exports.nodeTree = void 0
 /**
  * Sample NodeTree for testing circular references and arrays.
- * @memberOf module:test-fs
- * @type {Object.<string, string|Object|Array>}
  */
 const nodeTree = exports.nodeTree = {
   name: 'one',
