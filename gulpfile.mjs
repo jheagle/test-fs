@@ -95,9 +95,13 @@ export const typescript = () => {
   const tsResult = src(srcSearch)
     .pipe(tsCompile({
       declaration: true,
+      ignoreDeprecations: '6.0',
       moduleResolution: ts.ModuleResolutionKind.Node10,
+      noImplicitAny: false,
+      strictNullChecks: false,
       target: ts.ScriptTarget.ES2015,
-      module: ts.ModuleKind.ES2020
+      module: ts.ModuleKind.ES2020,
+      types: ['node']
     }))
   // Output the type definitions
   tsResult.dts.pipe(dest(distPath))
@@ -227,7 +231,7 @@ export const docs = async () => {
  * @function
  * @returns {stream.Stream}
  */
-export const bundle = () => browserify(distMain)
+export const bundle = () => browserify(distMain, { standalone: browserName })
   .bundle()
   .pipe(source(`${browserName}.js`))
   .pipe(dest(browserPath))

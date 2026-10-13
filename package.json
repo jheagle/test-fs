@@ -1,6 +1,6 @@
 {
   "name": "test-filesystem",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "description": "Set up and tear down a temp directory for running filesystem tests.",
   "main": "dist/main.js",
   "module": "./dist/main.mjs",
@@ -50,7 +50,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.5",
     "babel-jest": "^30.5.2",
     "browserify": "^17.0.1",
     "gulp": "^5.0.1",
