@@ -10,222 +10,66 @@ var _exportNames = {
   testFsBrowser: true
 }
 exports.testFsBrowser = exports.testFs = void 0
-var _circularObject = require('./functions/circularObject')
-Object.keys(_circularObject).forEach(function (key) {
+var _debugging = require('./functions/debugging')
+Object.keys(_debugging).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _circularObject[key]) return
+  if (key in exports && exports[key] === _debugging[key]) return
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
-      return _circularObject[key]
+      return _debugging[key]
     }
   })
 })
-var _copyRealModules = require('./functions/copyRealModules')
-Object.keys(_copyRealModules).forEach(function (key) {
+var _evaluate = require('./functions/evaluate')
+Object.keys(_evaluate).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _copyRealModules[key]) return
+  if (key in exports && exports[key] === _evaluate[key]) return
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
-      return _copyRealModules[key]
+      return _evaluate[key]
     }
   })
 })
-var _countMatches = require('./functions/countMatches')
-Object.keys(_countMatches).forEach(function (key) {
+var _filesystem = require('./functions/filesystem')
+Object.keys(_filesystem).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _countMatches[key]) return
+  if (key in exports && exports[key] === _filesystem[key]) return
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
-      return _countMatches[key]
+      return _filesystem[key]
     }
   })
 })
-var _deepReferenceObject = require('./functions/deepReferenceObject')
-Object.keys(_deepReferenceObject).forEach(function (key) {
+var _objects = require('./functions/objects')
+Object.keys(_objects).forEach(function (key) {
   if (key === 'default' || key === '__esModule') return
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _deepReferenceObject[key]) return
+  if (key in exports && exports[key] === _objects[key]) return
   Object.defineProperty(exports, key, {
     enumerable: true,
     get: function () {
-      return _deepReferenceObject[key]
-    }
-  })
-})
-var _domItem = require('./functions/domItem')
-Object.keys(_domItem).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _domItem[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _domItem[key]
-    }
-  })
-})
-var _fileExists = require('./functions/fileExists')
-Object.keys(_fileExists).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _fileExists[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _fileExists[key]
-    }
-  })
-})
-var _jsonDom = require('./functions/jsonDom')
-Object.keys(_jsonDom).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _jsonDom[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _jsonDom[key]
-    }
-  })
-})
-var _linkedList = require('./functions/linkedList')
-Object.keys(_linkedList).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _linkedList[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _linkedList[key]
-    }
-  })
-})
-var _logObject = require('./functions/logObject')
-Object.keys(_logObject).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _logObject[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _logObject[key]
-    }
-  })
-})
-var _multiReferenceObject = require('./functions/multiReferenceObject')
-Object.keys(_multiReferenceObject).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _multiReferenceObject[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _multiReferenceObject[key]
-    }
-  })
-})
-var _nodeTree = require('./functions/nodeTree')
-Object.keys(_nodeTree).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _nodeTree[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _nodeTree[key]
-    }
-  })
-})
-var _removeDirectory = require('./functions/removeDirectory')
-Object.keys(_removeDirectory).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _removeDirectory[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _removeDirectory[key]
-    }
-  })
-})
-var _setUp = require('./functions/setUp')
-Object.keys(_setUp).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _setUp[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _setUp[key]
-    }
-  })
-})
-var _writeFixtureFile = require('./functions/writeFixtureFile')
-Object.keys(_writeFixtureFile).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _writeFixtureFile[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _writeFixtureFile[key]
-    }
-  })
-})
-var _writePackageJson = require('./functions/writePackageJson')
-Object.keys(_writePackageJson).forEach(function (key) {
-  if (key === 'default' || key === '__esModule') return
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return
-  if (key in exports && exports[key] === _writePackageJson[key]) return
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _writePackageJson[key]
+      return _objects[key]
     }
   })
 })
 /**
- * An assortment of objects that can be used in tests and some functions to help debug and write tests.
+ * All of the features available in test-filesystem
  */
 
 const testFs = exports.testFs = {
-  circularObject: _circularObject.circularObject,
-  copyRealModules: _copyRealModules.copyRealModules,
-  countMatches: _countMatches.countMatches,
-  deepReferenceObject: _deepReferenceObject.deepReferenceObject,
-  domItem: _domItem.domItem,
-  fileExists: _fileExists.fileExists,
-  jsonDom: _jsonDom.jsonDom,
-  linkedList: _linkedList.linkedList,
-  logObject: _logObject.logObject,
-  multiReferenceObject: _multiReferenceObject.multiReferenceObject,
-  nodeTree: _nodeTree.nodeTree,
-  removeDirectory: _removeDirectory.removeDirectory,
-  setUp: _setUp.setUp,
-  writeFixtureFile: _writeFixtureFile.writeFixtureFile,
-  writePackageJson: _writePackageJson.writePackageJson
+  debugging: _debugging.debugging,
+  evaluate: _evaluate.evaluate,
+  filesystem: _filesystem.filesystem,
+  objects: _objects.objects
 }
 const testFsBrowser = exports.testFsBrowser = {
-  circularObject: _circularObject.circularObject,
-  countMatches: _countMatches.countMatches,
-  deepReferenceObject: _deepReferenceObject.deepReferenceObject,
-  domItem: _domItem.domItem,
-  jsonDom: _jsonDom.jsonDom,
-  linkedList: _linkedList.linkedList,
-  logObject: _logObject.logObject,
-  multiReferenceObject: _multiReferenceObject.multiReferenceObject,
-  nodeTree: _nodeTree.nodeTree
-}
-if (void 0) {
-  // @ts-ignore
-  (void 0).testFs = testFsBrowser
-} else if (typeof window !== 'undefined') {
-  // @ts-ignore
-  window.testFs = testFsBrowser
+  debugging: _debugging.debugging,
+  evaluate: _evaluate.evaluate,
+  objects: _objects.objects
 }

@@ -1,68 +1,22 @@
 /**
- * An assortment of objects that can be used in tests and some functions to help debug and write tests.
+ * All of the features available in test-filesystem
  */
-import { circularObject } from './functions/circularObject.mjs'
-import { copyRealModules } from './functions/copyRealModules.mjs'
-import { countMatches } from './functions/countMatches.mjs'
-import { deepReferenceObject } from './functions/deepReferenceObject.mjs'
-import { domItem } from './functions/domItem.mjs'
-import { fileExists } from './functions/fileExists.mjs'
-import { jsonDom } from './functions/jsonDom.mjs'
-import { linkedList } from './functions/linkedList.mjs'
-import { logObject } from './functions/logObject.mjs'
-import { multiReferenceObject } from './functions/multiReferenceObject.mjs'
-import { nodeTree } from './functions/nodeTree.mjs'
-import { removeDirectory } from './functions/removeDirectory.mjs'
-import { setUp } from './functions/setUp.mjs'
-import { writeFixtureFile } from './functions/writeFixtureFile.mjs'
-import { writePackageJson } from './functions/writePackageJson.mjs'
-export * from './functions/circularObject.mjs'
-export * from './functions/copyRealModules.mjs'
-export * from './functions/countMatches.mjs'
-export * from './functions/deepReferenceObject.mjs'
-export * from './functions/domItem.mjs'
-export * from './functions/fileExists.mjs'
-export * from './functions/jsonDom.mjs'
-export * from './functions/linkedList.mjs'
-export * from './functions/logObject.mjs'
-export * from './functions/multiReferenceObject.mjs'
-export * from './functions/nodeTree.mjs'
-export * from './functions/removeDirectory.mjs'
-export * from './functions/setUp.mjs'
-export * from './functions/writeFixtureFile.mjs'
-export * from './functions/writePackageJson.mjs'
+import { debugging } from './functions/debugging.mjs'
+import { evaluate } from './functions/evaluate.mjs'
+import { filesystem } from './functions/filesystem.mjs'
+import { objects } from './functions/objects.mjs'
+export * from './functions/debugging.mjs'
+export * from './functions/evaluate.mjs'
+export * from './functions/filesystem.mjs'
+export * from './functions/objects.mjs'
 export const testFs = {
-  circularObject,
-  copyRealModules,
-  countMatches,
-  deepReferenceObject,
-  domItem,
-  fileExists,
-  jsonDom,
-  linkedList,
-  logObject,
-  multiReferenceObject,
-  nodeTree,
-  removeDirectory,
-  setUp,
-  writeFixtureFile,
-  writePackageJson
+  debugging,
+  evaluate,
+  filesystem,
+  objects
 }
 export const testFsBrowser = {
-  circularObject,
-  countMatches,
-  deepReferenceObject,
-  domItem,
-  jsonDom,
-  linkedList,
-  logObject,
-  multiReferenceObject,
-  nodeTree
-}
-if (this) {
-  // @ts-ignore
-  this.testFs = testFsBrowser
-} else if (typeof window !== 'undefined') {
-  // @ts-ignore
-  window.testFs = testFsBrowser
+  debugging,
+  evaluate,
+  objects
 }
