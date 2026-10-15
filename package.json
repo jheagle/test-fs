@@ -20,6 +20,7 @@
   "scripts": {
     "build": "gulp build",
     "docs": "gulp docs",
+    "publish:bundle": "gulp publishBundle",
     "test": "gulp testFull",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },

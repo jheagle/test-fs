@@ -26,6 +26,7 @@ const srcSearch = 'src/**/*.ts'
 const docsFrom = 'src'
 const docsTo = '../joshuaheagle.local/projects/test-fs/docs'
 const docsIndex = 'MAIN.md'
+const publishBundleTo = '../joshuaheagle.local/projects/test-fs/browser'
 const testPath = ['src']
 const testOptions = {
   clearCache: false,
@@ -258,6 +259,16 @@ const bundleMinify = () => src(`${browserPath}/${browserName}.js`)
   .pipe(uglify())
   .pipe(rename({ extname: '.min.js' }))
   .pipe(dest(browserPath))
+
+/**
+ * Copy the built browser bundle to the sibling website checkout. Not part of build - the bundle there is the
+ * live, publicly-served file, so publishing it is its own explicit step.
+ * encoding: false copies the bytes untouched - Gulp 5's default utf8 handling corrupts binary files.
+ * @function
+ * @returns {stream.Stream}
+ */
+export const publishBundle = () => src(`${browserPath}/*.js`, { encoding: false })
+  .pipe(dest(publishBundleTo))
 
 /**
  * Run all tests with jest.
