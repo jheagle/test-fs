@@ -45,7 +45,7 @@
   "homepage": "https://github.com/jheagle/test-fs#readme",
   "dependencies": {
     "browser-or-node": "^3.0.0",
-    "core-js": "^3.50.0",
+    "core-js": "^3.51.0",
     "vinyl-source-stream": "^2.0.0"
   },
   "devDependencies": {
@@ -60,12 +60,12 @@
     "gulp-babel": "^8.1.0",
     "gulp-rename": "^2.1.0",
     "gulp-standard": "^14.0.0",
-    "gulp-ts-compile": "^1.0.1",
+    "gulp-ts-compile": "^1.0.2",
     "gulp-uglify-es": "^3.0.0",
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
     "release-it": "^21.1.1",
-    "through2": "^5.0.11",
+    "through2": "^5.0.12",
     "typedoc": "^0.28.20",
     "typescript": "^6.0.3"
   },
