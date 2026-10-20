@@ -20,7 +20,7 @@ const browserName = 'test-fs'
 const browserPath = 'browser'
 const cleanFolders = ['dist', 'browser']
 const distSearch = 'dist/**/*js'
-const distMain = 'dist/main'
+const distBrowser = 'dist/browser'
 const distPath = 'dist'
 const srcSearch = 'src/**/*.ts'
 const docsFrom = 'src'
@@ -232,7 +232,7 @@ export const docs = async () => {
  * @function
  * @returns {stream.Stream}
  */
-export const bundle = () => browserify(distMain, { standalone: browserName })
+export const bundle = () => browserify(distBrowser, { standalone: browserName })
   .bundle()
   .pipe(source(`${browserName}.js`))
   .pipe(dest(browserPath))

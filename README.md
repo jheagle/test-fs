@@ -4,7 +4,7 @@ Set up and tear down a temp directory for running filesystem tests.
 There are three options for accessing these functions:
 1. CommonJs modules: dist/*.js (default)
 2. ES6 modules: dist/*.mjs
-3. Bundles Browser file: browser/test-fs.js
+3. Bundles Browser file: browser/test-fs.js - exposes a `testFs` global with only the browser-safe functions, grouped by category (`testFs.debugging`, `testFs.evaluate`, `testFs.objects`); the Node-only filesystem functions are not included
 
 ## Installation
 
