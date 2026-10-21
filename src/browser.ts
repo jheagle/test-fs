@@ -14,15 +14,15 @@ import { linkedList } from './functions/objects/linkedList'
 import { multiReferenceObject } from './functions/objects/multiReferenceObject'
 import { nodeTree } from './functions/objects/nodeTree'
 
-export let debugging = {
+export const debugging = {
   logObject,
 }
 
-export let evaluate = {
+export const evaluate = {
   countMatches,
 }
 
-export let objects = {
+export const objects = {
   circularObject,
   deepReferenceObject,
   domItem,

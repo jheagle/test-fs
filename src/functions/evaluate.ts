@@ -7,11 +7,11 @@ import { fileExists } from './filesystem/fileExists'
 export * from './evaluate/countMatches'
 export * from './filesystem/fileExists'
 
-export let evaluate = {
+export const evaluate = {
   countMatches,
   fileExists,
 }
 
-export let evaluateBrowser = {
+export const evaluateBrowser = {
   countMatches,
 }

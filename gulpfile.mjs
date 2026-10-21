@@ -6,7 +6,9 @@ import path from 'node:path'
 import babel from 'gulp-babel'
 import browserify from 'browserify'
 import rename from 'gulp-rename'
+import { ESLint } from 'eslint'
 import { runCLI } from 'jest'
+import neostandard from 'neostandard'
 import source from 'vinyl-source-stream'
 import standard from 'gulp-standard'
 import through from 'through2'
@@ -24,6 +26,7 @@ const distBrowser = 'dist/browser'
 const distPath = 'dist'
 const srcSearch = 'src/**/*.ts'
 const docsFrom = 'src'
+const lintSearch = ['src/**/*.ts']
 const docsTo = '../joshuaheagle.local/projects/test-fs/docs'
 const docsIndex = 'MAIN.md'
 const publishBundleTo = '../joshuaheagle.local/projects/test-fs/browser'
@@ -269,6 +272,33 @@ const bundleMinify = () => src(`${browserPath}/${browserName}.js`)
  */
 export const publishBundle = () => src(`${browserPath}/*.js`, { encoding: false })
   .pipe(dest(publishBundleTo))
+
+/**
+ * Lint the TypeScript source with neostandard, write the automatic fixes back in place, and fail (exit non-zero) if
+ * any errors are left that could not be fixed. A simplified copy of js-build-tools' lint task (not imported from
+ * there because js-build-tools itself depends on test-filesystem, and importing it back would be a circular
+ * dependency).
+ * @function
+ * @returns {Promise<void>}
+ */
+export const lint = async () => {
+  const eslint = new ESLint({
+    fix: true,
+    overrideConfigFile: true,
+    baseConfig: neostandard({ ts: true, env: ['jest'] })
+  })
+  const results = await eslint.lintFiles(lintSearch)
+  await ESLint.outputFixes(results)
+  const formatter = await eslint.loadFormatter('stylish')
+  const report = await formatter.format(results)
+  if (report) {
+    console.log(report)
+  }
+  const errors = results.reduce((total, result) => total + result.errorCount, 0)
+  if (errors) {
+    throw new Error(`neostandard found ${errors} lint error(s) that could not be fixed automatically.`)
+  }
+}
 
 /**
  * Run all tests with jest.
