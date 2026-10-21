@@ -75,5 +75,10 @@
   "files": [
     "browser",
     "dist"
-  ]
+  ],
+  "allowScripts": {
+    "core-js": false,
+    "@parcel/watcher": false,
+    "unrs-resolver": false
+  }
 }
