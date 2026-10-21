@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.deepReferenceObject = void 0
+});
+exports.deepReferenceObject = void 0;
 /**
  * Sample object with deep references.
  */
@@ -18,4 +18,4 @@ const deepReferenceObject = exports.deepReferenceObject = {
   },
   title: 'Some Title',
   item: 45
-}
+};

@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.multiReferenceObject = void 0
+});
+exports.multiReferenceObject = void 0;
 /**
  * Sample of an object containing multiple references.
  */
@@ -18,4 +18,4 @@ const multiReferenceObject = exports.multiReferenceObject = {
   array2: [89, 32],
   title: 'Some Title',
   item: 45
-}
+};

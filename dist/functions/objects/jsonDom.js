@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.jsonDom = void 0
+});
+exports.jsonDom = void 0;
 /**
  * Sample of jsonDom object containing an empty nested array and objects
  */
@@ -18,4 +18,4 @@ const jsonDom = exports.jsonDom = {
   parentItem: {},
   children: [],
   axis: 'x'
-}
+};

@@ -4,4 +4,4 @@
  * @param search - The substring to count occurrences of.
  * @returns How many times search occurs in content.
  */
-export const countMatches = (content, search) => content.split(search).length - 1
+export const countMatches = (content, search) => content.split(search).length - 1;
