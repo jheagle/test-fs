@@ -16,7 +16,7 @@ export * from './filesystem/setUp'
 export * from './filesystem/writeFixtureFile'
 export * from './filesystem/writePackageJson'
 
-export let filesystem = {
+export const filesystem = {
   copyRealModules,
   fileExists,
   removeDirectory,

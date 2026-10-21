@@ -3,13 +3,13 @@
  * Imports the individual functions rather than the category modules, so the Node-only filesystem functions stay
  * out of the bundle.
  */
-export declare let debugging: {
+export declare const debugging: {
     logObject: (object: any, label?: string, outputType?: "debug" | "error" | "log" | "string" | "warn", forceOutputType?: boolean) => string | void;
 };
-export declare let evaluate: {
+export declare const evaluate: {
     countMatches: (content: string, search: string) => number;
 };
-export declare let objects: {
+export declare const objects: {
     circularObject: {
         name: string;
         parent: null;

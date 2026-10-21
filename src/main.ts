@@ -12,14 +12,14 @@ export * from './functions/evaluate'
 export * from './functions/filesystem'
 export * from './functions/objects'
 
-export let testFs = {
+export const testFs = {
   debugging,
   evaluate,
   filesystem,
   objects,
 }
 
-export let testFsBrowser = {
+export const testFsBrowser = {
   debugging,
   evaluate,
   objects,

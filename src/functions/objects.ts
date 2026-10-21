@@ -18,7 +18,7 @@ export * from './objects/linkedList'
 export * from './objects/multiReferenceObject'
 export * from './objects/nodeTree'
 
-export let objects = {
+export const objects = {
   circularObject,
   deepReferenceObject,
   domItem,
@@ -28,7 +28,7 @@ export let objects = {
   nodeTree,
 }
 
-export let objectsBrowser = {
+export const objectsBrowser = {
   circularObject,
   deepReferenceObject,
   domItem,

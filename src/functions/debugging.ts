@@ -5,10 +5,10 @@ import { logObject } from './debugging/logObject'
 
 export * from './debugging/logObject'
 
-export let debugging = {
+export const debugging = {
   logObject,
 }
 
-export let debuggingBrowser = {
+export const debuggingBrowser = {
   logObject,
 }

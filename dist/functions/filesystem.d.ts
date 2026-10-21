@@ -7,7 +7,7 @@ export * from './filesystem/removeDirectory';
 export * from './filesystem/setUp';
 export * from './filesystem/writeFixtureFile';
 export * from './filesystem/writePackageJson';
-export declare let filesystem: {
+export declare const filesystem: {
     copyRealModules: (destModulesDir: string, moduleNames: string[], sourceModulesDir?: string) => void;
     fileExists: (filePath: string) => boolean;
     removeDirectory: (dirPath: string) => Promise<any>;

@@ -8,7 +8,7 @@ export * from './objects/jsonDom';
 export * from './objects/linkedList';
 export * from './objects/multiReferenceObject';
 export * from './objects/nodeTree';
-export declare let objects: {
+export declare const objects: {
     circularObject: {
         name: string;
         parent: null;
@@ -45,7 +45,7 @@ export declare let objects: {
     };
     nodeTree: import("./objects/nodeTree").treeLinker;
 };
-export declare let objectsBrowser: {
+export declare const objectsBrowser: {
     circularObject: {
         name: string;
         parent: null;

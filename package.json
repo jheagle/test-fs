@@ -24,7 +24,8 @@
     "release": "release-it",
     "release:dry-run": "release-it --dry-run",
     "test": "gulp testFull",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "gulp lint"
   },
   "repository": {
     "type": "git",
@@ -56,6 +57,7 @@
     "@types/node": "^26.6.5",
     "babel-jest": "^30.5.2",
     "browserify": "^17.0.1",
+    "eslint": "^10.13.0",
     "gulp": "^5.0.1",
     "gulp-babel": "^8.1.0",
     "gulp-rename": "^2.1.0",
@@ -64,6 +66,7 @@
     "gulp-uglify-es": "^3.0.0",
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
+    "neostandard": "^0.14.1",
     "release-it": "^21.1.1",
     "through2": "^5.0.12",
     "typedoc": "^0.28.20",

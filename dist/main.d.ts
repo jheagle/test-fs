@@ -5,7 +5,7 @@ export * from './functions/debugging';
 export * from './functions/evaluate';
 export * from './functions/filesystem';
 export * from './functions/objects';
-export declare let testFs: {
+export declare const testFs: {
     debugging: {
         logObject: (object: any, label?: string, outputType?: "debug" | "error" | "log" | "string" | "warn", forceOutputType?: boolean) => string | void;
     };
@@ -64,7 +64,7 @@ export declare let testFs: {
         nodeTree: import("./functions/objects").treeLinker;
     };
 };
-export declare let testFsBrowser: {
+export declare const testFsBrowser: {
     debugging: {
         logObject: (object: any, label?: string, outputType?: "debug" | "error" | "log" | "string" | "warn", forceOutputType?: boolean) => string | void;
     };
