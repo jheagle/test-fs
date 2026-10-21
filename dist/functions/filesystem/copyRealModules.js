@@ -1,12 +1,12 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.copyRealModules = void 0
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.for-each.js')
-var _fs = require('fs')
+});
+exports.copyRealModules = void 0;
+require("core-js/modules/esnext.iterator.constructor.js");
+require("core-js/modules/esnext.iterator.for-each.js");
+var _fs = require("fs");
 /**
  * Copy real, installed node_modules packages into a destination directory, for use as realistic test fixtures
  * instead of hand-written stand-ins.
@@ -16,5 +16,5 @@ var _fs = require('fs')
  */
 const copyRealModules = (destModulesDir, moduleNames, sourceModulesDir = './node_modules') => moduleNames.forEach(moduleName => (0, _fs.cpSync)(`${sourceModulesDir}/${moduleName}`, `${destModulesDir}/${moduleName}`, {
   recursive: true
-}))
-exports.copyRealModules = copyRealModules
+}));
+exports.copyRealModules = copyRealModules;

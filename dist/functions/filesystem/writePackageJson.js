@@ -1,11 +1,11 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.writePackageJson = void 0
-require('core-js/modules/es.json.stringify.js')
-var _writeFixtureFile = require('./writeFixtureFile')
+});
+exports.writePackageJson = void 0;
+require("core-js/modules/es.json.stringify.js");
+var _writeFixtureFile = require("./writeFixtureFile");
 /**
  * Write a package.json file for a directory, creating any missing parent directories first. Parses and
  * re-serializes with a plain 2-space indent regardless of how `fields` was built, so callers never need to worry
@@ -13,5 +13,5 @@ var _writeFixtureFile = require('./writeFixtureFile')
  * @param dirPath - The directory to write the package.json file into.
  * @param fields - The package.json fields to write.
  */
-const writePackageJson = (dirPath, fields) => (0, _writeFixtureFile.writeFixtureFile)(`${dirPath}/package.json`, JSON.stringify(fields, null, 2) + '\n')
-exports.writePackageJson = writePackageJson
+const writePackageJson = (dirPath, fields) => (0, _writeFixtureFile.writeFixtureFile)(`${dirPath}/package.json`, JSON.stringify(fields, null, 2) + '\n');
+exports.writePackageJson = writePackageJson;

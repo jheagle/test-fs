@@ -10,7 +10,6 @@ import { ESLint } from 'eslint'
 import { runCLI } from 'jest'
 import neostandard from 'neostandard'
 import source from 'vinyl-source-stream'
-import standard from 'gulp-standard'
 import through from 'through2'
 import ts from 'typescript'
 import tsCompile from 'gulp-ts-compile'
@@ -21,7 +20,6 @@ const uglify = uglifyEs.default
 const browserName = 'test-fs'
 const browserPath = 'browser'
 const cleanFolders = ['dist', 'browser']
-const distSearch = 'dist/**/*js'
 const distBrowser = 'dist/browser'
 const distPath = 'dist'
 const srcSearch = 'src/**/*.ts'
@@ -141,19 +139,6 @@ export const dist = () => src(tsSearch)
  */
 const distSeries = (done = null) => series(typescript, dist)(done)
 
-/**
- * Applies Standard code style linting to distribution files.
- * @function
- * @returns {*}
- */
-const distLint = () => src(distSearch)
-  .pipe(standard({ fix: true }))
-  .pipe(standard.reporter('default', {
-    fix: true,
-    quiet: true
-  }))
-  .pipe(dest(distPath))
-
 const isDocSource = fileName => /\.ts$/.test(fileName) && !/\.test\./.test(fileName)
 
 const listDocSources = dirPath => fsSync.readdirSync(dirPath, { withFileTypes: true }).flatMap(entry => {
@@ -241,19 +226,6 @@ export const bundle = () => browserify(distBrowser, { standalone: browserName })
   .pipe(dest(browserPath))
 
 /**
- * Applies Standard code style linting to bundled file.
- * @function
- * @returns {stream.Stream}
- */
-const bundleLint = () => src(`${browserPath}/${browserName}.js`)
-  .pipe(standard({ fix: true }))
-  .pipe(standard.reporter('default', {
-    fix: true,
-    quiet: true
-  }))
-  .pipe(dest(browserPath))
-
-/**
  * Creates the minified bundle file.
  * @function
  * @returns {*}
@@ -274,14 +246,15 @@ export const publishBundle = () => src(`${browserPath}/*.js`, { encoding: false 
   .pipe(dest(publishBundleTo))
 
 /**
- * Lint the TypeScript source with neostandard, write the automatic fixes back in place, and fail (exit non-zero) if
- * any errors are left that could not be fixed. A simplified copy of js-build-tools' lint task (not imported from
- * there because js-build-tools itself depends on test-filesystem, and importing it back would be a circular
- * dependency).
+ * Lint the TypeScript source with neostandard and write the automatic fixes back in place. A simplified copy of
+ * js-build-tools' lintSource (not imported from there because js-build-tools itself depends on test-filesystem, and
+ * importing it back would be a circular dependency).
  * @function
+ * @param {Object} [options={}]
+ * @param {boolean} [options.failOnError=false] - Fail if any errors are left that could not be fixed.
  * @returns {Promise<void>}
  */
-export const lint = async () => {
+const lintSource = async ({ failOnError = false } = {}) => {
   const eslint = new ESLint({
     fix: true,
     overrideConfigFile: true,
@@ -295,10 +268,25 @@ export const lint = async () => {
     console.log(report)
   }
   const errors = results.reduce((total, result) => total + result.errorCount, 0)
-  if (errors) {
+  if (errors && failOnError) {
     throw new Error(`neostandard found ${errors} lint error(s) that could not be fixed automatically.`)
   }
 }
+
+/**
+ * Lint the source as part of build: report any errors that could not be fixed, but never fail the build.
+ * @function
+ * @returns {Promise<void>}
+ */
+export const sourceLint = () => lintSource()
+
+/**
+ * The standalone lint command (`gulp lint`, or `npm run lint`): the same as sourceLint, but it fails (exits
+ * non-zero) if any errors are left that could not be fixed.
+ * @function
+ * @returns {Promise<void>}
+ */
+export const lint = () => lintSource({ failOnError: true })
 
 /**
  * Run all tests with jest.
@@ -308,14 +296,17 @@ export const lint = async () => {
  */
 export const testFull = () => runCLI(testOptions, testPath)
 
-export const build = (done = null) => parallel(
-  series(
-    clean,
-    distSeries,
-    distLint,
-    docs,
-    bundle,
-    parallel(bundleLint, bundleMinify)
-  ),
-  testFull
+// sourceLint fixes the real source in place, so it finishes before anything compiles or tests from it; clean only
+// touches dist/browser output, so the two can run alongside each other.
+export const build = (done = null) => series(
+  parallel(clean, sourceLint),
+  parallel(
+    series(
+      distSeries,
+      docs,
+      bundle,
+      bundleMinify
+    ),
+    testFull
+  )
 )(done)

@@ -1,10 +1,10 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.fileExists = void 0
-var _fs = require('fs')
+});
+exports.fileExists = void 0;
+var _fs = require("fs");
 /**
  * Detect if a file exists and is usable.
  * @param filePath - The path of the file to check.
@@ -12,10 +12,10 @@ var _fs = require('fs')
  */
 const fileExists = filePath => {
   try {
-    (0, _fs.accessSync)(filePath, _fs.constants.F_OK)
-    return true
+    (0, _fs.accessSync)(filePath, _fs.constants.F_OK);
+    return true;
   } catch (err) {
-    return false
+    return false;
   }
-}
-exports.fileExists = fileExists
+};
+exports.fileExists = fileExists;

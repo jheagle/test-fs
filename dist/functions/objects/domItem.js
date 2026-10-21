@@ -1,9 +1,9 @@
-'use strict'
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
-})
-exports.domItem = void 0
+});
+exports.domItem = void 0;
 /**
  * Sample of domItem child with nested child and optional details
  */
@@ -31,4 +31,4 @@ const domItem = exports.domItem = [{
   eventListeners: {},
   parentItem: {},
   tagName: 'div'
-}]
+}];

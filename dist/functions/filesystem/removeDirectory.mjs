@@ -1,4 +1,4 @@
-import { access, constants, rm } from 'fs'
+import { access, constants, rm } from 'fs';
 /**
  * Return a promise to be completed once the specified directory is deleted.
  * @param dirPath - The path of the directory to remove, if it exists.
@@ -6,5 +6,5 @@ import { access, constants, rm } from 'fs'
  * removal error otherwise.
  */
 export const removeDirectory = (dirPath) => new Promise((resolve, reject) => access(dirPath, constants.F_OK, (removed) => removed
-  ? resolve(dirPath)
-  : rm(dirPath, { recursive: true }, (error) => error ? reject(error) : resolve(dirPath))))
+    ? resolve(dirPath)
+    : rm(dirPath, { recursive: true }, (error) => error ? reject(error) : resolve(dirPath))));
