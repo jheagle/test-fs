@@ -25,7 +25,8 @@
     "release:dry-run": "release-it --dry-run",
     "test": "gulp testFull",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

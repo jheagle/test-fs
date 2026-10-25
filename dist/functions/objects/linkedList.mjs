@@ -1,6 +1,0 @@
-/**
- * Sample LinkedList for testing circular references.
- */
-export const linkedList = { name: 'one', prev: null, next: null };
-linkedList.next = { name: 'two', prev: linkedList, next: null };
-linkedList.next.next = { name: 'three', prev: linkedList.next, next: null };
