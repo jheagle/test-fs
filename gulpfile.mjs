@@ -3,6 +3,7 @@ import { access, constants, rm } from 'fs'
 import fsSync from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import vm from 'node:vm'
 import babel from 'gulp-babel'
 import * as esbuild from 'esbuild'
 import bundleOptions from './bundle.config.cjs'
@@ -216,15 +217,36 @@ export const docs = async () => {
 }
 
 /**
+ * Load the built bundle the way a <script> tag does and fail the build if it doesn't expose a working `testFs`.
+ * src/bundle.test.js checks the options against the TypeScript source; this checks what actually ships (bundled
+ * from the Babel output in dist/).
+ * @param {string} file
+ * @private
+ */
+const smokeCheckBundle = (file) => {
+  const context = vm.createContext({ console: { log: () => {}, warn: () => {} } })
+  context.window = context
+  context.document = {}
+  vm.runInContext(fsSync.readFileSync(file, 'utf8'), context, { filename: file })
+  const groups = Object.keys(context.testFs || {}).sort().join(',')
+  if (groups !== 'debugging,evaluate,objects') {
+    throw new Error(`${file}: expected the testFs global with debugging, evaluate, objects; got "${groups}"`)
+  }
+  // The browser path that needs the bundled util.inspect
+  context.testFs.debugging.logObject({ a: 1 }, 'smoke check', 'log', true)
+}
+
+/**
  * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified
- * output directory. Built with esbuild (browserify before 2.1.0); the options are in bundle.config.cjs.
+ * output directory. Built with esbuild (browserify before 2.1.0); the options are in bundle.config.cjs. The result
+ * is loaded once as a smoke check (smokeCheckBundle).
  * @function
  * @returns {Promise<void>}
  */
 export const bundle = () => esbuild.build({
   ...bundleOptions(`${distBrowser}.js`),
   outfile: `${browserPath}/${browserName}.js`
-}).then(() => undefined)
+}).then(() => smokeCheckBundle(`${browserPath}/${browserName}.js`))
 
 /**
  * Creates the minified bundle file.

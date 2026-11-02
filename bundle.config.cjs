@@ -1,3 +1,18 @@
+const processModule = 'test-fs:process'
+
+/** Provides the module injected for a free `process` (esbuild's inject needs an ES module exporting it). */
+const processShim = {
+  name: 'process-shim',
+  setup (build) {
+    build.onResolve({ filter: /^test-fs:process$/ }, () => ({ path: 'process', namespace: 'process-shim' }))
+    build.onLoad({ filter: /.*/, namespace: 'process-shim' }, () => ({
+      contents: `export { default as process } from ${JSON.stringify(require.resolve('process/browser.js'))}`,
+      resolveDir: __dirname,
+      loader: 'js'
+    }))
+  }
+}
+
 /**
  * The esbuild options for the browser bundle (browser/test-fs.js), shared by gulpfile.mjs's bundle task and
  * src/bundle.test.js, so the test checks the same settings the build uses.
@@ -15,21 +30,6 @@
  * @param {string} entry - the entry file
  * @returns {Object} esbuild build options, without the output settings
  */
-const processModule = 'test-fs:process'
-
-/** Provides the module injected for a free `process` (esbuild's inject needs an ES module exporting it). */
-const processShim = {
-  name: 'process-shim',
-  setup (build) {
-    build.onResolve({ filter: /^test-fs:process$/ }, () => ({ path: 'process', namespace: 'process-shim' }))
-    build.onLoad({ filter: /.*/, namespace: 'process-shim' }, () => ({
-      contents: `export { default as process } from ${JSON.stringify(require.resolve('process/browser.js'))}`,
-      resolveDir: __dirname,
-      loader: 'js'
-    }))
-  }
-}
-
 module.exports = (entry) => ({
   entryPoints: [entry],
   bundle: true,

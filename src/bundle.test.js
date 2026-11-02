@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import { build } from 'esbuild'
+import { rmSync, writeFileSync } from 'fs'
 import { createRequire } from 'module'
 import vm from 'vm'
 
@@ -55,9 +56,13 @@ describe('browser bundle', () => {
     expect(logged[1]).toEqual(['forced', '{ a: \u001b[33m1\u001b[39m }'])
   })
 
-  test('no Node built-in other than util reaches the bundle', async () => {
-    const result = await build({ ...bundleOptions('src/browser.ts'), write: false, outfile: 'test-fs.js', metafile: true })
-    const nodeOnly = Object.keys(result.metafile.inputs).filter((input) => /^(node:|fs|path|child_process)/.test(input))
-    expect(nodeOnly).toEqual([])
+  test('any other Node built-in fails the build instead of shipping empty', async () => {
+    const entry = 'test-temp-bundle-entry.js'
+    writeFileSync(entry, 'module.exports = require(\'fs\').readFileSync\n')
+    try {
+      await expect(build({ ...bundleOptions(entry), write: false, outfile: 'test-fs.js', logLevel: 'silent' })).rejects.toThrow('fs')
+    } finally {
+      rmSync(entry, { force: true })
+    }
   })
 })
