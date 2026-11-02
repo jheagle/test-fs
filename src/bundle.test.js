@@ -60,7 +60,7 @@ describe('browser bundle', () => {
     const entry = 'test-temp-bundle-entry.js'
     writeFileSync(entry, 'module.exports = require(\'fs\').readFileSync\n')
     try {
-      await expect(build({ ...bundleOptions(entry), write: false, outfile: 'test-fs.js', logLevel: 'silent' })).rejects.toThrow('fs')
+      await expect(build({ ...bundleOptions(entry), write: false, outfile: 'test-fs.js', logLevel: 'silent' })).rejects.toThrow('Could not resolve "fs"')
     } finally {
       rmSync(entry, { force: true })
     }

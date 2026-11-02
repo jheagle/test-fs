@@ -3,6 +3,7 @@ import { access, constants, rm } from 'fs'
 import fsSync from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { finished } from 'node:stream/promises'
 import vm from 'node:vm'
 import babel from 'gulp-babel'
 import * as esbuild from 'esbuild'
@@ -249,14 +250,17 @@ export const bundle = () => esbuild.build({
 }).then(() => smokeCheckBundle(`${browserPath}/${browserName}.js`))
 
 /**
- * Creates the minified bundle file.
+ * Creates the minified bundle file, then smoke-checks it like the bundle itself.
  * @function
- * @returns {*}
+ * @returns {Promise<void>}
  */
-const bundleMinify = () => src(`${browserPath}/${browserName}.js`)
-  .pipe(uglify())
-  .pipe(rename({ extname: '.min.js' }))
-  .pipe(dest(browserPath))
+const bundleMinify = () => finished(
+  src(`${browserPath}/${browserName}.js`)
+    .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(dest(browserPath))
+  // The minified file ships too, so it gets the same smoke check once it's written
+).then(() => smokeCheckBundle(`${browserPath}/${browserName}.min.js`))
 
 /**
  * Copy the built browser bundle to the sibling website checkout. Not part of build - the bundle there is the
