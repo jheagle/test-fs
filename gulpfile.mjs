@@ -4,12 +4,11 @@ import fsSync from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import babel from 'gulp-babel'
-import browserify from 'browserify'
+import * as esbuild from 'esbuild'
 import rename from 'gulp-rename'
 import { ESLint } from 'eslint'
 import { runCLI } from 'jest'
 import neostandard from 'neostandard'
-import source from 'vinyl-source-stream'
 import through from 'through2'
 import ts from 'typescript'
 import tsCompile from 'gulp-ts-compile'
@@ -216,14 +215,38 @@ export const docs = async () => {
 }
 
 /**
- * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified output directory.
+ * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified
+ * output directory. Built with esbuild (browserify before 2.1.0) as a plain script exposing the global `testFs`.
+ *
+ * Node's `util` becomes an empty object: logObject only calls `util.inspect` outside the browser, so the browser
+ * never needs it (browserify bundled a ~90KB shim for it). Any other Node built-in fails the build, so a new one
+ * reaching the browser entry gets noticed instead of shipped empty.
+ *
+ * Not js-build-tools' own bundle task: js-build-tools depends on this package, so this gulpfile keeps its own.
  * @function
- * @returns {stream.Stream}
+ * @returns {Promise<void>}
  */
-export const bundle = () => browserify(distBrowser, { standalone: browserName })
-  .bundle()
-  .pipe(source(`${browserName}.js`))
-  .pipe(dest(browserPath))
+export const bundle = () => esbuild.build({
+  entryPoints: [`${distBrowser}.js`],
+  bundle: true,
+  outfile: `${browserPath}/${browserName}.js`,
+  platform: 'browser',
+  format: 'iife',
+  // The same global browserify's standalone option gave it ('test-fs' camel-cased)
+  globalName: 'testFs',
+  mainFields: ['browser', 'main'],
+  define: { global: 'globalThis' },
+  // Also reachable through CommonJS, as browserify's UMD wrapper was
+  footer: { js: 'if (typeof module === \'object\' && module && module.exports) { module.exports = testFs }' },
+  logLevel: 'warning',
+  plugins: [{
+    name: 'empty-util',
+    setup (build) {
+      build.onResolve({ filter: /^(node:)?util$/ }, () => ({ path: 'util', namespace: 'empty-util' }))
+      build.onLoad({ filter: /.*/, namespace: 'empty-util' }, () => ({ contents: 'module.exports = {}', loader: 'js' }))
+    }
+  }]
+}).then(() => undefined)
 
 /**
  * Creates the minified bundle file.

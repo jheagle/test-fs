@@ -17,9 +17,9 @@ describe('copyRealModules', () => {
 
   test('copies multiple packages in one call', () => {
     mkdirSync(modulesPath, { recursive: true })
-    copyRealModules(modulesPath, ['browser-or-node', 'vinyl-source-stream'])
+    copyRealModules(modulesPath, ['browser-or-node', 'through2'])
     expect(fileExists(`${modulesPath}/browser-or-node/package.json`)).toBeTruthy()
-    expect(fileExists(`${modulesPath}/vinyl-source-stream/package.json`)).toBeTruthy()
+    expect(fileExists(`${modulesPath}/through2/package.json`)).toBeTruthy()
   })
 
   test('supports a custom source directory', () => {
