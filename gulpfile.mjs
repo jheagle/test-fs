@@ -3,13 +3,15 @@ import { access, constants, rm } from 'fs'
 import fsSync from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { finished } from 'node:stream/promises'
+import vm from 'node:vm'
 import babel from 'gulp-babel'
-import browserify from 'browserify'
+import * as esbuild from 'esbuild'
+import bundleOptions from './bundle.config.cjs'
 import rename from 'gulp-rename'
 import { ESLint } from 'eslint'
 import { runCLI } from 'jest'
 import neostandard from 'neostandard'
-import source from 'vinyl-source-stream'
 import through from 'through2'
 import ts from 'typescript'
 import tsCompile from 'gulp-ts-compile'
@@ -216,24 +218,49 @@ export const docs = async () => {
 }
 
 /**
- * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified output directory.
- * @function
- * @returns {stream.Stream}
+ * Load the built bundle the way a <script> tag does and fail the build if it doesn't expose a working `testFs`.
+ * src/bundle.test.js checks the options against the TypeScript source; this checks what actually ships (bundled
+ * from the Babel output in dist/).
+ * @param {string} file
+ * @private
  */
-export const bundle = () => browserify(distBrowser, { standalone: browserName })
-  .bundle()
-  .pipe(source(`${browserName}.js`))
-  .pipe(dest(browserPath))
+const smokeCheckBundle = (file) => {
+  const context = vm.createContext({ console: { log: () => {}, warn: () => {} } })
+  context.window = context
+  context.document = {}
+  vm.runInContext(fsSync.readFileSync(file, 'utf8'), context, { filename: file })
+  const groups = Object.keys(context.testFs || {}).sort().join(',')
+  if (groups !== 'debugging,evaluate,objects') {
+    throw new Error(`${file}: expected the testFs global with debugging, evaluate, objects; got "${groups}"`)
+  }
+  // The browser path that needs the bundled util.inspect
+  context.testFs.debugging.logObject({ a: 1 }, 'smoke check', 'log', true)
+}
 
 /**
- * Creates the minified bundle file.
+ * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified
+ * output directory. Built with esbuild (browserify before 2.1.0); the options are in bundle.config.cjs. The result
+ * is loaded once as a smoke check (smokeCheckBundle).
  * @function
- * @returns {*}
+ * @returns {Promise<void>}
  */
-const bundleMinify = () => src(`${browserPath}/${browserName}.js`)
-  .pipe(uglify())
-  .pipe(rename({ extname: '.min.js' }))
-  .pipe(dest(browserPath))
+export const bundle = () => esbuild.build({
+  ...bundleOptions(`${distBrowser}.js`),
+  outfile: `${browserPath}/${browserName}.js`
+}).then(() => smokeCheckBundle(`${browserPath}/${browserName}.js`))
+
+/**
+ * Creates the minified bundle file, then smoke-checks it like the bundle itself.
+ * @function
+ * @returns {Promise<void>}
+ */
+const bundleMinify = () => finished(
+  src(`${browserPath}/${browserName}.js`)
+    .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(dest(browserPath))
+  // The minified file ships too, so it gets the same smoke check once it's written
+).then(() => smokeCheckBundle(`${browserPath}/${browserName}.min.js`))
 
 /**
  * Copy the built browser bundle to the sibling website checkout. Not part of build - the bundle there is the
