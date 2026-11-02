@@ -5,6 +5,7 @@ import os from 'node:os'
 import path from 'node:path'
 import babel from 'gulp-babel'
 import * as esbuild from 'esbuild'
+import bundleOptions from './bundle.config.cjs'
 import rename from 'gulp-rename'
 import { ESLint } from 'eslint'
 import { runCLI } from 'jest'
@@ -216,36 +217,13 @@ export const docs = async () => {
 
 /**
  * Starting at the distribution entry point, bundle all the files into a single file and store them in the specified
- * output directory. Built with esbuild (browserify before 2.1.0) as a plain script exposing the global `testFs`.
- *
- * Node's `util` becomes an empty object: logObject only calls `util.inspect` outside the browser, so the browser
- * never needs it (browserify bundled a ~90KB shim for it). Any other Node built-in fails the build, so a new one
- * reaching the browser entry gets noticed instead of shipped empty.
- *
- * Not js-build-tools' own bundle task: js-build-tools depends on this package, so this gulpfile keeps its own.
+ * output directory. Built with esbuild (browserify before 2.1.0); the options are in bundle.config.cjs.
  * @function
  * @returns {Promise<void>}
  */
 export const bundle = () => esbuild.build({
-  entryPoints: [`${distBrowser}.js`],
-  bundle: true,
-  outfile: `${browserPath}/${browserName}.js`,
-  platform: 'browser',
-  format: 'iife',
-  // The same global browserify's standalone option gave it ('test-fs' camel-cased)
-  globalName: 'testFs',
-  mainFields: ['browser', 'main'],
-  define: { global: 'globalThis' },
-  // Also reachable through CommonJS, as browserify's UMD wrapper was
-  footer: { js: 'if (typeof module === \'object\' && module && module.exports) { module.exports = testFs }' },
-  logLevel: 'warning',
-  plugins: [{
-    name: 'empty-util',
-    setup (build) {
-      build.onResolve({ filter: /^(node:)?util$/ }, () => ({ path: 'util', namespace: 'empty-util' }))
-      build.onLoad({ filter: /.*/, namespace: 'empty-util' }, () => ({ contents: 'module.exports = {}', loader: 'js' }))
-    }
-  }]
+  ...bundleOptions(`${distBrowser}.js`),
+  outfile: `${browserPath}/${browserName}.js`
 }).then(() => undefined)
 
 /**
