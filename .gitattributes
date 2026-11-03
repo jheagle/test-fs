@@ -1,1 +1,4 @@
 * text=auto eol=lf
+
+# Test files are JavaScript (Jest); count only the TypeScript source in the language stats
+*.test.js linguist-detectable=false
