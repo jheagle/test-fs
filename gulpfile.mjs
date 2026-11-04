@@ -27,9 +27,9 @@ const distPath = 'dist'
 const srcSearch = 'src/**/*.ts'
 const docsFrom = 'src'
 const lintSearch = ['src/**/*.ts']
-const docsTo = '../joshuaheagle.local/projects/test-fs/docs'
+const docsTo = '../joshuaheagle.local/projects/test-filesystem/docs'
 const docsIndex = 'MAIN.md'
-const publishBundleTo = '../joshuaheagle.local/projects/test-fs/browser'
+const publishBundleTo = '../joshuaheagle.local/projects/test-filesystem/browser'
 const testPath = ['src']
 const testOptions = {
   clearCache: false,

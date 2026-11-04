@@ -44,7 +44,7 @@ afterEach(
 
 ## Documentation
 
-The reference for every function is in [`docs/`](https://joshuaheagle.com/projects/test-fs/docs/index.html) (or open `docs/index.html` locally), generated from the TypeScript source.
+The reference for every function is in [`docs/`](https://joshuaheagle.com/projects/test-filesystem/docs/index.html) (or open `docs/index.html` locally), generated from the TypeScript source.
 
 ## Development
 
