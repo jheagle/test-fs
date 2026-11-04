@@ -1,4 +1,4 @@
-# test-fs
+# [test-filesystem](https://www.npmjs.com/package/test-filesystem)
 Set up and tear down a temp directory for running filesystem tests.
 
 There are three options for accessing these functions:
